@@ -1,0 +1,111 @@
+\section{Evaluation}
+
+We conducted an informal 4-subject user study to assess the usefulness of \systemname{} for finding programming solutions.
+
+We recruited 4 students (3 male, 1 female) from a local university.
+All users had experience programming in Java.
+We refer to users with names \emph{U1 - U4}.
+
+Users completed the tasks on a 15" MacBook Pro with Retina Display, 2 GHz Intel Core i7 processor and 16 GB 1600 MHz DDR3 RAM, laptop trackpad and builtin keyboard.
+Users performed coding tasks in the Koding IDE~\footnote{https://koding.com/IDE/}, a web-hosted virtual machine for developing code in Java and other languages.
+
+\subsection{Tasks}
+
+Because of varying availability, some users only performed a subset of tasks.
+All users (\emph{U1 - U4}) followed a tutorial that introduced the visual representation of bars, preview panel, sorting examples by text length, marking examples based on classes used and Java concepts, saving snippets, and querying for more examples.
+Most users (\emph{U2, U3, U4}) performed warm-up exercises to demonstrate their knowledge of interface features before performing coding tasks.
+Warm-ups included locating all examples that contained a common class, sorting examples by the amount of text and choosing examples with a fixed number of text sentences, and saving snippets with descriptive names.
+
+\subsubsection{Example Discovery Tasks}
+
+Users \emph{U1}, \emph{U2}, and \emph{U4} performed example discovery tasks.
+We preloaded \systemname{} with a set of 26 answers to 6 questions related to the query ``record audio".
+We provided users with 3 tasks:
+\begin{enumerate}[noitemsep]
+\item Locate 5 answers with 2 lines of code or less, and paste the full text of their body into a document.
+\item Write the name of the class that is instantiated the most often in the answers.
+\item Locate 5 code snippets that explicitly declare a new function, and paste their content into a document.
+\end{enumerate}
+
+Users completed tasks with both \systemname{} and a baseline interface.
+For the baseline, users were given a static StackOverflow search page with search results for each of the 6 relevant questions.
+Answers could be accessed by clicking on question links.
+While users in our preliminary study most frequently used Google web search to find examples, we wanted to provide an alternate list-based search interface that users were likely to use that represented the same data as \systemname{}.
+
+Users were asked to `talk aloud' to share their reactions to the interface and search process.
+We timed each task for both interfaces (Table~\ref{tab:user-timing}).
+Due to time constraints, users were stopped after 3 minutes of each task with one interface.
+Order of interfaces for each task was counterbalanced between participants.
+Users were allowed to refresh the page between tasks.
+
+\subsubsection{Open-Ended Programming Tasks}
+
+Users were asked to perform two programming tasks in Java, one using \systemname{} (\emph{U1, U2, U4}) and one with StackOverflow (\emph{U1, U2}):
+\begin{enumerate}[noitemsep]
+\item Read text from a file and print it to screen.
+\item Replace all instances of the word `function' in this text with a single random character.
+\end{enumerate}
+These tasks were non-trivial enough to require users to look up assistance and simple enough that they could be performed in around 10 minutes.
+We counterbalanced the order of search interface used for both conditions across users \emph{U1} and \emph{U2}.
+
+\subsection{Results}
+
+Table~\ref{tab:user-timing} lists the times users took to complete code discovery and programming tasks. 
+Significant qualitative findings from the study include the following:
+
+\begin{table*}[t]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    Subject & $T1_{SS}$ & $T1_{SO}$ & $T2_{SS}$ & $T2_{SO}$ & $T3_{SS}$ & $T3_{SO}$ & A1 & A1 interface & A2 & A2 interface \\
+    \hline
+    1 & 1:47 & 0:37 & 0:05 & 3:00 & 2:45 & 1:15 & 4:37 & Skim & 10:00 & Overflow \\
+    \hline
+    2 & 2:10 & 1:57 & 0:30 & 3:00 & 2:43 & 1:52 & 10:00 & Overflow & 10:00 & Skim \\
+    \hline
+    4 & 1:31 & 2:39 & 0:10 & 3:00 & 2:29 & 1:43 & 7:00* & Skim & N/A & N/A \\
+    \hline
+  \end{tabular}
+  \caption{Times recorded for performing code discovery and programming tasks.
+  Each task was performed once with \systemname{} (\emph{SS}) and once with static StackOverflow search results (\emph{SO}).
+  Users were clearly able to discover the most common classes used in examples much more quicky using \systemname{} (\emph{T2}).
+  However, we believe that unfamiliarity of search paradigm and interface resulted in no improvement over the baseline in the other tasks.
+  \emph{U3} was not able to particpate in these tasks.\newline
+  * \emph{U4} was given a time limit of 7:00 for the final task instead of the 10:00 prescribed for the other users.}
+  \label{tab:user-timing}
+\end{table*}
+
+\emph{\systemname{} helps users find frequently-used classes.}
+In the timings in Table~\ref{tab:user-timing}, only Task 2 shows a clear time advantage for using \systemname{} in example discovery tasks.
+Users were not sure how to approach Task 2 with StackOverflow's user interface.
+One user (\emph{U2}) attempted to use tally marks to count instantiations for each class.
+Another (\emph{U4}) looked at the answers by eye and tried to keep a mental idea of how often each class occurred.
+Class charts in the markup pane made this information quickly accessible.
+Users performed this task in less than 30 seconds with \systemname{}.
+
+\emph{Users saw our visual features as useful for future tasks.}
+\emph{U3} appreciated that the coloring of the code bars allowed him to swiftly shift attention to code sections across multiple examples.
+\emph{U1} told us that he could see himself using the class bars to point out relevant classes when approaching an unfamiliar programming domain.
+
+\emph{For some users, long fixations were more likely with StackOverflow.}
+We noticed that \emph{U2} fixated on answers he pulled up on StackOverflow for tens of seconds at a time.
+We did not notice the same behavior when he was skimming examples with \systemname{}.
+
+\emph{Users preferred copying source from the preview pane instead of the snippet bank.}
+We intended for programmers to select important example text into the snippets bank and later construct code from these snippets.
+We found that all users (\emph{U1, U2, U3, U4}) attempted to copy text from the preview window.
+Most users (\emph{U1, U3, U4}) used the preview window as the main source of copying text.
+\emph{U3} explained that copying from the preview pane is more like copying text from a page you scroll through.
+The snippets bank separated selectable code from the pane where it was discovered.
+
+\emph{\systemname{} is not as strong as the baseline for answering `reminder' queries.}
+Some users (\emph{U1, U2}) told us that they knew a specific class would perform a task for them.
+Their queries sometimes contained this class name as a result.
+These users queried \systemname{} using the class name and selected the one most relevant question.
+We believe that this behavior is reminiscent of how users often pick the first relevant result that appears in a Google web search.
+
+\emph{Copying code from the preview pane was difficult.}
+By updating the preview window to reflect the code bar under the cursor, we made it difficult for users to copy text from a code column between two others.
+As users navigated to the preview pane, it updated to focus on the text  of the bars they passed through.
+One user (\emph{U4}) recommeneded that we enable users to click on answer regions to lock the source preview content to that region.
+Several users (\emph{U2, U3, U4}) commented on the difficulty of selecting text from the preview menu.

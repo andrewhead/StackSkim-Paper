@@ -1,0 +1,75 @@
+\section{Preliminary Study}
+
+To discover programmers' search habits when looking for code examples in unfamiliar domains, we conducted a preliminary 5-subject study.
+We refer to the subjects as \emph{P1 - P5}.
+Of the subjects (2 female), 3 studied engineering or information science (\emph{P2, P3, P5}), 1 was a full-time industrial engineer (\emph{P4}), and 1 had no technical background outside of a semester of introductory programming (\emph{P1}).
+All had written code in the last month.
+
+We conducted semi-structured interviews with all participants (\emph{P1 - P5}) to understand how they solved programming problems using online resources.
+For four participants (\emph{P2 - P5}), we provided a task in a language they had used previously but claimed they were \emph{not} comfortable with, and observed how they looked for solutions online.
+
+During interviews, we asked questions to understand how users found answers in unfamiliar domains of programming:
+\begin{enumerate}[noitemsep]
+\item What sources do you use for locating code examples?
+\item What are the features of a useful code example?
+\item How many examples do you typically have to look at before discovering one that is useful?
+\item What sources help you to learn the most while you are programming?
+\end{enumerate}
+
+For the coding task, we asked participants to use a language they had used in the last 6 months which they felt uncomfortable using.
+We assigned them simple tasks in these languages, but ones that they would be likely to forget how to do had they not performed the task recently.
+For example, we provided \emph{P4} with a task to write a program in C that printed time to the screen with a period of 1 second between each print.
+\emph{P2} and \emph{P3} were asked to perform string concatenation in C++ and write the result to the screen.
+\emph{P5} was asked to print a random number between 1 and 1,000,000 in bash.
+
+\subsection{Findings about Search Behavior}
+
+We observed several trends that informed the design of \systemname{} as a search tool:
+
+\emph{Programmers prefer different sources at different learning stages.}
+The novice programmer (\emph{P1}) claimed that when searching for answers to programming problems in her classes, she most frequently referenced class notes.
+After this, she relied on general web search to search for exact answers to her problems.
+For her current online course in programming, she would look for online blogs of past students who had encountered and solved the same problem.
+Programmers more used to solving open-ended problems with code \emph{(P2, P3)} stated that they frequently used answers they found on StackOverflow.
+One user \emph{(P5)} claimed he regularly used textbooks when looking up tiny examples related to his problems.
+However, he clarified that textbook examples were often insufficient to provide comprehensive answers to the larger system-level problems he encountered at his IT internship.
+
+\emph{Users revisit abandoned search results when later searches are not successful.}
+Two programmers \emph{(P3, P5)} revisited search results they had previously abandoned while searching for examples during coding tasks.
+They abandoned early results when they seemed complex or unfamiliar.
+However, if later results also lacked promise or used the same unknown libraries,  participants sometimes backtracked.
+A trail of tabs kept history of the pages they had visited.
+Participants accessed old examples by looking back through old tabs.
+
+\emph{Finding a usable solution can require iterative search.}
+Two users (\emph{U4, U5}) refined their queries during the coding task to improve their search results.
+One user (\emph{U5}) performed 10 separate queries through Google to discover how to print a random number using Bash.
+Many queries were variations on a theme, for example \emph{bash masking}, \emph{bash command masking}, and \emph{bash command escape}.
+Queries also targetted distinct steps of the full problem, including generating a random number, saving the value, and retrieving a larger random value than the default range.
+
+We noticed several trends that inspire future additions to \systemname{}.
+
+\emph{Code examples often cannot be run as posted online}.
+\emph{P3} wrote C++ code using XCode, a development environment for Macintosh platforms.
+This environment did not require explicit \emph{std::} scoping for strings that were present in the example he found.
+He manually inspected compiler errors to discover why the code would not run, and adapted the code from the online examples for his coding context using this feedback.
+\emph{P4} told us of a similar experience in recent history where he found the appropriate function for his task online, but could not determine the right configuration parameters of the function without a coworker's help.
+
+\emph{Users leverage existing code to perform tasks.}
+One programmer \emph{P3} found it easier to complete his coding task by opening existing, running code and copying in source code from the answers he found online.
+Another \emph{P5} told us that when at work, he was most likely to check the company repository for related code before searching online for solutions.
+
+\emph{Users begin their search from Google.}
+Each of the programmers \emph{(P1 - P5)} started in the search bar or in Google to find resources.
+Search tools that look to provide an overview over a general collection of code examples from various resources might benefit from comparing themselves to the baseline of Google.
+
+These preliminary studies inspired the design of \systemname{}.
+We set the following goals:
+
+\begin{itemize}[noitemsep]
+\item Help users distinguish between code-heavy and text-heavy documents.
+\item Demonstrate which libraries are core to solving a problem, and provide access to external documentation for these modules.
+\item Enable users to quickly locate sections of the code that leverage key libraries.
+\item Store code snippets in compact location allowing for later inspection and comparison.
+\item Integrate visual features into a UI that supports iterative search.
+\end{itemize}

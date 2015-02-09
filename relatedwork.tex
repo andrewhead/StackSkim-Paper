@@ -1,0 +1,37 @@
+\section{Related Work}
+
+\subsection{Visual Search}
+
+There have been several attempts to represent features in large text corpora to aid search tasks.
+TileBars~\cite{hearst_tilebars:_1995} uses compact iconic displays to represent relative document length, query term frequency, and query term distribution, enhancing a user's ability to quickly judge relevance of a text document. 
+Relation Browser~\cite{zhang_evaluation_2005} facilitates faceted visualization of large information collections. 
+Insyder~\cite{reiterer_insyder_2000} combines several previously-studied visualizations in one interface to support information seeking of general web content.
+StackSkim similarly represents features of a large text corpus, focusing on the domain of programming examples.
+
+In the domain of code visualization, SeeSoft~\cite{eick_graphically_1994-1} uses a similar colored column encoding of multiple source code texts rendering a compact display to reveal statistics about text. 
+Tools for supporting web code search like Mica~\cite{stylos_mica:_2006} combine documentation and source code but continue to represent results primarily with text. 
+Similarly, Assieme~\cite{hoffmann_assieme:_2007} presents API information from several web resources by using a novel technique for finding implicit references in code. 
+Blueprint~\cite{brandt_example-centric_2010} helps users find and integrate code directly in the programmers coding environment.
+
+\subsection{Search for Programming Learners}
+
+Past work has observed programmer search tasks and interfaces to aid these tasks. 
+Visualizations and interfaces have been produced for analyzing learning algorithms~\cite{hundhausen_meta-study_2002}, program execution~\cite{de_pauw_zinsight:_2010}~\cite{aftandilian_heapviz:_2010}, program comprehension~\cite{islam_dependence_2010} and program maintenance~\cite{bragdon_code_2010}~\cite{coblenz_jasper:_2006}. 
+Search behavior and interfaces have also been studied in the domains of craft knowledge~\cite{torrey_learning_2009} and selecting tutorials~\cite{Pavel:EECS-2013-167}~\cite{kong_delta:_2012}.
+
+Ko et al.\ categorize six types of programming learning barriers - design, selection, coordination, use, understanding and information~\cite{ko_six_2004}. 
+Our \systemname{} interface primarily addresses \emph{selection} and \emph{use} barriers in the terminology of Ko et al. 
+Our answer bars and concept and class charts allow programmers to quickly identify most commonly used classes and concepts and, as a result, what to use to solve a programming problem (\emph{selection barrier}).
+Furthermore, the ability to annotate specific answer bars with classes and concepts helps searchers view a variety of ways in which a programming construct is used (\emph{use barrier}).
+
+Brandt et al.\ extend the work of Ko et al.\ by describing how programmers overcome these barriers~\cite{brandt_two_2009}~\cite{ko_six_2004}. 
+They identify three types of intentions when foraging for information on the Web: just-in-time learning of new skills, clarifying and extending existing knowledge, and assisting with recall of specific information.
+They observe that programmers typically open several Web browser tabs before evaluating quality, rapidly skimming through their content, sometimes skipping prose to begin experimenting with the code sections. 
+\systemname{}'s color-coded answer bars provide a quick way for users to view and zone in on the code sections of many answers.
+
+Research on the StackOverflow community has revealed that users benefit significantly from multiple answers from a diverse group of experts~\cite{anderson_discovering_2012}. 
+Furthermore, the vertical position of answers positively biases early answers toward best answer status ~\cite{anderson_discovering_2012}.
+One of the reasons cited for the success of StackOverflow is its ability to capture the competitive spirit of the programming community through gamification~\cite{mamykina_design_2011-1}.
+However these built in incentives can make distinguishing experts from very active users difficult~\cite{yang_sparrows_2014}. 
+By making the content of many StackOverflow answers accessible, \systemname{} alleviates some of these issues. 
+In addition, we believe \systemname{} better facilitates the exploration of answers to some types of questions that require significant contextual knowledge or obscure technologies which have previously been identified as being poorly supported by StackOverflow~\cite{mamykina_design_2011-1}.

@@ -1,0 +1,39 @@
+\section{Scenario}
+
+Jim is developing a Bluetooth Low Energy app for Android and wants to find a code example that will easily help him write serial data from an Android app to an Arduino.
+He visits the \systemname{} example explorer, which has one million Java examples across many topics.
+He enters the query \emph{Bluetooth Android write serial}.
+
+Just like on Stack Overflow, question titles are returned with text snippets that highlight his query terms.
+For these questions, there are around 10 different answers that he thinks might be applicable to his problem, but he doesn't know where to start.
+Each answer is augmented with a \systemname{}, bars that visually show the complexity and content of the examples.
+He toggles a button that lets him view all of the \systemname{} side by side without the interspersed title and surrogate text.
+Jim knows he wants to find and answer fast, so he starts by sorting the \systemname{} entries based on their length.
+He quickly finds the shortest one, and with the scrolling tooltip, he inspects the code snippets at each point to see if it contains the content that will help him solve his problem.
+
+The tooltip shows him that this example is far too short -- it's just a correction to a previous code example.
+Jim sees some examples at the bottom that are interesting.
+He also recalls that the Android library for Bluetooth code is org.android.bluetoothlowenergy.
+He decides that the relevant code examples will contain this library.
+So, he enters this library name in a search widget off to the side.
+The code examples that use the bluetoothlowenergy library are focused with a light tint.
+Furthermore, the locations in the code with the bluetoothlowenergy usage are highlighted.
+Jim scrolls his tooltip over these locations to gain an idea of how the library is invoked to solve his problem.
+
+From another view above the \emph{Library Inclusion} view, he adds a library using the \emph{Library Exclusion} view.
+By doing this, he makes sure that none of the code examples returned include a deprecated library, com.android.bluetooth.
+He removes from the listing 2 of the old examples that include this library.
+
+When inspecting how the code examples invoke Bluetooth by hovering the mouse over the bar for org.android.bluetoothlowenergy, he notices something untoward.
+Many of these examples perform the command BluetoothAdapter.read().
+However, Jim recognizes that to solve his problem, he will need to access a method called BluetoothAdapter.write(), the complement to read().
+He types in the \emph{Highlight Text} box the term \emph{write}.
+In each of the \systemname{}, the location of the word is highlighted, just like it would be in a vertical scrollbar on the side of the page.
+With this, Jim finds an example that not only leverages the libraries that he needs, but also invokes the commands he expects will be the most helpful.
+
+Jim is left with only a few candidate code examples at this point.
+He would love an example that could be plugged right into his code.
+He looks at the right column of the search results to see an 'X' marking all of the code examples that cannot compile.
+He chooses the one code example that includes the libraries and commands that he wants, and the code.
+From this, he has found a transplantable code example that will satisfy his needs, all without having to click through a single search result.
+Jim pastes this into his source code editor, compiles, and writes to his Bluetooth Low Energy device with minimal additional effort.
