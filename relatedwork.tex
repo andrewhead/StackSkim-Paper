@@ -1,15 +1,18 @@
 \section{Related Work}
 
-Programmers rely on application programming interfaces (APIs) to provide the building blocks for their programs from simple math to advanced networking and multi-threading.
-The task of remembering many APIs produces a high cognitive demand.
-As a result, the web has become an on-demand resource for both learning and frequently recalling API functionality and details.
-Programmers encounter similar challenges across the unfamiliar APIs they use~\cite{Duala-Ekoko-Asking}.
-% Not all APIs are equally easy to use, however, necessitating new ways of evaluating and visualizing API complexity~\cite{de_Souza-Automatic}.
+Programmers rely on application programming interfaces (APIs) as the building blocks for their programs.
+APIs provide pre-written functionality for a language, enabling tasks from simple math to advanced networking and multi-threading.
+As programmers today work with dozens or hundreds of APIs, the web has become an on-demand resource for learning and recalling API functionality and details.
+Unfortunately, programmers face challenges as they familiarize themselves with APIs~\cite{Duala-Ekoko-Asking}, and not all APIs are equally usable~\cite{de_Souza-Automatic}.
 
-Recent research describes a current trend in programming behavior called `opportunistic programming'.
-Under this method, programmers leverage just-in-time resources found on the web as they build code~\cite{Brandt-Opportunistic}.
-Tools have been built~\cite{Hartmann-Dmix} to help programmers leverage web resources when creating `mashup' of existing services.
-This trend of interleaved development and information foraging has been studied in specific programmer groups including web developers~\cite{Dorn-Interleaved}.
+Recent research describes a common programming behavior called `opportunistic programming'.
+Programmers `opportunistically' find web resources to enable the prototyping, ideating and discovering on the web.
+Through this process, they code to engage in just-in-time learning, clarify and extend existing knowledge, and remind themselves of forgotten details~\cite{Brandt-Opportunistic}.
+
+End-user programmers write programs or scripts for personal efficiency or effectivness, but lack formal training or employment as a programmer.
+Web developers, one group of end-user programmers, have been shown to interleave development and information foraging~\cite{Dorn-Interleaved}.
+Tools like d.mix~\cite{Hartmann-Dmix} help such programmers, in particular web programmers, leverage web resources when creating `mashup' of existing services.
+However, end-user programmers still face numerous challenges learning from and working with web documentation, being largely unsuccessful in information foraging tasks~\cite{Dorn-Lost}.
 
 A web search for API documentation returns results of many types, including Q\&A, forum entries, mailing list entries, official reference documentation, and blog posts such as tutorials~\cite{Parnin-Measuring}.
 StackOverflow has recently received attention in a source of ``crowd documentation''~\cite{Parnin-Crowd} for the quality of information and speed of response to questions~\cite{Mamykina-Fastest}, its high coverage of API methods~\cite{Parnin-Crowd}, and variety of question types~\cite{Nasehi-What}.
@@ -17,20 +20,20 @@ The success of StackExchange-style sites has attracted open source projects to e
 However, even with recent advances in quality of crowd documentation, end-user programmers still stumble to find relevant, usable resources and to adapt snippets found to their programs.
 
 Among the models of information seeking on the web, the berry-picking model~\cite{Bates-Design} seems to describe the snippet search process well.
-Users continually refine their query and adjust their information need, in this case a functional programming block, as they encounter intermediate search results.
-During this process, programmers may face the vocabulary problem~\cite{Furnas-Vocabulary}, not knowing the query terms that represent the code they're looking for.
-And even when they find these resources, end-user programmers may still struggle to adapt them for personal use.
-Ko et al.~\cite{Ko-Six} introduced six learning barriers for end-user programming tools, several of which are related to search for code examples:
+In this model, users adjust their information need, in this case a need for functional code, as they encounter intermediate search results.
+End-user programmers especially may face the vocabulary problem described for human-system communication by Furnas et al.~\cite{Furnas-Vocabulary}, lacking the exact query terms that represent code that will perform the actions they need.
+Even after they find appropriate snippets, end-user programmers may still struggle to adapt them to their code.
+Ko et al.~\cite{Ko-Six} described six learning barriers for end-user programming tools, at least three of which are relevant to searching for code examples:
 \begin{itemize}
-\item $Selection$: knowing which classes and functions are the best ones to choose
-\item $Coordination$: joining the functionality of multiple snippets into a coherent whole
-\item $Understanding$: developing enough of an understanding of the inner workings of the code and classes chosen to know when they aren't working and why.
+\item $Selection$: knowing which classes and functions are appropriate for a task
+\item $Coordination$: knowing how to join multiple snippets to perform a larger task
+\item $Understanding$: understanding the inner workings of the code and classes chosen enough to know when they aren't working and why.
 \end{itemize}
 
-Specialized code search interfaces Mica~\cite{Stylos-Mica}, Assieme~\cite{Hoffman-Assieme}, and Portfolio~\cite{McMillan-Portfolio} attempt to help users find resources that are both relevant~\cite{Stylos-Mica}~\cite{Hoffman-Assieme} and plentiful~\cite{McMillan-Portfolio}.
-Others have integrated the code search and adoption process into the programmer's development environment (IDE).
+Specialized code search interfaces Mica~\cite{Stylos-Mica}, Assieme~\cite{Hoffman-Assieme}, and Portfolio~\cite{McMillan-Portfolio} help users find resources that are both relevant~\cite{Stylos-Mica}~\cite{Hoffman-Assieme} and many in number~\cite{McMillan-Portfolio}.
+Others integrated code search into the programmer's development environment (IDE).
 Blueprint~\cite{Brandt-Example} brings snippet search into the IDE through an embedded browser.
 HyperSource~\cite{Hartmann-HyperSource} links recent websites visited to lines of code, and CodeTrail~\cite{Goldman-CodeTrail} provides access to Javadocs and stores user-created bookmarks.
-SnipMatch~\cite{Wightman-SnipMatch}, perhaps closest in intent to the current research, adapts found code snippets to the programmer's IDE, replacing template elements with specific symbols from the programmer's code.
-However, this tool requires humans to manually creation snippet templates.
-It does not help the process of adapting snippets that already exist among the 15 million answers on StackOverflow as of 2015.
+SnipMatch~\cite{Wightman-SnipMatch}, perhaps closest in intent to the current research, adapts searchable code snippets to the programmer's code, replacing template elements with specific symbols from the programmer's code.
+However, SnipMatch requires humans to manually creation snippet content.
+We aim to help users adapt and work with the 15 million answers already written on StackOverflow as of early 2015.
