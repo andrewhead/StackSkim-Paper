@@ -1,39 +1,48 @@
 \section{Scenario}
 
-Jim is developing a Bluetooth Low Energy app for Android and wants to find a code example that will easily help him write serial data from an Android app to an Arduino.
-He visits the \systemname{} example explorer, which has one million Java examples across many topics.
-He enters the query \emph{Bluetooth Android write serial}.
+\user{} is looking for a middleware that will log database queries for all HTTP requests to his Django server to a local file.
+\andrew{
+This use case may be ridiculously specific.
+And this workflow might not work for all queries, which might not have appropriate results.
+}
+As this is a secondary programming task for the day, he looks to Google to provide an implemented solution.
+He opens up his browser and enters a search query for `Django middleware log SQL query to file'.
+This directs him to the Github page for \emph{django-queryinspect}, a package that includes the middleware that he needs.
+But as his server is going to handle over 100 queries per second in peak hours, he wants to take precautions prior to incoporating this middleware into his code.
+The \systemname{} plugin helps him to verify that it meets some of his bare requirements.
 
-Just like on Stack Overflow, question titles are returned with text snippets that highlight his query terms.
-For these questions, there are around 10 different answers that he thinks might be applicable to his problem, but he doesn't know where to start.
-Each answer is augmented with a \systemname{}, bars that visually show the complexity and content of the examples.
-He toggles a button that lets him view all of the \systemname{} side by side without the interspersed title and surrogate text.
-Jim knows he wants to find and answer fast, so he starts by sorting the \systemname{} entries based on their length.
-He quickly finds the shortest one, and with the scrolling tooltip, he inspects the code snippets at each point to see if it contains the content that will help him solve his problem.
+By highlighting the code in the browser, the \systemname{} plugin starts automatically in a side panel.
+In the header for the code, \user{} sees that this code depends on the \texttt{django.conf}, \texttt{django.db}, \texttt{django.db.backends.util}, and \texttt{django.core.exceptions} packages.
+This tells him the packages that he must have installed in order to run the middleware.
+This is a start for him to know whether the libraries relied upon are trustworthy.
+In addition, he sees a number of coding schemes that he wants to inspect sequentially in order to determine that the code is safe to use:
 
-The tooltip shows him that this example is far too short -- it's just a correction to a previous code example.
-Jim sees some examples at the bottom that are interesting.
-He also recalls that the Android library for Bluetooth code is org.android.bluetoothlowenergy.
-He decides that the relevant code examples will contain this library.
-So, he enters this library name in a search widget off to the side.
-The code examples that use the bluetoothlowenergy library are focused with a light tint.
-Furthermore, the locations in the code with the bluetoothlowenergy usage are highlighted.
-Jim scrolls his tooltip over these locations to gain an idea of how the library is invoked to solve his problem.
+\emph{Does the code use libraries the right way?}
+Each line that invokes an external function is annotated with a ``+'' button on its right.
+By clicking on this button, \user{} expands an informational dialog that provides an example of the function in use from its API.
+In addition, each argument is mapped from the name he provides to the parameter name in the documentation.
+By clicking on ``See more...'', he can see a brief description of the method as well as descriptions of the parameters and return values.
 
-From another view above the \emph{Library Inclusion} view, he adds a library using the \emph{Library Exclusion} view.
-By doing this, he makes sure that none of the code examples returned include a deprecated library, com.android.bluetooth.
-He removes from the listing 2 of the old examples that include this library.
+\emph{Where is this code error-prone?}
+A line of code is drawn in red if it has the potential to throw an exception.
+A line of code is drawn in yellow if it has not passed a linting test.
+\user{} can edit the code in place to handle these errors, causing the red and yellow to disappear.
 
-When inspecting how the code examples invoke Bluetooth by hovering the mouse over the bar for org.android.bluetoothlowenergy, he notices something untoward.
-Many of these examples perform the command BluetoothAdapter.read().
-However, Jim recognizes that to solve his problem, he will need to access a method called BluetoothAdapter.write(), the complement to read().
-He types in the \emph{Highlight Text} box the term \emph{write}.
-In each of the \systemname{}, the location of the word is highlighted, just like it would be in a vertical scrollbar on the side of the page.
-With this, Jim finds an example that not only leverages the libraries that he needs, but also invokes the commands he expects will be the most helpful.
+\emph{How fast will this code run?}
+As \user{} is attempting to satisfy 100 queries per second, it's important that there be no operations that take longer than a few $ms$ to complete.
+By clicking on the `Timing' tab, the coloring of the lines change.
+Lines in red take a long time to compute.
+Lines in green take a relatively trivial time to run.
+The time in $ms$ to compute is shown on the right-hand side of each line of code.
+\user{} edits a few of the statements in the code, seeing their color change from red to green as he decreases their runtime to something simpler.
 
-Jim is left with only a few candidate code examples at this point.
-He would love an example that could be plugged right into his code.
-He looks at the right column of the search results to see an 'X' marking all of the code examples that cannot compile.
-He chooses the one code example that includes the libraries and commands that he wants, and the code.
-From this, he has found a transplantable code example that will satisfy his needs, all without having to click through a single search result.
-Jim pastes this into his source code editor, compiles, and writes to his Bluetooth Low Energy device with minimal additional effort.
+\emph{What can I use besides this code?}
+By clicking on the ``What are my alternatives?'' button at the bottom of the panel, \user{} is shown 3 examples that semantically match the content of the code he has seen, taken from StackOverflow and other online tutorials.
+Each of these is colored according to risk of error or timing, according to the coloring he has chosen for the code he inspects.
+In this way, he can compare the relative performance and risk of error between the original code he found and the alternatives.
+
+Additional features not described in this tutorial include:
+\begin{itemize}
+\item Inserting additional variable dependencies if pulling incomplete code from an example.
+\item Showing what else is needed to make an incomplete snippet compile.
+\end{itemize}
