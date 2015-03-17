@@ -58,6 +58,10 @@ urlcolor=black,
 breaklinks=true,
 }
 
+% Enable glossary of custom terms
+\usepackage{glossaries}
+\makeglossaries
+
 % create a shortcut to typeset table headings
 \newcommand\tabhead[1]{\small\textbf{#1}}
 \input{macros}
@@ -67,9 +71,8 @@ breaklinks=true,
 % End of preamble. Here it comes the document.
 \begin{document}
 
-\title{\systemname{}: Breadth-First Visual Search for Programming Problem-Solving}
+\title{\systemname{}: Automatic Text Supplements to Online Tutorials For Explaining Foreign Concepts and Tangential Skills}
 
-\if 0
 \numberofauthors{2}
 \author{
   \alignauthor Author 1\\
@@ -81,7 +84,6 @@ breaklinks=true,
     \affaddr{City State Zip}\\
     \email{E-mail 2}
 }
-\fi
 
 \makeatletter
 \let\@oldmaketitle\@maketitle
@@ -119,8 +121,8 @@ breaklinks=true,
 
 \input{introduction}
 \input{relatedwork}
-\input{preliminary}
 \input{scenario}
+\input{preliminary}
 \input{data}
 \input{design}
 \input{evaluation}

@@ -1,5 +1,13 @@
-\newcommand {\systemname}{CopyRight}
+\newglossaryentry{name}
+{
+    name=tutoroid,
+    description={skill-specific text augmentation to existing tutorials that enable just-in-time training for a supplemental skill a tutorial glosses over.}
+}
+\newcommand\condcap[1]{\ifnum\ifhmode\spacefactor\else2000\fi>1000 \uppercase{#1}\else#1\fi}
+\newcommand {\systemname}{\Glspl{name}}
 \newcommand {\user}{Colin}
+\newcommand {\userpro}{\condcap{h}e}
+\newcommand {\userpos}{\condcap{h}is}
 
 % Annotation macros
 \newcommand {\andrew}[1]{{\color{red}\bf{AH: #1}\normalfont}}

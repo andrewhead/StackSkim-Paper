@@ -1,49 +1,30 @@
-\section{Scenario}
+\section{Using \Glspl{name}}
 
 \andrew{Create some graphics here of tutorials before and after tutoroids, \emph{highlighting} the text that is created by tutoroids.}.
-\user{} is looking for a middleware that will log database queries for all HTTP requests to his Django server to a local file.
-\andrew{
-This use case may be ridiculously specific.
-And this workflow might not work for all queries, which might not have appropriate results.
-}
-As this is a secondary programming task for the day, he looks to Google to provide an implemented solution.
-He opens up his browser and enters a search query for `Django middleware log SQL query to file'.
-This directs him to the Github page for \emph{django-queryinspect}, a package that includes the middleware that he needs.
-But as his server is going to handle over 100 queries per second in peak hours, he wants to take precautions prior to incoporating this middleware into his code.
-The \systemname{} plugin helps him to verify that it meets some of his bare requirements.
 
-By highlighting the code in the browser, the \systemname{} plugin starts automatically in a side panel.
-In the header for the code, \user{} sees that this code depends on the \texttt{django.conf}, \texttt{django.db}, \texttt{django.db.backends.util}, and \texttt{django.core.exceptions} packages.
-This tells him the packages that he must have installed in order to run the middleware.
-This is a start for him to know whether the libraries relied upon are trustworthy.
-In addition, he sees a number of coding schemes that he wants to inspect sequentially in order to determine that the code is safe to use:
+\subsection{Writing a \gls{name}}
 
-\emph{Does the code use libraries the right way?}
-Each line that invokes an external function is annotated with a ``+'' button on its right.
-By clicking on this button, \user{} expands an informational dialog that provides an example of the function in use from its API.
-In addition, each argument is mapped from the name he provides to the parameter name in the documentation.
-By clicking on ``See more...'', he can see a brief description of the method as well as descriptions of the parameters and return values.
+You have to define 4 different parts:
+First, define a rule to detect the use of the skill in the code.
+Second, define (optional) rules to detect description of the skill in the text.
+Third, define natural language generation rules.
+Fourth, define the place in a tutorial that you would like to place the augmentation.
 
-\emph{Where is this code error-prone?}
-A line of code is drawn in red if it has the potential to throw an exception.
-A line of code is drawn in yellow if it has not passed a linting test.
-\user{} can edit the code in place to handle these errors, causing the red and yellow to disappear.
+\subsection{Following tutorials augmented with \glspl{name}}
 
-\emph{How fast will this code run?}
-As \user{} is attempting to satisfy 100 queries per second, it's important that there be no operations that take longer than a few $ms$ to complete.
-By clicking on the `Timing' tab, the coloring of the lines change.
-Lines in red take a long time to compute.
-Lines in green take a relatively trivial time to run.
-The time in $ms$ to compute is shown on the right-hand side of each line of code.
-\user{} edits a few of the statements in the code, seeing their color change from red to green as he decreases their runtime to something simpler.
+\user{} decides that \userpro{} wants to set up a web scraper that collects the top music albums on Amazon.com every day and save the data to a text file.
+\userpro{} has never written a scraper before, but has used Python for scientific programming, so \userpro{} feels pretty confident \userpro{} can pick up this skill pretty quickly with the right guide.
+\userpro{} opens up \userpos{} browser to Google, and types in `Python web scraping' as the query.
+After scanning the results, \userpro{} selects the page titled ``Web Scraping 101 with Python''\footnote
+{This is an actual tutorial hosted online at \url{http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/}}.
 
-\emph{What can I use besides this code?}
-By clicking on the ``What are my alternatives?'' button at the bottom of the panel, \user{} is shown 3 examples that semantically match the content of the code he has seen, taken from StackOverflow and other online tutorials.
-Each of these is colored according to risk of error or timing, according to the coloring he has chosen for the code he inspects.
-In this way, he can compare the relative performance and risk of error between the original code he found and the alternatives.
 
-Additional features not described in this tutorial include:
-\begin{itemize}
-\item Inserting additional variable dependencies if pulling incomplete code from an example.
-\item Showing what else is needed to make an incomplete snippet compile.
-\end{itemize}
+\subsection{Using \gls{name}-augmented tutorials as starting points}
+
+Of course, just following the tutorial is enough.
+Sure, \user{} can folow the guidelines in the tutorial and now understands how the author scraped data from the \emph{Chicago Reader's Best of 2011} list.
+But \user's original task was to scrape top albums from Amazon.com.
+It's time for him to start sleuthing to find out how he can adapt the author's final code to his own purposes.
+
+\andrew{What if we can do chaining to the extent where \user{} can understand how to use CSS selectors instead of "lxml" from start to finish, even though CSS isn't mentioned in the original tutorial?}
+\andrew{Can we produce argument-mining from the web, where we look for common arguments, and potentially descriptions on the web, for providing something like all the possible parsing formats (`lxml', `css') for initializing BeautifulSoup?}
