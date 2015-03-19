@@ -2,14 +2,6 @@
 
 \andrew{Create some graphics here of tutorials before and after tutoroids, \emph{highlighting} the text that is created by tutoroids.}.
 
-\subsection{Writing a \gls{name}}
-
-You have to define 4 different parts:
-First, define a rule to detect the use of the skill in the code.
-Second, define (optional) rules to detect description of the skill in the text.
-Third, define natural language generation rules.
-Fourth, define the place in a tutorial that you would like to place the augmentation.
-
 \subsection{Following tutorials augmented with \glspl{name}}
 
 \user{} decides that \userpro{} wants to set up a web scraper that collects the top music albums on Amazon.com every day and save the data to a text file.
@@ -39,3 +31,25 @@ It's time for him to start sleuthing to find out how he can adapt the author's f
 
 \andrew{What if we can do chaining to the extent where \user{} can understand how to use CSS selectors instead of ``lxml" from start to finish, even though CSS isn't mentioned in the original tutorial?}
 \andrew{Can we produce argument-mining from the web, where we look for common arguments, and potentially descriptions on the web, for providing something like all the possible parsing formats (`lxml', `css') for initializing BeautifulSoup?}
+
+\subsection{Writing a \gls{name}}
+
+\subsubsection{One-off authoring}
+
+Users select right click a point in the text where they want to intervene.
+The text immediately becomes editable.
+While users are unable to delete any existing text, they can add any text that they want.
+However, they are limited to doing so in \emph{300 characters or less}.
+\andrew{This might be absurd, but it's interesting to think about how we can limit users to playing well within the original tutorial.}
+\andrew{Also, perhaps these user-initiated markups should be optional notes, like the highlights and comments you can see from Kindle --- hide them away but let users know that they're there if they're facing errors.}
+In the future, sites could choose to include setup scripts that enable them to be user-editable.
+For now, we implement this through a guerilla-editing perspective -- anyone with the \Glspl{name} extension can edit pages in a way that can be seen by anyone else with the extension.
+
+\subsubsection{Writing general-purpose \glspl{name}}
+
+You have to define 4 different parts:
+First, define a rule to detect the use of the skill in the code.
+Second, define (optional) rules to detect description of the skill in the text.
+\andrew{Probably this will be a trick we show at the end of the paper instead of up front, as a feasibility confirmation and a call out to future work.}
+Third, define natural language generation rules.
+Fourth, define the place in a tutorial that you would like to place the augmentation.
