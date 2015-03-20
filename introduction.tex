@@ -1,5 +1,8 @@
 \section{Introduction}
 
+\andrew{We can include a mention that we replicate the spirit of modern-day templating engines when providing the ability to generate descriptions within the DOM.  Can we work this into the design?}
+\andrew{We can also phrase this paper as techniques for automatic augmentation of tutorials.}
+
 The proliferation of programming resources on the web has enabled the growth of an enormous programmer community.
 Relevant content for solving programming problems resides across an abundance of tutorials, MOOCS, programming examples, Q\&A sites and technical blogs.
 These resources are popular for programmers of varying skill levels and fill in the inadequacies of traditional documentation and formal references.
@@ -18,12 +21,7 @@ If they contain errors, the programmer should be able to find related examples w
 The programmer may already know whether he is looking for long textual responses or short code snippets. 
 Modern search engines should offer a way for a user to quickly and effectively assess which examples contain a promising amount of explanation, usable libraries and terminology.
 
-By conducting a preliminary user study with 5 programmers, we examine users' obstacles as they search for solutions to unfamiliar programming problems.
-We identify 3 challenges users face using general search interfaces.
-First, users search for results of particular format, like tutorials or code snippets.
-Second, they engage in backtracking after discovering that previously abandoned examples contain well-supported libraries that they were trying to avoid.
-Third, they maintain a bloated history through a trail of tabs in the browser of examples they may want to revisit later.
-
+\andrew{TODO: adapt this to our new system description.}
 We develop \systemname{}, a search user interface that provides solutions to these problems through visual features.
 Our tool represents text and code of code examples in colored columns to allow easy assessment of content distribution for each search result.
 It generates charts of commonly used classes and coding concepts to help users with early detection of frequently used dependencies used for solving a problem.
@@ -31,6 +29,7 @@ A preview panel provides a way to rapidly skim through the content of multiple e
 A snippet bank enables users to maintain an in-tab history of promising code segments and explanations and to compare two examples side-by-side.
 \systemname{} leverages the StackExchange API to gain access to answers to over 700,000 questions on StackOverflow, providing an overview of dozens of relevant answers with each query.
 
+\andrew{This needs to change too}
 This work concludes with a 4-subject user study to evaluate the usefulness of our tool.
 We determine that \systemname{} enables tasks like finding the most commonly used classes across examples where a baseline search interface does not.
 Participants find it useful to be able to pinpoint structural code elements like functions, viewing them across many examples at once.

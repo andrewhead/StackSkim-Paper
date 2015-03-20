@@ -1,39 +1,89 @@
 \section{Related Work}
 
-Programmers rely on application programming interfaces (APIs) as the building blocks for their programs.
-APIs provide pre-written functionality for a language, enabling tasks from simple math to advanced networking and multi-threading.
-As programmers today work with dozens or hundreds of APIs, the web has become an on-demand resource for learning and recalling API functionality and details.
-Unfortunately, programmers face challenges as they familiarize themselves with APIs~\cite{Duala-Ekoko-Asking}, and not all APIs are equally usable~\cite{de_Souza-Automatic}.
+Our work draws upon ideas from 3 lines of inquiry:
+helping programmers use the web to solve problems,
+writing good technical documentation,
+and generating and augmenting tutorials.
 
-Recent research describes a common programming behavior called `opportunistic programming'.
-Programmers `opportunistically' find web resources to enable the prototyping, ideating and discovering on the web.
-Through this process, they code to engage in just-in-time learning, clarify and extend existing knowledge, and remind themselves of forgotten details~\cite{Brandt-Opportunistic}.
+\subsection{Helping Programmers Use the Web to Solve Problems}
 
-End-user programmers write programs or scripts for personal efficiency or effectivness, but lack formal training or employment as a programmer.
-Web developers, one group of end-user programmers, have been shown to interleave development and information foraging~\cite{Dorn-Interleaved}.
-Tools like d.mix~\cite{Hartmann-Dmix} help such programmers, in particular web programmers, leverage web resources when creating `mashup' of existing services.
-However, end-user programmers still face numerous challenges learning from and working with web documentation, being largely unsuccessful in information foraging tasks~\cite{Dorn-Lost}.
+Recent studies have explored programmers' practice of opportunistic programming~\cite{brandt_two_2009}\cite{brandt_example-centric_2010}\cite{hartmann_hacking_2008}.
 
-A web search for API documentation returns results of many types, including Q\&A, forum entries, mailing list entries, official reference documentation, and blog posts such as tutorials~\cite{Parnin-Measuring}.
-StackOverflow has recently received attention in a source of ``crowd documentation''~\cite{Parnin-Crowd} for the quality of information and speed of response to questions~\cite{Mamykina-Fastest}, its high coverage of API methods~\cite{Parnin-Crowd}, and variety of question types~\cite{Nasehi-What}.
-The success of StackExchange-style sites has attracted open source projects to establish a major presence on the site~\cite{Vasilescu-How}.
-However, even with recent advances in quality of crowd documentation, end-user programmers still stumble to find relevant, usable resources and to adapt snippets found to their programs.
+Still, both experienced programmers~\cite{duala-ekoko_asking_2012}\cite{duala-ekoko_information_2010} and end-user programmers~\cite{dorn_lost_2013}\cite{dorn_learning_2010}\cite{rosson_everyday_2004} struggle to leverage web documentation to solve programming problems.
+\andrew{TODO: read~\cite{duala-ekoko_information_2010}\cite{dorn_learning_2010}\cite{rosson_everyday_2004}.}
 
-Among the models of information seeking on the web, the berry-picking model~\cite{Bates-Design} seems to describe the snippet search process well.
-In this model, users adjust their information need, in this case a need for functional code, as they encounter intermediate search results.
-End-user programmers especially may face the vocabulary problem described for human-system communication by Furnas et al.~\cite{Furnas-Vocabulary}, lacking the exact query terms that represent code that will perform the actions they need.
-Even after they find appropriate snippets, end-user programmers may still struggle to adapt them to their code.
-Ko et al.~\cite{Ko-Six} described six learning barriers for end-user programming tools, at least three of which are relevant to searching for code examples:
-\begin{itemize}
-\item $Selection$: knowing which classes and functions are appropriate for a task
-\item $Coordination$: knowing how to join multiple snippets to perform a larger task
-\item $Understanding$: understanding the inner workings of the code and classes chosen enough to know when they aren't working and why.
-\end{itemize}
+Formally, we can look at these programming challenges as Ko et al.'s end-user programming learning barriers~\cite{ko_six_2004}.
+For example, users may encounter the $selection$ barriers when trying to find APIs that will help them perform new tasks.
+When troubleshooting the program, they may face the $understanding$ barrier to debug system output, or the $information$ barrier to try to learn more about silent failures.
+Furthermore, programmers who develop a poor mental model of programming techniques~\cite{winslow_programming_1996} that they find online may find this to be an impediment during later learning.
+\andrew{Make sure we're not misquoting the Winslow reference.}
 
-Specialized code search interfaces Mica~\cite{Stylos-Mica}, Assieme~\cite{Hoffman-Assieme}, and Portfolio~\cite{McMillan-Portfolio} help users find resources that are both relevant~\cite{Stylos-Mica}~\cite{Hoffman-Assieme} and many in number~\cite{McMillan-Portfolio}.
-Others integrated code search into the programmer's development environment (IDE).
-Blueprint~\cite{Brandt-Example} brings snippet search into the IDE through an embedded browser.
-HyperSource~\cite{Hartmann-HyperSource} links recent websites visited to lines of code, and CodeTrail~\cite{Goldman-CodeTrail} provides access to Javadocs and stores user-created bookmarks.
-SnipMatch~\cite{Wightman-SnipMatch}, perhaps closest in intent to the current research, adapts searchable code snippets to the programmer's code, replacing template elements with specific symbols from the programmer's code.
-However, SnipMatch requires humans to manually creation snippet content.
-We aim to help users adapt and work with the 15 million answers already written on StackOverflow as of early 2015.
+Over the last couple of decades, a variety of systems and tools have been developed to support programmer learning in the wild
+(i.e. outside the on-campus or online classroom).
+Some of these are general purpose tools to promote problem solving and self-led informal learning.
+The Idea Garden~\cite{cao_barriers_2012}\cite{cao_end-user_2013} provokes users to answer solve their own problems by asking 3 types of questions designed to help them think and seek new information productively.
+\andrew{be specific.}
+ScriptABLE~\cite{dorn_scriptable_2011} wraps online tutorials as `informal learning cases' to improve users' abilities to take lessons away from them. 
+\andrew{be specific.}
+\andrew{Is this actually for programming tasks or just general tasks?}
+
+Additionally, researchers have recommended strategies for improving supporting debugging and development tasks.
+Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non-programmers to understand unfamiliar code in the Storytelling Alice programming environment.
+\andrew{double check}.
+In the same line of inquiry, Gross et al. present Dinah~\cite{gross_dinah_2011} to help non-programmers select code for reuse based on its graphical output instead of the source alone.
+Grigoreanu~\cite{grigoreanu_end-user_2012} recommend two strategies for sensemaking during end-user debugging.
+Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors better understand how to construct similar pages.
+The Whyline~\cite{ko_designing_2004} answers programmers `why' questions about program behavior in terms of runtime events in the Alice programming environment.
+\andrew{TODO: read~\cite{ko_designing_2004}}
+
+\andrew{Is there anything commercial that we need to consider?}
+
+\subsection{Writing Good Technical Documentation}
+
+Minimal instruction theory provides guidelines for developing usable technical documentation~\cite{carroll_nurnberg_1990}.
+There are three main insights of the minimalist approach:
+learners are allowed to start immediatedly on meaningfully realistic tasks,
+the amount of reading and other passive activity in training is reduced,
+and errors and error recovery are presented in a way to make them less traumatic and more pedagogically productive.
+Interstingly, today we find ourselves at a where that much of the typical programming documentation is no longer developed by professionals.
+Programmers increasingly use \emph{crowd documentation}~\cite{parnin_measuring_2011} found on the web that may be written by hobbyists without formal training writing usable documentation and who do not have QA resources to cross-check documents' quality.
+\andrew{Is this the right reference for the term crowd documentation?}
+
+When it is not possible to produce minimal instruction that has been iteratively tested and tailored to its audience, Farkas recommends \emph{layered documentation}~\cite{farkas_layering_1998}.
+Layered documentation allows users to access more \emph{backup information} for tasks like error recognition and correction, and enables the same documentation to be used by readers from different backgrounds.
+We position our work with the core belief that minimal instruction is a worthwhile but likely unattainable standard for online programming tutorials.
+Given the diverse audiences of programming tutorials and the lack of documentation expertise of their authors, minimal instruction seems impossible to achieve.
+We therefore adapt Farkas's advice with a technique for adding interactive layering to existing tutorial documentation on the web.
+Through this, we approach the aims of minimal instruction: improved transfer of tutorial skills to personal tasks, less web search for discovering background knowledge, and faster error recovery.
+
+\andrew{Read and determine if any of the following are relevant~\cite{eiriksdottir_procedural_2011}\cite{lau_interpreting_2009}\cite{ames_just_2001}.}
+
+\subsection{Generating and Augmenting Tutorials}
+
+Given users' growing dependence on tutorials for learning how to perform workflows in creative tools, programming, and beyond, there has been recent interest in understanding, generating and automatically augmenting tutorials.
+
+\subsubsection{Measuring tutorial quality}
+
+Lafreniere et al.~\cite{lafreniere_understanding_2013} determined the type of activites that users engage in through comment-based discussion following the body of tutorials.
+\andrew{be specific.  What were the activities, how do people learn from tutorials, what are their weaknesses?}
+In the programming domain, Parnin \& Treude~\cite{parnin_measuring_2011} find that 87.4\% of the methods of the jQuery API are described by a blog post in the first 10 web search results.
+Of these blog posts, about half were tutorials.
+Toward a Calculus of Confidence
+Characterizing Web-Based Tutorials: Exploring Quality, Community, and Showcasing Strategies
+
+\subsubsection{Detecting and processing tutorial structure}
+Then click ok!: extracting references to interface elements in online documentation
+Browsing and analyzing the command-level structure of large collections of image manipulation tutorials
+Delta: A Tool for Representing and Comparing Workflows
+\andrew{I'm positive there's work here that I've missed.}
+
+\subsubsection{Authoring and generating tutorials}
+Authoring Multi-Stage Code Examples with Editable Histories
+Democut: generating concise instructional videos for physical demonstrations
+Automatically generating tutorials to enable middle school children to learn programming independently
+MixT: automatic generation of step-by-step mixed media tutorials
+\andrew{I'm positive there's work here that I've missed.}
+
+\subsubsection{Improving existing tutorials}
+Learnersourcing subgoal labeling to support learning from how-to videos
+Community enhanced tutorials: improving tutorials with multiple demonstrations
