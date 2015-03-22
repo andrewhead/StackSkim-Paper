@@ -1,5 +1,7 @@
 \section{Related Work}
 
+\andrew{What about commercial systems?}
+
 Our work draws upon ideas from 3 lines of inquiry:
 helping programmers use the web to solve problems,
 writing good technical documentation,
@@ -9,8 +11,8 @@ and generating and augmenting tutorials.
 
 Recent studies have explored programmers' practice of opportunistic programming~\cite{brandt_two_2009}\cite{brandt_example-centric_2010}\cite{hartmann_hacking_2008}.
 
-Still, both experienced programmers~\cite{duala-ekoko_asking_2012}\cite{duala-ekoko_information_2010} and end-user programmers~\cite{dorn_lost_2013}\cite{dorn_learning_2010}\cite{rosson_everyday_2004} struggle to leverage web documentation to solve programming problems.
-\andrew{TODO: read~\cite{duala-ekoko_information_2010}\cite{dorn_learning_2010}\cite{rosson_everyday_2004}.}
+Still, both experienced programmers~\cite{duala-ekoko_asking_2012} and end-user programmers~\cite{dorn_lost_2013}\cite{dorn_learning_2010}\cite{rosson_everyday_2004} struggle to leverage web documentation to solve programming problems.
+\andrew{TODO: read~\cite{dorn_learning_2010}\cite{rosson_everyday_2004}.}
 
 Formally, we can look at these programming challenges as Ko et al.'s end-user programming learning barriers~\cite{ko_six_2004}.
 For example, users may encounter the $selection$ barriers when trying to find APIs that will help them perform new tasks.
@@ -33,12 +35,9 @@ Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non
 In the same line of inquiry, Gross et al. present Dinah~\cite{gross_dinah_2011} to help non-programmers select code for reuse based on its graphical output instead of the source alone.
 Grigoreanu~\cite{grigoreanu_end-user_2012} recommend two strategies for sensemaking during end-user debugging.
 Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors better understand how to construct similar pages.
-The Whyline~\cite{ko_designing_2004} answers programmers `why' questions about program behavior in terms of runtime events in the Alice programming environment.
-\andrew{TODO: read~\cite{ko_designing_2004}}
+The Whyline~\cite{ko_designing_2004} answers programmers `why did' questions about program behavior in terms of runtime events in the Alice programming environment.
 
-\andrew{Is there anything commercial that we need to consider?}
-
-\subsection{Writing Good Technical Documentation}
+\subsection{Writing Good Instructions}
 
 Minimal instruction theory provides guidelines for developing usable technical documentation~\cite{carroll_nurnberg_1990}.
 There are three main insights of the minimalist approach:
@@ -56,7 +55,13 @@ Given the diverse audiences of programming tutorials and the lack of documentati
 We therefore adapt Farkas's advice with a technique for adding interactive layering to existing tutorial documentation on the web.
 Through this, we approach the aims of minimal instruction: improved transfer of tutorial skills to personal tasks, less web search for discovering background knowledge, and faster error recovery.
 
-\andrew{Read and determine if any of the following are relevant~\cite{eiriksdottir_procedural_2011}\cite{lau_interpreting_2009}\cite{ames_just_2001}.}
+Eiriksdottir \& Catrambone~\cite{eiriksdottir_procedural_2011} detail three types of instructions --- procedures, principles, and examples --- and their pedagogical aims.
+Detailed procedures and relevant examples are likely to ease users' initial task performance.
+More abstract procedures promote good learning and transfer.
+We believe that \glspl{name} can improve relevance of more general procedures by providing just-in-time description of configurable parameters of APIs.
+Furthermore, they can be used to describe relevant principles and interactive examples to aid transfer beyond the current task.
+
+\andrew{Also possibly relevant:~\cite{ames_just_2001}, for when and how to intervene with instructions.}
 
 \subsection{Generating and Augmenting Tutorials}
 
@@ -65,15 +70,20 @@ Given users' growing dependence on tutorials for learning how to perform workflo
 \subsubsection{Measuring tutorial quality}
 
 Lafreniere et al.~\cite{lafreniere_understanding_2013} determined the type of activites that users engage in through comment-based discussion following the body of tutorials.
-\andrew{be specific.  What were the activities, how do people learn from tutorials, what are their weaknesses?}
-Scaffidi \& Shaw~\cite{scaffidi_toward_2007}, and Lount \& Bunt~\cite{lount_characterizing_2014} have sought objective criteria for determining tutorial reliability and quality.
-\andrew{Read~\cite{scaffidi_toward_2007}\cite{lount_characterizing_2014}}.
+\andrew{What were the activities, how do people learn from tutorials, what are their weaknesses?}
 In the programming domain, Parnin \& Treude~\cite{parnin_measuring_2011} find that 87.4\% of the methods of the jQuery API are described by a blog post in the first 10 web search results.
 Of these blog posts, about half were tutorials.
 
-\subsubsection{Detecting and processing tutorial structure}
+In a survey of 154 Photoshop tutorials, Lount \& Bunt~\cite{lount_characterizing_2014} harvested tutorials from an application-centered community, tutorial aggregator, tutorial factory, and popular tutorials via the CUTS tecnique~\cite{fourney_characterizing_2011}.
+Among other findings, Lount \& Bunt describe strengths and weaknesses of the corpus as a whole.
+Almost all tutorials included source files (90.3\%), the initial image (91.6\%), final image (96.7\%), at least one image per step (84.4\%), and references to past steps when repeated steps were used (89.6\%).
+However, 40.7\% of tutorials contained no attempts to address potential errors, 83.1\% omitted any version information, and only 1 of every 20 steps had any explanation.
+Mechanisms to improve such tutorials' coverage of potential efforts and explanation of tools used could improve the quality of the average online tutorial.
+
+\subsubsection{Understanding tutorial content}
 
 As the number of tutorials accessible to learners grows, it is increasingly important to understand the structure and semantics of tutorial content to enable users to compare workflows and so that tutorials can be more easily augmented with interactivity.
+Lau et al.~\cite{lau_interpreting_2009} produce keyword, grammar, and machine learning-based methods for determining segments of how-to instruction text that describe web application interactions.
 Fourney et al.~\cite{fourney_then_2012} develop a method for detecting references to UI elements within tutorial text.
 With a corpus of 35 documents from GIMP documentation, they achieve an F1-score of 0.81 for classifying words as labels for widgets.
 \andrew{Does citation go at end of sentence or by the author name?}
