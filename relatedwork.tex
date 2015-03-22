@@ -66,24 +66,32 @@ Given users' growing dependence on tutorials for learning how to perform workflo
 
 Lafreniere et al.~\cite{lafreniere_understanding_2013} determined the type of activites that users engage in through comment-based discussion following the body of tutorials.
 \andrew{be specific.  What were the activities, how do people learn from tutorials, what are their weaknesses?}
+Scaffidi \& Shaw~\cite{scaffidi_toward_2007}, and Lount \& Bunt~\cite{lount_characterizing_2014} have sought objective criteria for determining tutorial reliability and quality.
+\andrew{Read~\cite{scaffidi_toward_2007}\cite{lount_characterizing_2014}}.
 In the programming domain, Parnin \& Treude~\cite{parnin_measuring_2011} find that 87.4\% of the methods of the jQuery API are described by a blog post in the first 10 web search results.
 Of these blog posts, about half were tutorials.
-Toward a Calculus of Confidence
-Characterizing Web-Based Tutorials: Exploring Quality, Community, and Showcasing Strategies
 
 \subsubsection{Detecting and processing tutorial structure}
-Then click ok!: extracting references to interface elements in online documentation
-Browsing and analyzing the command-level structure of large collections of image manipulation tutorials
-Delta: A Tool for Representing and Comparing Workflows
+
+As the number of tutorials accessible to learners grows, it is increasingly important to understand the structure and semantics of tutorial content to enable users to compare workflows and so that tutorials can be more easily augmented with interactivity.
+Fourney et al.~\cite{fourney_then_2012} develop a method for detecting references to UI elements within tutorial text.
+With a corpus of 35 documents from GIMP documentation, they achieve an F1-score of 0.81 for classifying words as labels for widgets.
+\andrew{Does citation go at end of sentence or by the author name?}
+Delta~\cite{kong_delta_2012} and Sifter~\cite{pavel_browsing_2013} extract commands from tutorials for creative tools.
+User interfaces for these systems enable users to compare multiple workflows that have the same goal.
+\andrew{Does Delta actually extract features, or rely upon manual labels?}
 \andrew{I'm positive there's work here that I've missed.}
 
-\subsubsection{Authoring and generating tutorials}
-Authoring Multi-Stage Code Examples with Editable Histories
-Democut: generating concise instructional videos for physical demonstrations
-Automatically generating tutorials to enable middle school children to learn programming independently
-MixT: automatic generation of step-by-step mixed media tutorials
+\subsubsection{Authoring, generating, and improving tutorials}
+
+As authoring helpful tutorials is a non-trivial task requiring time and effort, recent work has sought to produce guidelines and techniques for automatically generating rich, useful tutorials.
+Ginosar et al.~\cite{ginosar_authoring_2013} built a framework for easing the creation and editing of multi-stage programming tutorials.
+Harms et al.~\cite{harms_automatically_2013} enable middle school programming learners to generate tutorials from code snippets.
+Tools have been created for the creation of step-by-step mixed media tutorials~\cite{chi_mixt_2012}, instructional videos for physical demonstrations~\cite{chi_democut_2013}, and graphic design workflows~\cite{grossman_chronicle_2010}.
 \andrew{I'm positive there's work here that I've missed.}
 
-\subsubsection{Improving existing tutorials}
-Learnersourcing subgoal labeling to support learning from how-to videos
-Community enhanced tutorials: improving tutorials with multiple demonstrations
+There has been interest in leveraging the online community to improve existing online tutorials.
+Two methods proposed for this include labeling subgoals in how-to videos~\cite{kim_learnersourcing_2013} and linking a tutorial to alternate demonstrations~\cite{lafreniere_community_2013}.
+\andrew{TODO read~\cite{kim_learnersourcing_2013}\cite{lafreniere_community_2013}.}
+Similar to this past line of research, we seek methods for augmenting existing tutorials.
+To our knowledge, we are the first to ask how automic community tutorial maintenance efforts can be applied beyond the current tutorial to the a body of related online tutorials.
