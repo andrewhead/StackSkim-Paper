@@ -1,32 +1,27 @@
 \section{Discussion}
 
-StackOverflow and Google are already usable, functional interfaces for finding programming solutions.
-however, \systemname{}'s unique strength arises when there are multiple ways to solve a problem and many online resources describing how to do it.
-A breadth-first consideration could be helpful for a user to consider all viable alternatives before delving deeply into one example.
-Viewing multiple related examples together could provide a more complete view of class use cases, setup, use and teardown.
-Our current study does not fully explore these advantages.
-In the future, we plan to perform a larger-scale user study with programming tasks that require discovering new unfamiliar programming material.
+Systems like Google and StackOverflow already satisfy many users' queries.
+However, learning a new workflow or procedure with new libraries is still challenging for programmers.
+One cause of this is the new vocabulary required.
+The other is the short time frame and high expectations programmers have of training material.
+\Glspl{name} does not seek to replace existing search solutions that provide great answers in a short amount of time.
+They aim to make online tutorials for acquiring more skills more relevant when correcting errors and adapting tutorial code to personal tasks.
 
-We were surprised to see searchers use \systemname{} like Google search.
-Users entered a query, selected the single most relevant question from the questions list, inspecting several examples, and moved on to refine their query or use code from the current examples.
-\systemname{} can return multiple relevant questions related to a user's query for which answers can be viewed side by side.
-For most users, however, we found that simultaneously examining answers to multiple questions would require a shift in current search habits.
-Future versions of our tool can explore motivation techniques to help users select multiple answers and view a breadth of answers.
+In the future, we plan to explore the \Glspl{name} ecosystem in more depth.
+We can investigate alternate techniques for detecting \emph{skills assumed} in tutorials.
+This can be extended beyond programming-based skills to other concepts, leveraging document-linking strategies like that described by Milne \& Witten for linking Wikipedia resources~\cite{milne_learning_2008}.
+In line with detecting non-programming content types, we would also want to explore ways of automatically describing these content types.
 
-Based on our preliminary study, we could save programmers time by incorporating additional visual features into \systemname{}.
-One user would have benefited from showing which code examples would compile in their IDE.
-Additional features including votes, estimated runtime, and configurable parameters, could be integrated into the column representation to provide a more complete view of example usability.
-Users may find it helpful to be able to highlight other examples similar to the lines they are currently previewing.
-We are also interested in exploring how to incorporate question text into answer bars and how to cluster the answers based on the question they answer.
+A system like \Glspl{name} can be implemented as a browser extension.
+Such an extension can maintain a memory of everywhere a user has been, online coding activites they have performed, and past \glspl{name} that they have accessed.
+We see this as a rich space for developing approximations of online learners' knowledge models.
+After developing such models, we would like to explore how to better automatically adapt existing in-the-wild web resources to programming learners' current capabilities and information seeking habits.
 
-Ultimately, we look to apply the \systemname{} approach to resources beyond StackOverflow answers.
-By examining document elements of blog postings and tutorials, we could build similar visual search results for the Google search index.
-Column coloring could be modified to visually summarize structured learning materials like technical textbooks.
-We plan to study how visualizations we produce could help learners in other domains discover more useful textual resources.
+There are some caveats from our user studies.
+For the preliminary investigation, this includes A.
+For the informal usability study, this includes B.
+For the formal in-lab study, this includes C.
 
-\subsection{Limitations}
-
-We note that professional programmers only rarely adapt code snippets into their code.
-As a result, our system may be of small utility to this user group.
-The programmers that could use features like security and version checking are likely the ones who go to large effort to carefully understand the examples and their APIs prior to leveraging this code.
-It seems that such users probably use non API-based or complex examples of more than a few lines only once a week or so.
+Ultimately, we see a future where documents and community-sourced feedback can be quickly and, in some cases, automatically connected to make more usable documentation for users that need to rapidly acquire new skills.
+While Wikipedia has started this vision with the hyperlink, we believe this is only a first step in a closed environment for connecting resources by a primitive means.
+\Glspl{name} represents a first step to the seamless integration of disparate documentation and application of community-sourced knowledge across the wild web of learning resources.

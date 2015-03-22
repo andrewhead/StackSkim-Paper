@@ -1,37 +1,20 @@
 \section{Introduction}
 
-\andrew{We can include a mention that we replicate the spirit of modern-day templating engines when providing the ability to generate descriptions within the DOM.  Can we work this into the design?}
-\andrew{We can also phrase this paper as techniques for automatic augmentation of tutorials.}
+Major arguments here:
+\begin{itemize}
+\item Programmers rely on online tutorials to solve problems
+\item Users encounter errors, misunderstandings, and shortages of information when working with these materials
+\item We present a system for collaborative markup of parts of tutorials that cause these problems
+\item A formative study describes the places in existing tutorials where users want more information
+\item We design and implement \Glspl{name} for both one-off edits and across-the-web suggestions
+\item We evaluate user interactions when authoring and using \Glspl{name}
+\end{itemize}
 
-The proliferation of programming resources on the web has enabled the growth of an enormous programmer community.
-Relevant content for solving programming problems resides across an abundance of tutorials, MOOCS, programming examples, Q\&A sites and technical blogs.
-These resources are popular for programmers of varying skill levels and fill in the inadequacies of traditional documentation and formal references.
-Today's coding workflow contrasts starkly from that of a decade ago.
+We are interested in exploring the feasibility of creating \glspl{name} that are both highly context-sensitive and generalizable.
+In addition, we hope to make first strides in identifying how \glspl{name} can be built from existing online documentation, to better link together existing web documentation in a user-consumable form from its disparate locations.
+
+\andrew{Probably want to keep the following in some form.}
 Programmers retrieve web resources and engage in self-led learning during each iteration of code implementation and foraging~\cite{brandt_two_2009}~\cite{brandt_example-centric_2010}.
 
-A search for a solution to a programming problem begins with a Google search, leading to blog posts, tutorials, reference documentation, forums, and online Q\&As.
-Searchers assess the relevance of online examples prior to extensive manual inspection of documents in multiple ways.
-First, they rely on their search engine to rank results such that those at the top of the page will provide a relevant solution.
-Second, they examine the textual excerpts returned with each result for additional context.
-Third, for online Q\&A like StackOverflow, they assess which examples will be most helpful based on votes and user reputation.
-
-Whether a programmer can successfully understand and integrate code examples into his code depends on many factors.
-Code examples should build upon familiar libraries and explanatory text should use known terms or provide a definition of them.
-If they contain errors, the programmer should be able to find related examples with the same classes and functions to check his work.
-The programmer may already know whether he is looking for long textual responses or short code snippets. 
-Modern search engines should offer a way for a user to quickly and effectively assess which examples contain a promising amount of explanation, usable libraries and terminology.
-
-\andrew{TODO: adapt this to our new system description.}
-We develop \systemname{}, a search user interface that provides solutions to these problems through visual features.
-Our tool represents text and code of code examples in colored columns to allow easy assessment of content distribution for each search result.
-It generates charts of commonly used classes and coding concepts to help users with early detection of frequently used dependencies used for solving a problem.
-A preview panel provides a way to rapidly skim through the content of multiple examples without requiring navigation through tabs or links.
-A snippet bank enables users to maintain an in-tab history of promising code segments and explanations and to compare two examples side-by-side.
-\systemname{} leverages the StackExchange API to gain access to answers to over 700,000 questions on StackOverflow, providing an overview of dozens of relevant answers with each query.
-
-\andrew{This needs to change too}
-This work concludes with a 4-subject user study to evaluate the usefulness of our tool.
-We determine that \systemname{} enables tasks like finding the most commonly used classes across examples where a baseline search interface does not.
-Participants find it useful to be able to pinpoint structural code elements like functions, viewing them across many examples at once.
-They also see value using the system in the early stages of learning when required to use libraries in unfamiliar programming tasks.
-We finish with a discussion of future directions, focusing on the challenges of encouraging users to use a breadth-first approach in when finding programming solutions.
+\andrew{We can include a mention that we replicate the spirit of modern-day templating engines when providing the ability to generate descriptions within the DOM.  Can we work this into the design?}
+\andrew{We can also phrase this paper as techniques for automatic augmentation of tutorials.}
