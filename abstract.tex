@@ -1,11 +1,13 @@
-\abstract{
+\begin{abstract}
 
-Programmers often turn to online tutorials when learning new skills and strategies, but these documents often leave out crucial supplemental information for learning new topics.
-When transferring learned skills to personal tasks, programmers have to consult additional documentation, which can be hard to find if they are new to the domain, or scattered out across many documents.
-With the high cost of transfer, professional programmers waste hours of time on new tasks, and hobbyist programmers may become discouraged when taking on new projects.  
-We propose Tutoroids, skill-specific text augmentations to existing tutorials to enable just-in-time training for supplemental skills that tutorials gloss over.
-Each tutoroid comprises detection of in-code skill usage and out-of-code skill explanation, and rules for generating and inserting text explanations into relevant locations of the tutorial, and can be written in about a hundred lines of JavaScript.  
-We demonstrate that tutoroids are straightforward to write by producing tutoroids for explaining built-in Python methods, CSS selectors, and regular expressions.
-In a preliminary 12-subject user study, we find that programmers who use tutoroid-enhanced tutorials to perform personal tasks rely increasingly on link navigation over web search, and produce more correct conceptual explanations of the tangential skills used to perform the task.
+Programmers frequently turn to tutorials to learn frameworks and find new approaches to solving problems.
+However, today's ``wild'' blog-based tutorials can contain pitfalls, errors, and underexplained concepts that require programmers to spend time looking up external documentation and debugging errors others have already encountered.
+While the value of community cultivation and maintenance of knowledge bases and annotations on the web is well-explored, we suggest that \emph{code-centered markup} of the web enables new ways of detecting pitfalls, generating custom help, and sharing information.
+In this paper, we describe \Glspl{name} framework, a system for community-led augmentation and maintenance of programming tutorial documentation.
+By implementing a variety of \Gls{name} generators, we outline a design space of tools for code-based online tutorial augmentations, from Simple \Glspl{name} for trivial in-browser code annotation, to Power \Glspl{name} for automatically generating explanations of code fragments found anywhere on the web.
+Through an in-lab qualitative study, we demonstrate that community-sourced \Glspl{name} can be fast to create and enable significant time savings for tutorial readers.
+With a quantitative analysis of Power \Glspl{name}, we show that automatic augmentations can reach across dozens of tutorials for key programming tasks.
+\andrew{Careful as to whether we define \Glspl{name} as a framework, as individual augmentations, or something else.
+Be consistent!}
 
-}
+\end{abstract}

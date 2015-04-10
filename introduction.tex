@@ -13,8 +13,53 @@ Major arguments here:
 We are interested in exploring the feasibility of creating \glspl{name} that are both highly context-sensitive and generalizable.
 In addition, we hope to make first strides in identifying how \glspl{name} can be built from existing online documentation, to better link together existing web documentation in a user-consumable form from its disparate locations.
 
+We attempt to fill the gap between canned descriptions of functions in the API and IDE auto-complete and the manually crafted descriptions of concepts in good tutorials.
+\Glspl{name} can provide the means for automatically generating context-relevant code descriptions.
+
 \andrew{Probably want to keep the following in some form.}
 Programmers retrieve web resources and engage in self-led learning during each iteration of code implementation and foraging~\cite{brandt_two_2009}~\cite{brandt_example-centric_2010}.
 
 \andrew{We can include a mention that we replicate the spirit of modern-day templating engines when providing the ability to generate descriptions within the DOM.  Can we work this into the design?}
 \andrew{We can also phrase this paper as techniques for automatic augmentation of tutorials.}
+
+\subsection{Background}
+
+\subsubsection{Writing Good Technical Documentation}
+
+Minimal instruction theory provides guidelines for developing usable technical documentation~\cite{carroll_nurnberg_1990}.
+There are three main insights of the minimalist approach:
+learners are allowed to start immediatedly on meaningfully realistic tasks,
+the amount of reading and other passive activity in training is reduced,
+and errors and error recovery are presented in a way to make them less traumatic and more pedagogically productive.
+Interstingly, today we find ourselves at a where that much of the typical programming documentation is no longer developed by professionals.
+Programmers increasingly use \emph{crowd documentation}~\cite{parnin_measuring_2011} found on the web that may be written by hobbyists without formal training writing usable documentation and who do not have QA resources to cross-check documents' quality.
+\andrew{Is this the right reference for the term crowd documentation?}
+
+When it is not possible to produce minimal instruction that has been iteratively tested and tailored to its audience, Farkas recommends \emph{layered documentation}~\cite{farkas_layering_1998}.
+Layered documentation allows users to access more \emph{backup information} for tasks like error recognition and correction, and enables the same documentation to be used by readers from different backgrounds.
+We position our work with the core belief that minimal instruction is a worthwhile but likely unattainable standard for online programming tutorials.
+Given the diverse audiences of programming tutorials and the lack of documentation expertise of their authors, minimal instruction seems impossible to achieve.
+We therefore adapt Farkas's advice with a technique for adding interactive layering to existing tutorial documentation on the web.
+Through this, we approach the aims of minimal instruction: improved transfer of tutorial skills to personal tasks, less web search for discovering background knowledge, and faster error recovery.
+
+Eiriksdottir \& Catrambone~\cite{eiriksdottir_procedural_2011} detail three types of instructions --- procedures, principles, and examples --- and their pedagogical aims.
+Detailed procedures and relevant examples are likely to ease users' initial task performance.
+More abstract procedures promote good learning and transfer.
+We believe that \glspl{name} can improve relevance of more general procedures by providing just-in-time description of configurable parameters of APIs.
+Furthermore, they can be used to describe relevant principles and interactive examples to aid transfer beyond the current task.
+
+\subsubsection{Measuring tutorial quality}
+
+Lafreniere et al.~\cite{lafreniere_understanding_2013} determined the type of activites that users engage in through comment-based discussion following the body of tutorials.
+\andrew{What were the activities, how do people learn from tutorials, what are their weaknesses?}
+In the programming domain, Parnin \& Treude~\cite{parnin_measuring_2011} find that 87.4\% of the methods of the jQuery API are described by a blog post in the first 10 web search results.
+Of these blog posts, about half were tutorials.
+
+In a survey of 154 Photoshop tutorials, Lount \& Bunt~\cite{lount_characterizing_2014} harvested tutorials from an application-centered community, tutorial aggregator, tutorial factory, and popular tutorials via the CUTS tecnique~\cite{fourney_characterizing_2011}.
+Among other findings, Lount \& Bunt describe strengths and weaknesses of the corpus as a whole.
+Almost all tutorials included source files (90.3\%), the initial image (91.6\%), final image (96.7\%), at least one image per step (84.4\%), and references to past steps when repeated steps were used (89.6\%).
+However, 40.7\% of tutorials contained no attempts to address potential errors, 83.1\% omitted any version information, and only 1 of every 20 steps had any explanation.
+Mechanisms to improve such tutorials' coverage of potential efforts and explanation of tools used could improve the quality of the average online tutorial.
+
+
+\andrew{Also possibly relevant:~\cite{ames_just_2001}, for when and how to intervene with instructions.}
