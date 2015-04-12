@@ -3,8 +3,17 @@
 \usepackage{glossaries}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage[pdftex,draft]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage{algpseudocode}
+% \usepackage{enumitem}
 \input{macros}
 \makeglossaries
+
+\ifCLASSOPTIONcompsoc
+  \usepackage[tight,normalsize,sf,SF]{subfigure}
+\else
+  \usepackage[tight,footnotesize]{subfigure}
+\fi
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -41,7 +50,7 @@ Email: person@url.org}
 \input{introduction}
 \input{relatedwork}
 \input{scenario}
-\input{preliminary}
+% \input{preliminary}
 \input{data}
 \input{design}
 \input{evaluation}

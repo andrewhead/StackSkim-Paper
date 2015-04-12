@@ -1,55 +1,19 @@
-\section{Using \systemname{}}
+\section{How to Tutor On!  Writing and Using Tutorial Augmentations}
 
-\andrew{Create some graphics here of tutorials before and after tutoroids, \emph{highlighting} the text that is created by tutoroids.}.
+\subsection{Writing a CSS \gls{name}}
 
-\subsection{Following tutorials augmented with \glspl{name}}
+A W3C developer uses a CSS parser from collaboration with a browser.
+He finds a sampling of CSS selectors used on tutorials by scraping the web.
+Then he develops a tree walker that produces descriptions of these selectors.
+He boots up a server that runs this code.
+The web API for the machine takes blocks of code, extracts selectors, and returns descriptions with index positions of the selectors in the text.
 
-\user{} decides that \userpro{} wants to set up a web scraper that collects the top music albums on Amazon.com every day and save the data to a text file.
-\userpro{} has never written a scraper before, but has used Python for scientific programming, so \userpro{} feels pretty confident \userpro{} can pick up this skill pretty quickly with the right guide.
-\userpro{} opens up \userpos{} browser to Google, and types in `Python web scraping' as the query.
-After scanning the results, \userpro{} selects the page titled ``Web Scraping 101 with Python''\footnote
-{This is an actual tutorial hosted online at \url{http://www.gregreda.com/2013/03/03/web-scraping-101-with-python/}}.
+\subsection{Using a \gls{name}}
 
-Well, things don't get off to the best start.
-\andrew{Probably this should begin with a programming example to show the real essence of \glspl{name}.
-Then we could add a note about more qualitative, background-type stuff like starting Terminal after this discussion.}
-\user{} typically uses IDLE, but this tutorial asks the user to open up the Terminal.
-And it's looking like the tutorial follows some steps that uses Terminal in a way that \userpro{} should probably follow --- \userpro{}'s not sure how to do \emph{setup easy\_install} or \emph{pip install} from IDLE.
-After looking around in LaunchPad for a bit, \userpro{} can't find Terminal and isn't sure what to do next.
-\userpro{} clicks on the phrase \emph{open up Terminal} in the text, and sees an extra sentence get added beneath the current paragraph.
-\andrew{Put a figure here.}
-It reads ``If on OSX Mavericks or later, click on the LaunchPad icon in the dock, click on the icon that reads `Other' on the first page, and choose `Terminal' from the list that appears.''
-
-\andrew{Can we emphasize developers making each others' documentation more effective?}
-
-\subsection{Using \gls{name}-augmented tutorials as starting points}
-
-Of course, just following the tutorial is enough.
-Sure, \user{} can folow the guidelines in the tutorial and now understands how the author scraped data from the \emph{Chicago Reader's Best of 2011} list.
-But \user's original task was to scrape top albums from Amazon.com.
-It's time for him to start sleuthing to find out how he can adapt the author's final code to his own purposes.
-
-\andrew{What if we can do chaining to the extent where \user{} can understand how to use CSS selectors instead of ``lxml" from start to finish, even though CSS isn't mentioned in the original tutorial?}
-\andrew{Can we produce argument-mining from the web, where we look for common arguments, and potentially descriptions on the web, for providing something like all the possible parsing formats (`lxml', `css') for initializing BeautifulSoup?}
-
-\subsection{Writing a \gls{name}}
-
-\subsubsection{One-off authoring}
-
-Users select right click a point in the text where they want to intervene.
-The text immediately becomes editable.
-While users are unable to delete any existing text, they can add any text that they want.
-However, they are limited to doing so in \emph{300 characters or less}.
-\andrew{This might be absurd, but it's interesting to think about how we can limit users to playing well within the original tutorial.}
-\andrew{Also, perhaps these user-initiated markups should be optional notes, like the highlights and comments you can see from Kindle --- hide them away but let users know that they're there if they're facing errors.}
-In the future, sites could choose to include setup scripts that enable them to be user-editable.
-For now, we implement this through a guerilla-editing perspective -- anyone with the \Glspl{name} extension can edit pages in a way that can be seen by anyone else with the extension.
-
-\subsubsection{Writing general-purpose \glspl{name}}
-
-You have to define 4 different parts:
-First, define a rule to detect the use of the skill in the code.
-Second, define (optional) rules to detect description of the skill in the text.
-\andrew{Probably this will be a trick we show at the end of the paper instead of up front, as a feasibility confirmation and a call out to future work.}
-Third, define natural language generation rules.
-Fourth, define the place in a tutorial that you would like to place the augmentation.
+A programming learner is confused when in a tutorial.
+She sees syntax that she doesn't recognize.
+While she skims over it at first, she's scraping a different document than the tutorial is using, and realizes that hers is not finding any content.
+She highlights the text of a line that she doesn't fully understand.
+It tells her the line uses CSS and there is no reason to worry.
+This selectors chooses links from containers of class `klazz'.
+She now knows that she should modify her CSS selectors to get her scraper to work.
