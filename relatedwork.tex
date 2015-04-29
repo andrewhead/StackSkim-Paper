@@ -1,5 +1,14 @@
 \section{Related Work}
 
+\andrew{Include the following papers:
+\begin{itemize}
+\item Active Code Completion: library-specific visualizations of code structures
+\item O'Rourke's ``Framework for Automatically Generating Interactive Instructional Demonstrations''
+\item Gidget: providing feedback, explanations and prompts to an end-user programmer in a way that they will use them
+\item PythonTutor: visualizaing program execution
+\item An Interactive System for Data Structure Development: visualizing arbitrary pointer-based data structures
+\end{itemize}
+}
 \andrew{What about commercial systems?}
 
 The most closely related topic to our research is helping programmers use online tutorials.
@@ -8,17 +17,6 @@ Then we consider similar work in understanding and building tools for end-user p
 as well as generating and augmenting tutorials.
 
 \subsection{Helping Programmers Use the Web to Solve Problems}
-
-Recent studies have explored programmers' practice of opportunistic programming~\cite{brandt_two_2009}\cite{brandt_example-centric_2010}\cite{hartmann_hacking_2008}.
-
-Still, both experienced programmers~\cite{duala-ekoko_asking_2012} and end-user programmers~\cite{dorn_lost_2013}\cite{dorn_learning_2010}\cite{rosson_everyday_2004} struggle to leverage web documentation to solve programming problems.
-\andrew{TODO: read~\cite{dorn_learning_2010}\cite{rosson_everyday_2004}.}
-
-Formally, we can look at these programming challenges as Ko et al.'s end-user programming learning barriers~\cite{ko_six_2004}.
-For example, users may encounter the $selection$ barriers when trying to find APIs that will help them perform new tasks.
-When troubleshooting the program, they may face the $understanding$ barrier to debug system output, or the $information$ barrier to try to learn more about silent failures.
-Furthermore, programmers who develop a poor mental model of programming techniques~\cite{winslow_programming_1996} that they find online may find this to be an impediment during later learning.
-\andrew{Make sure we're not misquoting the Winslow reference.}
 
 Over the last couple of decades, a variety of systems and tools have been developed to support programmer learning in the wild
 (i.e. outside the on-campus or online classroom).
@@ -30,11 +28,10 @@ ScriptABLE~\cite{dorn_scriptable_2011} wraps online tutorials as `informal learn
 \andrew{Is this actually for programming tasks or just general tasks?}
 
 Additionally, researchers have recommended strategies for improving supporting debugging and development tasks.
+Most closely related, Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors better understand how to construct similar pages.
 Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non-programmers to understand unfamiliar code in the Storytelling Alice programming environment.
 \andrew{double check}.
 In the same line of inquiry, Gross et al. present Dinah~\cite{gross_dinah_2011} to help non-programmers select code for reuse based on its graphical output instead of the source alone.
-Grigoreanu~\cite{grigoreanu_end-user_2012} recommend two strategies for sensemaking during end-user debugging.
-Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors better understand how to construct similar pages.
 The Whyline~\cite{ko_designing_2004} answers programmers `why did' questions about program behavior in terms of runtime events in the Alice programming environment.
 
 \subsection{Generating and Augmenting Tutorials}
@@ -46,7 +43,6 @@ Given users' growing dependence on tutorials for learning how to perform workflo
 As the number of tutorials accessible to learners grows, it is increasingly important to understand the structure and semantics of tutorial content to enable users to compare workflows and so that tutorials can be more easily augmented with interactivity.
 Lau et al.~\cite{lau_interpreting_2009} produce keyword, grammar, and machine learning-based methods for determining segments of how-to instruction text that describe web application interactions.
 Fourney et al.~\cite{fourney_then_2012} develop a method for detecting references to UI elements within tutorial text.
-With a corpus of 35 documents from GIMP documentation, they achieve an F1-score of 0.81 for classifying words as labels for widgets.
 \andrew{Does citation go at end of sentence or by the author name?}
 Delta~\cite{kong_delta_2012} and Sifter~\cite{pavel_browsing_2013} extract commands from tutorials for creative tools.
 User interfaces for these systems enable users to compare multiple workflows that have the same goal.

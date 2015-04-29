@@ -1,6 +1,6 @@
 \section{Discussion}
 
-Systems like Google and StackOverflow already satisfy many users' queries.
+Systems like Google and StackOverflow already satisfy users' queries.
 However, learning a new workflow or procedure with new libraries is still challenging for programmers.
 One cause of this is the new vocabulary required.
 The other is the short time frame and high expectations programmers have of training material.
@@ -25,3 +25,28 @@ For the formal in-lab study, this includes C.
 Ultimately, we see a future where documents and community-sourced feedback can be quickly and, in some cases, automatically connected to make more usable documentation for users that need to rapidly acquire new skills.
 While Wikipedia has started this vision with densely hyperlinked pages, we believe this is only one way to connect resources, and is currently applied only to a closed set of documents.
 \Glspl{name} represent and exploratory step towards more seamless integration of disparate documentation and application of community-sourced knowledge across the wild web of learning resources.
+
+\section{Design Space}
+
+In its current form, \glspl{name} can support simple grammars.
+It supports authoring and well as comprehension tasks (Figure~\ref{fig:design_space}).
+The users in the \glspl{name} ecosystem are developers writing adaptive documentation, authors of tutorial content, or readers of tutorials.
+
+\begin{figure}
+\centering{
+    \includegraphics[width=.4\textwidth]{figures/design_space}
+}
+\caption{
+The design space of \glspl{name}.  We highlight in color the portion of the design space that we consider in this paper.
+\andrew{This design space is supposed to highlight principles and examples, but not procedures in the instructions row.}
+}
+\label{fig:design_space}
+\end{figure}
+
+\section{Implementation}
+
+Custom were written in ANTLR\footnote{\url{http://www.antlr.org/}} (wget, CSS).
+External libraries generate descriptions\footnote{\url{http://rick.measham.id.au/paste/explain.pl}} and visualizations\footnote{\url{http://regexper.com/}} of regular expressions.
+We use the SimpleNLG\footnote{\url{https://code.google.com/p/simplenlg/}} Java library to generate natural language descriptions.
+Descriptions are served up via servers written in Django\footnote{\url{https://www.djangoproject.com/}}.
+We develop the Firefox addon with the Firefox Add-Ons API\footnote{\url{https://developer.mozilla.org/en-US/Add-ons/SDK}}.
