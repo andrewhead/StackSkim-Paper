@@ -1,17 +1,10 @@
 \section{Preliminary Study}
 
-\andrew{
-A past version of this section with preliminary, informal interviews mentioned pitfalls using wild code:
-unexpected runtime consequences, unclear instructions, version problems, red herrings finding bugs, code that doesn't follow best practices.
-The past version also described frequency of use of different types of materials online, but was only collected for 5-10 programmers with wildly different programming backgrounds.
-Probably that should be replaced with a larger-scale study.
-Most of these findings have come from preliminary interviews.
-These should be replaced with findings from official formative interviews and studies.
-}
+\andrew{Do the following studies.}
+\begin{itemize}
+\item Through an inspection of the top 200 most-viewed posts on StackOverflow, we find 10 \emph{micro-languages} that are not included as tags of the post, but that are used incidentally, including command lines, SQL, and regular expressions.
+\item In addition, out of 100 top-rated posts related to Python that include regular expressions, we found that 50\% did not include any description of what the regular expression was doing, and 75\% provided a concise description or less.
+(We can do the same for CSS in jQuery selections.)
+\end{itemize}
 
-We preform a study where we show $N=20$ programmers popular tutorials in a language they are familiar with.
-We show each programmer 10 tutorials and ask them to mark 3 locations in the tutorial where they want more information.
-We could do this through Amazon Mechanical Turk, some free-lancing site, or maybe even with an programming learning community online (MOOC classroom) to know the current stage of experience of the users and have them complete the experiment online.
-
-We end up with about 600 marked sections in tutorials of where additional clarification would be helpful.
-We determine how many of the marked sections overlap with another request in a different tutorial and the tools, APIs and components that programmers want to learn more about.
+For users who find code with unexplained languages and syntax, we propose that we can reduce the cost of looking up supplemental information that explains these micro-languages by automatically generating relevant explanations of this code on the fly.
