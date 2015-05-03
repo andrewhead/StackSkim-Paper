@@ -1,20 +1,23 @@
 \section{Related Work}
 
-\andrew{Include the following papers:
-\begin{itemize}
-\item Active Code Completion: library-specific visualizations of code structures
-\item O'Rourke's ``Framework for Automatically Generating Interactive Instructional Demonstrations''
-\item Gidget: providing feedback, explanations and prompts to an end-user programmer in a way that they will use them
-\item PythonTutor: visualizaing program execution
-\item An Interactive System for Data Structure Development: visualizing arbitrary pointer-based data structures
-\end{itemize}
-}
-\andrew{What about commercial systems?}
+\subsection{Automatically Generating Code Explanations}
 
-The most closely related topic to our research is helping programmers use online tutorials.
-We discuss this topic first.
-Then we consider similar work in understanding and building tools for end-user programmers,
-as well as generating and augmenting tutorials.
+\andrew{TODO: read all in this paragraph.}
+A great deal of work has been done in the last five years automatically generating natural language explanations of code~\cite{sridhara_automatically_2011,burden_natural_2011,sridhara_towards_2010,kamimura_towards_2013,mcburney_automatic_2014,sridhara_generating_2011,haiduc_supporting_2010,moreno_automatic_2013}.
+Similar to this work, our system takes code as input and provides a natural language description of the procedures followed.
+
+In our own research, we leverage insights from this past work that has focused on improving software maintenance tasks.
+Our ultimate goal is to help end user and novice programmers understand short snippets of unfamiliar code online.
+We believe we are the first to examine the problem of explaining code in this light.
+This problem is challenging in its own right.
+First, we examine syntactic patterns of micro-language structure beyond Java and recommend methods to explain these languages.
+Second, we introduce a method of planning and implementing explanations of multiple levels of detail based on usage information mined from the web.
+
+PythonTutor visualizes program output for arbitrary Python programs~\cite{guo_online_2013}.
+\andrew{An Interactive System for Data Structure Development: visualizing arbitrary pointer-based data structures}
+Outside of programming, O'Rourke et al.'s automatically generating interactive instructional demonstrations that interleaves natural language explanations of procedural steps of math problems in code for problem-solving algorithms.~\cite{orourke_framework_2015}.
+Similarly, we envision \gls{name} developers opportunistically making use of existing parsing code to build syntax trees or lists of arguments that can be used to generate explanations.
+\andrew{Active Code Completion: library-specific visualizations of code structures.}
 
 \subsection{Helping Programmers Use the Web to Solve Problems}
 
@@ -33,34 +36,3 @@ Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non
 \andrew{double check}.
 In the same line of inquiry, Gross et al. present Dinah~\cite{gross_dinah_2011} to help non-programmers select code for reuse based on its graphical output instead of the source alone.
 The Whyline~\cite{ko_designing_2004} answers programmers `why did' questions about program behavior in terms of runtime events in the Alice programming environment.
-
-\subsection{Generating and Augmenting Tutorials}
-
-Given users' growing dependence on tutorials for learning how to perform workflows in creative tools, programming, and beyond, there has been recent interest in understanding, generating and automatically augmenting tutorials.
-
-\subsubsection{Understanding tutorial content}
-
-As the number of tutorials accessible to learners grows, it is increasingly important to understand the structure and semantics of tutorial content to enable users to compare workflows and so that tutorials can be more easily augmented with interactivity.
-Lau et al.~\cite{lau_interpreting_2009} produce keyword, grammar, and machine learning-based methods for determining segments of how-to instruction text that describe web application interactions.
-Fourney et al.~\cite{fourney_then_2012} develop a method for detecting references to UI elements within tutorial text.
-\andrew{Does citation go at end of sentence or by the author name?}
-Delta~\cite{kong_delta_2012} and Sifter~\cite{pavel_browsing_2013} extract commands from tutorials for creative tools.
-User interfaces for these systems enable users to compare multiple workflows that have the same goal.
-\andrew{Does Delta actually extract features, or rely upon manual labels?}
-\andrew{I'm positive there's work here that I've missed.}
-
-\subsubsection{Authoring, generating, and improving tutorials}
-
-As authoring helpful tutorials is a non-trivial task requiring time and effort, recent work has sought to produce guidelines and techniques for automatically generating rich, useful tutorials.
-Ginosar et al.~\cite{ginosar_authoring_2013} built a framework for easing the creation and editing of multi-stage programming tutorials.
-Harms et al.~\cite{harms_automatically_2013} enable middle school programming learners to generate tutorials from code snippets.
-Tools have been created for the creation of step-by-step mixed media tutorials~\cite{chi_mixt_2012}, instructional videos for physical demonstrations~\cite{chi_democut_2013}, and graphic design workflows~\cite{grossman_chronicle_2010}.
-\andrew{I'm positive there's work here that I've missed.}
-
-There has been interest in leveraging the online community to improve existing online tutorials.
-Two methods proposed for this include labeling subgoals in how-to videos~\cite{kim_learnersourcing_2013} and linking a tutorial to alternate demonstrations~\cite{lafreniere_community_2013}.
-\andrew{TODO read~\cite{kim_learnersourcing_2013}\cite{lafreniere_community_2013}.}
-Similar to this past line of research, we seek methods for augmenting existing tutorials.
-To our knowledge, we are the first to ask how automic community tutorial maintenance efforts can be applied beyond the current tutorial to the a body of related online tutorials.
-
-Similar to our system, the commercial browser extension Diigo\footnote{\url{www.diigo.com}} lets users mark up HTML web pages with persistent comments and socially share these comments.
