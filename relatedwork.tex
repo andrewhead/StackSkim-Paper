@@ -1,6 +1,8 @@
 \section{Related Work}
 
-\subsection{Automatically Generating Code Explanations}
+Most closely related, Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors learn how to construct similar elements on their own web pages.
+Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non-programmers to understand unfamiliar code in the Storytelling Alice programming environment.
+\andrew{This needs a better explanation.}
 
 \andrew{TODO: read all in this paragraph.}
 A great deal of work has been done in the last five years automatically generating natural language explanations of code~\cite{sridhara_automatically_2011,burden_natural_2011,sridhara_towards_2010,kamimura_towards_2013,mcburney_automatic_2014,sridhara_generating_2011,haiduc_supporting_2010,moreno_automatic_2013}.
@@ -13,26 +15,14 @@ This problem is challenging in its own right.
 First, we examine syntactic patterns of micro-language structure beyond Java and recommend methods to explain these languages.
 Second, we introduce a method of planning and implementing explanations of multiple levels of detail based on usage information mined from the web.
 
+Additionally related to the problem of explaining code are the following systems.
 PythonTutor visualizes program output for arbitrary Python programs~\cite{guo_online_2013}.
 \andrew{An Interactive System for Data Structure Development: visualizing arbitrary pointer-based data structures}
 Outside of programming, O'Rourke et al.'s automatically generating interactive instructional demonstrations that interleaves natural language explanations of procedural steps of math problems in code for problem-solving algorithms.~\cite{orourke_framework_2015}.
 Similarly, we envision \gls{name} developers opportunistically making use of existing parsing code to build syntax trees or lists of arguments that can be used to generate explanations.
 \andrew{Active Code Completion: library-specific visualizations of code structures.}
 
-\subsection{Helping Programmers Use the Web to Solve Problems}
-
-Over the last couple of decades, a variety of systems and tools have been developed to support programmer learning in the wild
-(i.e. outside the on-campus or online classroom).
-Some of these are general purpose tools to promote problem solving and self-led informal learning.
+We also see our work supporting a larger effort to help programmers make use of and learn how to program in unstrutured, out-of-classroom contexts.
+\andrew{Elaborate on the lessons learned from each of these projects}.
 The Idea Garden~\cite{cao_barriers_2012}\cite{cao_end-user_2013} provokes users to answer solve their own problems by asking 3 types of questions designed to help them think and seek new information productively.
-\andrew{be specific.}
 ScriptABLE~\cite{dorn_scriptable_2011} wraps online tutorials as `informal learning cases' to improve users' abilities to take lessons away from them. 
-\andrew{be specific.}
-\andrew{Is this actually for programming tasks or just general tasks?}
-
-Additionally, researchers have recommended strategies for improving supporting debugging and development tasks.
-Most closely related, Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors better understand how to construct similar pages.
-Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non-programmers to understand unfamiliar code in the Storytelling Alice programming environment.
-\andrew{double check}.
-In the same line of inquiry, Gross et al. present Dinah~\cite{gross_dinah_2011} to help non-programmers select code for reuse based on its graphical output instead of the source alone.
-The Whyline~\cite{ko_designing_2004} answers programmers `why did' questions about program behavior in terms of runtime events in the Alice programming environment.

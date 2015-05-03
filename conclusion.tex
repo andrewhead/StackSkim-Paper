@@ -1,9 +1,8 @@
 \section{Conclusion}
 
-Programmers frequently turn to tutorials to learn frameworks and find new approaches to solving problems.
-However, today's ``wild'' blog-based tutorials can contain pitfalls, errors, and underexplained concepts that require programmers to spend time looking up external documentation and debugging errors others have already encountered.
-While the value of community cultivation and maintenance of knowledge bases and annotations on the web is well-explored, we suggest that \emph{code-centered markup} of the web enables new ways of detecting pitfalls, generating custom help, and sharing information.
-In this paper, we describe \Glspl{name} framework, a system for community-led augmentation and maintenance of programming tutorial documentation.
-By implementing a variety of \Gls{name} generators, we outline a design space of tools for code-based online tutorial augmentations, from Simple \Glspl{name} for trivial in-browser code annotation, to Power \Glspl{name} for automatically generating explanations of code fragments found anywhere on the web.
-Through an in-lab qualitative study, we demonstrate that community-sourced \Glspl{name} can be fast to create and enable significant time savings for tutorial readers.
-With a quantitative analysis of Power \Glspl{name}, we show that automatic augmentations can reach across dozens of tutorials for key programming tasks.
+Programmers frequently turn to web to solve coding problems and find example code.
+However, code snippets in programming help contain unexplained concepts that require them to seek additional help.
+We propose language- and library- specific routines called \Glspl{name} that automatically generate \emph{on-demand, context-relevant} micro-explanations of code.
+A \gls{name} for a language parses a code snippet and generates in-situ natural language explanations.
+We demonstrate the technical effort required to build \glspl{name} by making explainers for CSS selectors, regular expressions, and command lines.
+Through a preliminary in-lab study with beginner web programmers, we show that our automatically-generated explanations improves users' ability to modify example code containing CSS selectors.
