@@ -1,8 +1,8 @@
 \section{How to build a \gls{name}}
 
-In the current incarnation of \glspl{name}, we intervene during programmers' web browser.
+In the current incarnation of \glspl{name}, we intervene during programmers' web browsing.
 Each \gls{name} or explainer for a language or library is implemented on a web server.
-When queried with the text of a web page, the \gls{name} detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
+When queried with the text of a web page, it detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
 These steps are decribed in detail below.
 
 \begin{figure}
@@ -13,9 +13,9 @@ These steps are decribed in detail below.
 \label{fig:explanation_pipeline}
 \end{figure}
 
-Programmers access explanation servers by triggering a \emph{bookmarklet} for the server, a short web script that can be embedded in the bookmarks bar (Figure~\ref{fig:click_bookmarklet}).
-This bookmarklet queries the server with the page source, and receives an explanation of all instances of the language.
-From then on, any time they select text for which an explanation has been generated, it will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).
+Programmers access explanations by triggering a \emph{bookmarklet} for the server, a short web script that can be embedded in the bookmarks bar (Figure~\ref{fig:click_bookmarklet}).
+This bookmarklet queries the server with the current page source, and receives an explanation of all instances of the language.
+From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).
 
 \begin{figure}
 \centering{
@@ -30,11 +30,21 @@ From then on, any time they select text for which an explanation has been genera
 }
 \end{figure}
 
-In a world where \glspl{name} were prevalent and many existed for each language and library, how would we make sure multiple \glspl{name} didn't try to explain the same code?
+In a world where \glspl{name} were prevalent and one or more existed for each language and library, how would we make sure multiple \glspl{name} didn't try to explain the same code?
 We expect that in future versions, users can manage languages and libraries they want to explain from a central configuration interface.
 Toolbars can be added to the browser to allow users to rapidly turn off explanations that they don't need.
 
-Detecting explainable code.
+A \gls{name} that resides on a server has to detect, parse and explain code.
+We take some time to describe each of the steps in further detail here to offer an overview of strategies for finding relevant code in a page and generating useful explanations.
+
+The \emph{detection} stage is tasked with extracting all code snippets that follow a language's grammar or a library's signatures from an HTML document.
+In our \gls{name} implementations, we reduce this to four steps.
+First, we extract all blocks of code from HTML pages contained in a \texttt{<pre>} or multi-line \texttt{<code>} element on the page.
+While not all online tutorials place code in these elements --- for instance, some post images of text files or nest it in a \texttt{<p>} or \texttt{<div>} --- we have found that a large number of tutorials and StackOverflow consistently formats code in this way.
+Second, we extract all single lines or string symbols in each block of code, depending on the language we want to explain.
+CSS selectors and regular expressions are often written as strings in larger Python or JavaScript programs, while command lines like wget contain a full line of code.
+Third, candidate lines or strings are passed through a language-specific parser or pattern matcher to find which ones follow the grammar.
+In an optional fourth step, the false positive detection rate can be reduced by filtering candidates to only those containing tokens highly representative of the language --- like searching for HTML tags in CSS selectors, or the \texttt{\textbackslash{}w}, \texttt{\textbackslash{}s}, or \texttt{\textbackslash{}d} symbols in regular expressions.
 
 Parsing code snippets.
 
