@@ -1,52 +1,43 @@
 \section{How to build a \gls{name}}
 
-Necessary terms: \emph{code chunk, bookmarklet, \gls{name}, explanation, language/library}
+In the current incarnation of \glspl{name}, we intervene during programmers' web browser.
+Each \gls{name} or explainer for a language or library is implemented on a web server.
+When queried with the text of a web page, the \gls{name} detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
+These steps are decribed in detail below.
 
-\subsection{Overview of \gls{name} Ecosystem}
+\begin{figure}
+\centering{
+    \includegraphics[width=.4\textwidth]{figures/explanation_pipeline}
+}
+\caption{\Glspl{name} \emph{detect} relevant code snippets, \emph{parse} them, and then \emph{generate explanations}.  Here we show examples of the output of each stage of the pipeline for a \gls{name} that explains CSS selectors.}
+\label{fig:explanation_pipeline}
+\end{figure}
 
-A \gls{name} can be written entirely as server-side code with a lightweight bookmarklet for the browser.
-From the browser side, a user downloads a \emph{\gls{name} bookmarklet} for a language or library: for example, CSS selectors.
-A bookmarklet is minified line of JavaScript that stored as a bookmark and executed by selecting the bookmark.
-They are used to store a users' commonly-used custom web scripts in a convenient, easy-to-access place.
-When a user navigates to a tutorial page, she activates the \gls{name} by clicking on the bookmarklet.
-All `explainable' instances of the language are highlighted.
-When the user clicks on one of these instances, she sees a tooltip-based explanation of the code appear.
-The bookmarklet can be written in several lines of JavaScript code and is the same for all \glspl{name} except for pointing to a unique server for that language or library.
+Programmers access explanation servers by triggering a \emph{bookmarklet} for the server, a short web script that can be embedded in the bookmarks bar (Figure~\ref{fig:click_bookmarklet}).
+This bookmarklet queries the server with the page source, and receives an explanation of all instances of the language.
+From then on, any time they select text for which an explanation has been generated, it will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).
 
-Most of the work of the \gls{name} is done on a server.
-When activated, the bookmarklet sends the contents of the page to a server.
-The server the performs the following steps with the uploaded content:
-\begin{itemize}
-\item The server \emph{detects} all instances of the library or language in code sections of the uploaded content
-\item It \emph{parses} detected strings of code
-\item Finally, it generates explanations of this code as HTML and SVGs that can be viewed as tooltips from the browser.
-\end{itemize}
-We explain each of these steps in detail in the section below.
+\begin{figure}
+\centering{
+    \subfigure[A user enables explanations by clicking on the bookmarklet to activate descriptions for the language or library.]{
+        \framebox{\includegraphics[width=.4\textwidth]{figures/click_bookmarklet}}
+        \label{fig:click_bookmarklet}
+    }
+    \subfigure[Once explanations are activated, users can view explanations for relevant snippets by just selecting their text.\andrew{Replace with non-third party explanation.}]{
+        \framebox{\includegraphics[width=.4\textwidth]{figures/explain_on_select}}
+        \label{fig:explain_on_select}
+    }
+}
+\end{figure}
 
-See Figure~\ref{fig:tutoron-architecture} for a diagram of the flow of information between the browser and the server.
+In a world where \glspl{name} were prevalent and many existed for each language and library, how would we make sure multiple \glspl{name} didn't try to explain the same code?
+We expect that in future versions, users can manage languages and libraries they want to explain from a central configuration interface.
+Toolbars can be added to the browser to allow users to rapidly turn off explanations that they don't need.
 
-\subsection{Components of a \gls{name}}
+Detecting explainable code.
 
-Describe the common underpinnings of all \glspl{name}: the detect, parse, augment pipeline.
-How do we decide what to show when there are many many \glspl{name} authored by many different people for similar concepts.
-We note that the pipeline may be deeper:
-You run detectors for many \glspl{name} and then mediate which ones to show based on e.g, specificity, and a model of the user’s knowledge.
-Also, we may just punt to the user to say ``these are the explanations available for this chunk -- you decide which one you want.''
+Parsing code snippets.
 
-We focus on the process of building a CSS explainer \gls{name}, to concretize the implementation efforts needed to write a \gls{name}.
+Generating explanations and HTML.
 
-\subsection{Detecting Explainable Code}
-
-\subsection{Parsing the Example}
-
-\subsection{Producing an Explanation}
-
-\andrew{Note: Margaret Burnett recommends personalizing suggestions and error messages with personal pronouns, a la Gidget.
-Can we work this into our recommendations for writing useful adaptive explanations?}
-
-\subsection{Design Space of Explanation Types}
-
-\andrew{Are there also restrictions on the types of code that we can read and process?}
-\andrew{Perhaps our workflow for most common wget arguments is also valid here for most common CSS selector elements.}
-
-Talk about the design space of \glspl{name} here, then in the examples reference which type of \gls{name} each example instantiates.
+Limitations on the types of code we can read and process.
