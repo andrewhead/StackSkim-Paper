@@ -1,8 +1,20 @@
 \section{Examples of \Glspl{name}}
 
-\subsection{Traversing syntax trees to describe code}
+Methods to detect, parse, and explain code snippets are \emph{dependent on the source language and on the desired explanation.}
+In this section, we describe how we design and implement 3 \glspl{name}, highlighting the implementation decisions core to generating useful explanations.
+Through these cases, we provide rationale for building custom parsers, and methods for generating usage examples and mining common usage scenarios from crowd documentation.
 
-We demonstrate an example of walking a syntax tree to generate a natural language description of a CSS selector in Figure~\ref{alg:css_traversal}.
+\subsection{CSS Selectors: Building a Custom Parser}
+
+CSS selectors appear in tutorials that use JavaScript to select elements, stylesheets, and web scrapers that extract data from web pages.
+We see them as an example of a micro-language frequently used in tandem with otherslanguages, but infrequently described in detail when it appears.
+One natural way to describe selectors is from inside out --- for example, \texttt{div a} could be described as ``select all links from all divs''.
+Tokens we frequently found in online documentation included elements, IDs, classes, and properties (like \texttt{href} for links).
+
+While we found an existing parser for CSS, this contained hundreds of lines of parse and lexer rules that covered all valid CSS, instead of the most common CSS.
+Since we already knew the method that we wanted to describe CSS selectors --- from inside out --- we built a parser generator in 21 lines of an ANTLR specification that would construct a tree of elements, where each element could be marked with an ID or a class.
+This provided us with a simple IR of our own specification that was simple to walk to provide the explanation we wanted.
+Pseudocode for generating natural language from walking the syntax tree is shown in Algorithm~\ref{alg:css_traversal}.
 
 \begin{figure}
 \begin{algorithmic}
@@ -30,12 +42,21 @@ We demonstrate an example of walking a syntax tree to generate a natural languag
 \end{algorithmic}
 \label{alg:css_traversal}
 \caption{Procedure for generating text description of a CSS selector by traversing the parse tree.
-\andrew{Note that a cheap shot here might be, how do we describe a node with both a class and ID?
-The lame answer is that we currently don't.}
 }
 \end{figure}
 
-\subsection{Mining and exposing hierarchy}
+\subsection{Regular expressions: Generating Demonstrations}
+
+Long regular expressions are cryptic even for expert readers to understand.
+We expect that in some contexts, providing readable examples of what strings will satisfy and fail to satisfy these patterns could help with comprehension of the regular expressions.
+We start by producing an \emph{urtext}, a base version that satisfies the regular expression.
+For each repeated group (not just a character) (* or +), we generate it exactly once to make sure that the group appears in the original best example.
+We print any literal exactly as it appears in the pattern.
+We choose on representative of each branch.
+Whenever we have a repeated sequence of alphanumeric characters (repeated by + or *), we choose a dictionary word 5 letters in length and append 2 numbers.
+In the future, we would like to implement in-place editors of regular expressions that enables real-time updating of these examples and checking user-defined test patterns.
+
+\subsection{\texttt{wget}: Mining Higher-Level Meaning of Tokens}
 
 \begin{figure}
 \centering{
@@ -45,10 +66,21 @@ The lame answer is that we currently don't.}
 }
 \end{figure}
 
+Command lines arguments are short for speed of typing, but recalling what each one does can be tricky.
+\andrew{There's a reference we can find the Inky paper.}
+\texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly if its short flag is used instead of its full name.
+
+We detect lines of \texttt{wget} by stripping whitespace and potential PS1 tokens from the start of lines, and then seeing if the line begins with `wget'.
+We pass detected lines to modified wget source code, which processes the arguments and outputs them as plaintext that we can read via Python.
+
+We noticed that for wget, the meaning of a command is often more than the sum of the value of its arguments.
+For examples, when \texttt{--user} and \texttt{--password} are used together, the caller is authenticating to access a restricted resource.
+By using \texttt{-A} and \texttt{-r} together, users can recursively scrape a site for files of a certain type.
+
+Here, we propose a workflow for extracting common use cases for commands with multiple arguments that should be explained as a unit instead of a `sum of parts'.
 Using StackOverflow, developers can mine combinations of parameters that mean more than the sum of individual parameters.
-For example, for \texttt{wget}, the combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
-\bjoern{This is really cool — does the technique apply generally to other types of tutorons?}
 Through a preliminary effort with \texttt{wget}, we showed that one can find reasonable combinations of arguments that should be described together by scraping and observing frequent combinations of arguments from commands scraped from StackOverflow (Figure~\ref{fig:wget_arguments}).
+For example, for \texttt{wget}, the combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
 
 Using this procedure, we can create explanations like those in (Figure~\ref{fig:so_wget_explanation}).
 An initial description may just contain an overview of what the command does as a whole, inferred from the combination of arguments.
@@ -61,43 +93,3 @@ However, asking for information can provide a detailed breakdown of how each opt
 \caption{\texttt{wget} arguments that frequently co-occur in uses of \texttt{wget} in StackOverflow questions. \andrew{A table would may be more readable here.}}
 \label{fig:wget_arguments}
 \end{figure}
-
-\subsection{Generating examples}
-
-\bjoern{Wait, there are so many different examples flying by right now.
-Would all tutorons use the  techniques in sub-sections A-D here? Or each tutoron just one? I’m a bit confused about the higher-level argument.}
-\bjoern{I think instead of showing a bunch of point examples that are all really  different from each other, we need to think about commonalities between them.
-Otherwise reviewers may wonder why there’s a regular expression sub-project described here that doesn’t connect to other examples.}
-We expect that similar approaches could be used to automically generate just-in-time exercises related to content of code in tutorials users are viewing. 
-\andrew{Some reference to related work in exercise generation here would be appropriate.}
-
-Long regular expressions are cryptic even for expert readers to understand.
-We expect that in some contexts, providing readable examples of what strings will satisfy and fail to satisfy these patterns could help with comprehension of the regular expressions.
-
-For the sake of showing that this concept would work, we determined guidelines for producing example strings that match a regular expression pattern.
-Although there is an unbound number of strings that satisfy regular expressions that have repetitions, we want to limit the number of results to a readable, representative group.
-We arbitrarily choose an ideal of 3-4 positive and 3-4 negative examples, though provide users the ability to request additional examples.
-
-Cursorily, the process of generating relevant examples is as follows.
-We start by producing an \emph{urtext}, a base version that satisfies the regular expression.
-For each repeated group (not just a character) (* or +), we generate it exactly once to make sure that the group appears in the original best example.
-We print any literal exactly as it appears in the pattern.
-We choose on representative of each branch.
-Whenever we have a repeated sequence of alphanumeric characters (repeated by + or *), we choose a dictionary word 5 letters in length and append 2 numbers.
-If there are any symbols in the character class for this word, we choose a random sample of 2 of these symbols.
-This forms our \emph{urtext}, which is the first positive example.
-
-We view each regular expression as a graph of \emph{branches}, \emph{choices}, \emph{repetitions}, and \emph{literals}.
-To create an alternative correct answer, we perform each just one operation to one node on top of the urtext:
-\begin{itemize}
-\item Flip a branch to choose a different child
-\item Choose an alternative dictionary word and sampling of numbers and symbols for word choices
-\item For + repetitions, toggle 1 repetition to 2.  For * repetitions, toggle 1 repetition to 0.
-\end{itemize}
-
-We generate alternative correct answers by performing one operation at each node, holding the rest of the tree at its urtext form.
-We suspect that altering only one part of the string while holding the rest constant will improve reader's ability to detect what change is acceptable for the string to satisfy the pattern.
-We choose the urtext and randomly sample 3 valid alternatives for the correct examples of a regular expression.
-Similarly, we alter one character or repetition at a time for each node to generate failure cases.
-
-In the future, we would like to implement in-place editors of regular expressions that enables real-time updating of these examples and checking user-defined test patterns.
