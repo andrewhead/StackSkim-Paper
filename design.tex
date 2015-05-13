@@ -1,10 +1,8 @@
 \section{How to build a \gls{name}}
 
-\marti{Overall, this section reads pretty well.  The main issue is schizophrenia about where the explanations come from.  The sentence below says they come from "us", but there are hints elsewhere about an authoring interface.}
-
-In the current incarnation of \glspl{name}, we intervene during programmers' web browsing.
-Each \gls{name} or explainer for a language or library is implemented on a web server.
-When queried with the text of a web page, it detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
+In the current incarnation of \glspl{name}, a documentation author writes a \gls{name} to adaptively describe relevant code programmers find while they browse the web.
+A \gls{name} is an engine for generating explanations or demonstrations of code for a specific language or library, accessible as a simple web API.
+When queried with the text of a web page, a \gls{name} detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
 These steps are decribed in detail below.
 
 \begin{figure}
@@ -14,13 +12,15 @@ These steps are decribed in detail below.
     \label{fig:explanation_pipeline}
 \end{figure}
 
-Programmers access explanations by installing a browser addon.  (Figure~\ref{fig:browser_tutorons_markup}).
-When enabled, the addon queries the explanation server with the current page source, and receives an explanation of all instances of the language.
-From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source.
+By installing an addon for the browser, a programmer receives instant access to explanations from \gls{name} servers, which can be viewed as in-situ descriptions of code found while browsing (Figure~\ref{fig:browser_tutorons_markup}).
+The addon queries existing \glspl{name} with the page source, receiving explanations of all instances of the language.
+After receiving explanations, an explanation will appear in a tooltip overlaid on the document directly beneath the source any time the programmer selects an explainable string of text.
+
+We call these explanations and demonstrations \emph{accelerators} given that they potentially increase the speed at which programmers can understand and make use of online code.
 The \Glspl{name} addon can query many explanation servers for multi-language support within the same page.
 In the future, we will allow users to switch off explanations for certain languages for which they do not want assistance.
 
-Note that the addon uses a \emph{push} method of fetching explanations rather than a \emph{pull} method --- it asks a server to detect all explainable instances of a language, instead of querying a server to attempt to explain the user's current selection.
+The addon uses a \emph{push} method of fetching explanations rather than a \emph{pull} method --- it asks a server to detect all explainable instances of a language, instead of querying a server to attempt to explain the user's current selection.
 This choice enables all explanations to be generated in a single batch when the user first accesses the page, reducing the load time to milliseconds instead of seconds to access explanations.
 Furthermore, this resolves the problem where a user's selection may not cover a complete statement of the syntax of a language.
 By pre-computing these explainable text regions, we can allow users to select explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
@@ -59,7 +59,7 @@ By pre-computing these explainable text regions, we can allow users to select ex
 }
 \end{figure}
 
-In a world where \glspl{name} were prevalent and one or more existed for each language and library, how would we make sure multiple \glspl{name} didn't try to explain the same code?
+In a world where \glspl{name} were prevalent and one or more existed for each language and library, what would prevent multiple \glspl{name} from explaining the same code?
 We expect that in future versions, users can manage languages and libraries they want to explain from a central configuration interface.
 Toolbars can be added to the browser to allow users to rapidly turn off explanations that they don't need.
 
@@ -67,7 +67,7 @@ A \gls{name} that resides on a server has to detect, parse and explain code.
 We take some time to describe each of the steps in further detail here to offer an overview of strategies for finding relevant code in a page and generating useful explanations.
 
 The \emph{detection} stage is tasked with extracting all code snippets that follow a language's grammar or a library's signatures from an HTML document.
-In our \gls{name} implementations, we reduce this to four steps.
+In our own \gls{name} implementations, we reduce this to four steps.
 First, we extract all blocks of code from HTML pages contained in a \texttt{<pre>} or multi-line \texttt{<code>} element on the page.
 While not all online tutorials place code in these elements --- for instance, some post images of text files or nest it in a \texttt{<p>} or \texttt{<div>} --- we have found that a large number of tutorials and StackOverflow consistently formats code in this way.
 Second, we extract all single lines or string symbols in each block of code, depending on the language we want to explain.
@@ -75,13 +75,13 @@ CSS selectors and regular expressions are often written as strings in larger Pyt
 Third, candidate lines or strings are passed through a language-specific parser or pattern matcher to find which ones follow the grammar.
 In an optional fourth step, the false positive detection rate can be reduced by filtering candidates to only those containing tokens highly representative of the language --- like searching for HTML tags in CSS selectors, or the \texttt{\textbackslash{}w}, \texttt{\textbackslash{}s}, or \texttt{\textbackslash{}d} symbols in regular expressions.
 
-In the \emph{parsing} stage, detected code snippets are parsed into an intermediate representation (IR). \marti{Only introduce acronyms when they really help.  I don't think this one is helpful.}
+In the \emph{parsing} stage, detected code snippets are parsed into an intermediate representation
 As programming languages necessarily have a parser, \gls{name} developers can use existing parsers as starting points.
 We have found two method of building parsers to be helpful.
 When supporting a frequently-used subset of a language, we recommend developing a lightweight parser using a parser generator like ANTLR\footnote{\url{www.antlr.org}}.
 Then the \gls{name} author can create IR in format is simple to traverse when building explanations.
 We found this workflow helpful when building an explainer of CSS selectors.
-Alternately, when it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors should modify existing parsers, introducing hooks for extracting the IR. \marti{Here is where the mythical author pops up.}
+Alternately, when it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors should modify existing parsers, introducing hooks for extracting the IR.
 For example, while writing a \gls{name} for \texttt{wget}, we avoided replicating complex command line parsing rules by modifying the source to simply parse the command line options and pipe these to a Python-based explanation script.
 
 Finally, in the \emph{explanation} stage, IR is converted into natural language explanations.
