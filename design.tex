@@ -2,34 +2,60 @@
 
 \marti{Overall, this section reads pretty well.  The main issue is schizophrenia about where the explanations come from.  The sentence below says they come from "us", but there are hints elsewhere about an authoring interface.}
 
-
 In the current incarnation of \glspl{name}, we intervene during programmers' web browsing.
 Each \gls{name} or explainer for a language or library is implemented on a web server.
 When queried with the text of a web page, it detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
 These steps are decribed in detail below.
 
 \begin{figure}
-\centering{
+\centering
     \includegraphics[width=.4\textwidth]{figures/explanation_pipeline}
-}
-\caption{\Glspl{name} \emph{detect} relevant code snippets, \emph{parse} them, and then \emph{generate explanations}.  Here we show examples of the output of each stage of the pipeline for a \gls{name} that explains CSS selectors.}
-\label{fig:explanation_pipeline}
+    \caption{\Glspl{name} \emph{detect} relevant code snippets, \emph{parse} them, and then \emph{generate explanations}.  Here we show examples of the output of each stage of the pipeline for a \gls{name} that explains CSS selectors.}
+    \label{fig:explanation_pipeline}
 \end{figure}
 
-Programmers access explanations by triggering a \emph{bookmarklet} for the server, a short web script that can be embedded in the bookmarks bar (Figure~\ref{fig:click_bookmarklet}).
-This bookmarklet queries the server with the current page source, and receives an explanation of all instances of the language.
-From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).   \marti{Why not have an option to have everything automagically recognized, no matter what the type, rather than making me specify every type?  And then let me say, e.g., "no more sql" when the occasion arises?}
+Programmers access explanations by installing a browser addon.  (Figure~\ref{fig:browser_tutorons_markup}).
+When enabled, the addon queries the explanation server with the current page source, and receives an explanation of all instances of the language.
+From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source.
+The \Glspl{name} addon can query many explanation servers for multi-language support within the same page.
+In the future, we will allow users to switch off explanations for certain languages for which they do not want assistance.
+
+Note that the addon uses a \emph{push} method of fetching explanations rather than a \emph{pull} method --- it asks a server to detect all explainable instances of a language, instead of querying a server to attempt to explain the user's current selection.
+This choice enables all explanations to be generated in a single batch when the user first accesses the page, reducing the load time to milliseconds instead of seconds to access explanations.
+Furthermore, this resolves the problem where a user's selection may not cover a complete statement of the syntax of a language.
+By pre-computing these explainable text regions, we can allow users to select explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
+
+\begin{figure}
+    \centering
+    \framebox{\includegraphics[width=.4\textwidth]{figures/browser_tutorons_markup}}
+    \label{fig:browser_tutorons_markup}
+    \caption{A user installs the \Glspl{name} addon.  \emph{(a)} Once she activates it, \emph{(b)} she can view automatically-generated, context-relevant explanations of code of supported languages in-situ while she browses programming help.}
+\end{figure}
 
 \begin{figure}
 \centering{
-    \subfigure[A user enables explanations by clicking on the bookmarklet to activate descriptions for the language or library.]{
-        \framebox{\includegraphics[width=.4\textwidth]{figures/click_bookmarklet}}
-        \label{fig:click_bookmarklet}
+    \subfigure[The CSS selector.]{
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_best}}
+        \label{fig:selection_best}
     }
-    \subfigure[Once explanations are activated, users can view explanations for relevant snippets by just selecting their text.\andrew{Replace with non-third party explanation.}]{
-        \framebox{\includegraphics[width=.4\textwidth]{figures/explain_on_select}}
-        \label{fig:explain_on_select}
+    \subfigure[The CSS selector with quotes.]{
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_quotes}}
+        \label{fig:selection_quotes}
     }
+    \subfigure[A jQuery selection.]{
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_jquery}}
+        \label{fig:selection_jquery}
+    }
+    \subfigure[A sloppy selection.]{
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_sloppy}}
+        \label{fig:selection_sloppy}
+    }
+    \caption{
+    The \Glspl{name} addon activates explanations for code when a user selects text.
+    While explainable code fragments pre-computed on an explanation server, the addon enables users to view explanations with fuzzy selections.
+    This lets them view hints without knowing the exact syntactic boundaries of the code they want to have described.
+    }
+    \label{fig:fuzzy_boundaries}
 }
 \end{figure}
 
