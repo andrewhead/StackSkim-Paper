@@ -1,10 +1,14 @@
 \section{Evaluation}
 
-We perform two evaluations.
-The first informal study examines the user experience of developing one-off \glspl{name}, general-purpose \glspl{name}, and interactions for accessing additional information through \glspl{name} as a tutorial reader.
-The second, formal in-lab study verifies hypotheses including:
-\noindent
-\begin{enumerate}%[label=\textbf{H\arabic*.}, ref=H\arabic*, leftmargin=*]
-\item Users find \glspl{name} generate helpful, relevant explanations.
-\item Users without familiarity with the grammars described by \glspl{name} gain better conceptual understanding.
-\end{enumerate}
+We conduct a 12-subject within-subjects study to demonstrate that \gls{name}-generated explanations of code can be helpful for understanding code snippets and transferring this understanding to new coding tasks.
+In a screening survey, we verify that subjects may have some experience programming, but no past past exposure to CSS selectors or wget on the command line.
+
+Subjects performed 4 tasks of adapting existing code found in StackOverflow snippets to an alternate but very related purpose.
+For example, we have users determine how to scrape a web page for JPEG, given a code snippet that scrapes the web for PDFs.
+We provide 2 tasks using wget and CSS selectors each, with one task for each task type accompanied by a \gls{name}-generated explanation that describes the code snippet.
+Participants are \emph{not} allowed to access additional web resources beyond the current web page.
+For each task, we measure whether users complete the task and the time to completion. 
+
+We show that there is a statistically significant rate of increase in completion rate for code modification tasks accompanied by \gls{name}-generated explanations.
+This affirms the value of \gls{name} as in-situ explanations of code.
+Future studies can determine the frequency that novice and end-user programmers seek addi

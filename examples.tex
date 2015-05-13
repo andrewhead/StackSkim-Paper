@@ -7,14 +7,14 @@ Through these cases, we provide rationale for building custom parsers, and metho
 \subsection{CSS Selectors: Building a Custom Parser}
 
 CSS selectors appear in tutorials that use JavaScript to select elements, stylesheets, and web scrapers that extract data from web pages.
-We see them as an example of a micro-language frequently used in tandem with otherslanguages, but infrequently described in detail when it appears.
+We see them as an example of a micro-language frequently used in tandem with other languages, but infrequently described in detail when it appears.
 One natural way to describe selectors is from inside out --- for example, \texttt{div a} could be described as ``select all links from all divs''.
 Tokens we frequently found in online documentation included elements, IDs, classes, and properties (like \texttt{href} for links).
 
 While we found an existing parser for CSS, this contained hundreds of lines of parse and lexer rules that covered all valid CSS, instead of the most common CSS.
 Since we already knew the method that we wanted to describe CSS selectors --- from inside out --- we built a parser generator in 21 lines of an ANTLR specification that would construct a tree of elements, where each element could be marked with an ID or a class.
 This provided us with a simple IR of our own specification that was simple to walk to provide the explanation we wanted.
-Pseudocode for generating natural language from walking the syntax tree is shown in Algorithm~\ref{alg:css_traversal}.
+Pseudocode for generating natural language from walking the syntax tree is shown in Algorithm~\ref{alg:css_traversal}.  \marti{Why does this numbering system not match the figure numbering system?  Also, I'd like to see some sample output here.}
 
 \begin{figure}
 \begin{algorithmic}
@@ -49,10 +49,10 @@ Pseudocode for generating natural language from walking the syntax tree is shown
 
 Long regular expressions are cryptic even for expert readers to understand.
 We expect that in some contexts, providing readable examples of what strings will satisfy and fail to satisfy these patterns could help with comprehension of the regular expressions.
-We start by producing an \emph{urtext}, a base version that satisfies the regular expression.
+We start by producing an \emph{urtext}, a base version that satisfies the regular expression. \marti{Really need to define urtext (great term).}
 For each repeated group (not just a character) (* or +), we generate it exactly once to make sure that the group appears in the original best example.
 We print any literal exactly as it appears in the pattern.
-We choose on representative of each branch.
+We choose a representative of each branch.
 Whenever we have a repeated sequence of alphanumeric characters (repeated by + or *), we choose a dictionary word 5 letters in length and append 2 numbers.
 In the future, we would like to implement in-place editors of regular expressions that enables real-time updating of these examples and checking user-defined test patterns.
 
@@ -70,7 +70,7 @@ Command lines arguments are short for speed of typing, but recalling what each o
 \andrew{There's a reference we can find the Inky paper.}
 \texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly if its short flag is used instead of its full name.
 
-We detect lines of \texttt{wget} by stripping whitespace and potential PS1 tokens from the start of lines, and then seeing if the line begins with `wget'.
+We detect lines of \texttt{wget} by stripping whitespace and potential PS1 \marti{??} tokens from the start of lines, and then seeing if the line begins with `wget'.
 We pass detected lines to modified wget source code, which processes the arguments and outputs them as plaintext that we can read via Python.
 
 We noticed that for wget, the meaning of a command is often more than the sum of the value of its arguments.
@@ -79,10 +79,10 @@ By using \texttt{-A} and \texttt{-r} together, users can recursively scrape a si
 
 Here, we propose a workflow for extracting common use cases for commands with multiple arguments that should be explained as a unit instead of a `sum of parts'.
 Using StackOverflow, developers can mine combinations of parameters that mean more than the sum of individual parameters.
-Through a preliminary effort with \texttt{wget}, we showed that one can find reasonable combinations of arguments that should be described together by scraping and observing frequent combinations of arguments from commands scraped from StackOverflow (Figure~\ref{fig:wget_arguments}).
+Through a preliminary effort with \texttt{wget}, we showed that one can find reasonable combinations of arguments that should be described together by scraping and observing frequent combinations of arguments from commands scraped from StackOverflow \marti{Who is "one" and what is "reasonable"? (need to be more precise).} (Figure~\ref{fig:wget_arguments}).
 For example, for \texttt{wget}, the combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
 
-Using this procedure, we can create explanations like those in (Figure~\ref{fig:so_wget_explanation}).
+Using this procedure, we can create explanations like those in (Figure~\ref{fig:so_wget_explanation}). \marti{Weird figure numbering again, and the figure is too small to see.}
 An initial description may just contain an overview of what the command does as a whole, inferred from the combination of arguments.
 However, asking for information can provide a detailed breakdown of how each option affects the execution of the command.
 

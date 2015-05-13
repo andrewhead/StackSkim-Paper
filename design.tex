@@ -1,5 +1,8 @@
 \section{How to build a \gls{name}}
 
+\marti{Overall, this section reads pretty well.  The main issue is schizophrenia about where the explanations come from.  The sentence below says they come from "us", but there are hints elsewhere about an authoring interface.}
+
+
 In the current incarnation of \glspl{name}, we intervene during programmers' web browsing.
 Each \gls{name} or explainer for a language or library is implemented on a web server.
 When queried with the text of a web page, it detects instances of the language, parses them, and returns explanations for each one as formatted HTML that can be viewed in a tooltip.
@@ -15,7 +18,7 @@ These steps are decribed in detail below.
 
 Programmers access explanations by triggering a \emph{bookmarklet} for the server, a short web script that can be embedded in the bookmarks bar (Figure~\ref{fig:click_bookmarklet}).
 This bookmarklet queries the server with the current page source, and receives an explanation of all instances of the language.
-From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).
+From then on, any time they select text for that language, an explanation will appear in a tooltip overlaid on the document, directly beneath the source (Figure~\ref{fig:explain_on_select}).   \marti{Why not have an option to have everything automagically recognized, no matter what the type, rather than making me specify every type?  And then let me say, e.g., "no more sql" when the occasion arises?}
 
 \begin{figure}
 \centering{
@@ -46,18 +49,18 @@ CSS selectors and regular expressions are often written as strings in larger Pyt
 Third, candidate lines or strings are passed through a language-specific parser or pattern matcher to find which ones follow the grammar.
 In an optional fourth step, the false positive detection rate can be reduced by filtering candidates to only those containing tokens highly representative of the language --- like searching for HTML tags in CSS selectors, or the \texttt{\textbackslash{}w}, \texttt{\textbackslash{}s}, or \texttt{\textbackslash{}d} symbols in regular expressions.
 
-In the \emph{parsing} stage, detected code snippets are parsed into an intermediate representation (IR).
+In the \emph{parsing} stage, detected code snippets are parsed into an intermediate representation (IR). \marti{Only introduce acronyms when they really help.  I don't think this one is helpful.}
 As programming languages necessarily have a parser, \gls{name} developers can use existing parsers as starting points.
 We have found two method of building parsers to be helpful.
 When supporting a frequently-used subset of a language, we recommend developing a lightweight parser using a parser generator like ANTLR\footnote{\url{www.antlr.org}}.
 Then the \gls{name} author can create IR in format is simple to traverse when building explanations.
 We found this workflow helpful when building an explainer of CSS selectors.
-Alternately, when it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors should modify existing parsers, introducing hooks for extracting the IR.
+Alternately, when it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors should modify existing parsers, introducing hooks for extracting the IR. \marti{Here is where the mythical author pops up.}
 For example, while writing a \gls{name} for \texttt{wget}, we avoided replicating complex command line parsing rules by modifying the source to simply parse the command line options and pipe these to a Python-based explanation script.
 
 Finally, in the \emph{explanation} stage, IR is converted into natural language explanations.
 The structure of generated language is highly dependent on domain.
-For CSS selectors, it makes sense to perform pre-order tree traversal, describing selectors from descendant to anscestor.
+For CSS selectors, it makes sense to perform pre-order tree traversal, describing selectors from descendant to ancestor.
 Regular expressions can be described linearly, with branches at optional sub-patterns.
 Command lines can be described by explaining each of the arguments, with special explanations generated for typical combinations of arguments like \texttt{--user} and \texttt{--password}.
 As a \gls{name} generates HTML to be shown in a tooltip for each code snippet, it can optionally aesthetically emphasize key parts of the explanation.
