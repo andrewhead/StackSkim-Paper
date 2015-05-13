@@ -20,9 +20,18 @@ This distinguishes these explanations from getting-started guides and reference 
 Context relevance is defined uniquely for each \gls{name}, as we describe below.
 
 Such explanations can describe languages like CSS selectors and regular expressions.
-Each explainer is programmed with several hundred lines of code that parses some input code and generates natural language explanations.
-We show that they be integrated as bookmarklets into a programmer's browser to provide just-in-time explanations of a language, command or API anywhere on the web.
+Each explainer is programmed with several hundred lines of code that accepts some input document, detects relevant code, and generates natural language explanations or demonstrations of the code.
+We show that they can be built as standalone servers, accessible by a central addon in the programmer's browser to provide just-in-time explanations of a language, command or API anywhere on the web.
 With additional effort, \glspl{name} can generate text descriptions at multiple levels of detail, which we also demonstrate.
+
+Before proceeding, we introduce some terminology:
+\begin{itemize}
+\item A \emph{\gls{name}} is a routine on a web server with some language-specific rules for detecting, parse and explain source code written on a web page.
+\item An \emph{accelerator} is the output of a \gls{name} for a single explainable region of code: a formatted natural language explanation or demonstration of what the code does.  Accelerators are so named because they reduce the need for programmers to spend time searching for documentation to describe unfamiliar code.
+\item A \emph{code snippet} is a block of code on a page encompassed in a single DOM element --- e.g., a \texttt{<code>} or \texttt{<pre>} block --- that a programmer is taking effort to understand or reuse.
+\item An \emph{explainable region} is a substring of a code snippet that a \gls{name} can parse and explain --- e.g., the term \texttt{div} in the jQuery code \texttt{\$('div').css(\{'display': 'none'\})} is an explainable region for the CSS \gls{name}.
+\item The \emph{\Glspl{name} addon} is a browser extension for Firefox that automatically queries \glspl{name} for explanations and demonstrations of code, currently for CSS selectors and \texttt{wget}, that we use to show and evaluate the advantages of in-situ programming help.
+\end{itemize}
 
 Our contributions are as follows.
 First, we show a need for micro-explanations by exposing unexplained languages in code snippets from popular StackOverflow questions.
