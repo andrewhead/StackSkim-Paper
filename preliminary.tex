@@ -1,14 +1,18 @@
 \section{Preliminary Study}
 
-\andrew{Do the following studies. Numbers included below are optimistic placeholders.}
-\andrew{A table would be great to summarize these results.}
+How often do languages like regular expressions appear unexplained in online example code?
+We use a case study of a sample of server configuration posts on StackOverflow to develop an intution for this question.
+We turn to StackOverflow as, with over 9 million programmer questions, it is a large repository of shared programmer knowledge.\appachu{To develop an intuition of how unexplained snippets appear in online example code we turn to StackOverflow. With 9 million programmer questions, StackOverflow represents a large repository of shared programmer knowledge. We observe the use of unexplained regular expressions in posts about server configuration on StackOverflow as a case study.}
 
-StackOverflow is a popular online Q\&A site for programmers to ask and answer progrmaming problems, with more than 16 million answers to more than 9 million questions.
+Using StackOverflow's Data Explorer, we scrape the top tags that co-occur with the tag \texttt{regex}, meaning regular expression.
+We focus on tags names that correspond to higher-level goals or configuration tasks rather than language to understand what programming tasks can require regular expressions.
+Our query yielded \appachu{tags corresponding to} 4 common tasks with more than 800 shared posts: .htaccess (Apache server configuration), mod-rewrite (more Apache server configuration), parsing, and validation.
 
-\begin{itemize}
-\item Through an inspection of the top 200 most-viewed posts on StackOverflow, we find 10 \emph{micro-languages} that are not included as tags of the post, but that are used incidentally, including command lines, SQL, and regular expressions. \marti{unclear wording; also, do you want to mention wget explicitly here as a pointer forward?}
-\item In addition, out of 100 top-rated posts related to Python that include regular expressions, we found that 50\% did not include any description of what the regular expression was doing, and 75\% provided a concise description or less.\marti{do we want a bullet for command lines?}
-(We can do the same for CSS in jQuery selections.)
-\end{itemize}
+Posts including both the \texttt{.htaccess} and \texttt{regex} tags together include more than 1 million view over all time, meaning these posts have reached a large audience, although it is but a fraction of the 7 million daily visits to the site.
+Taking a sample of the 30 top most viewed StackOverflow questions with both the \texttt{.htaccess} and \texttt{regex} tags, we ask, what is percentage of postings that have regular expressions, and what percentage of these postings provide no explanation of the regular expression that appears whatsoever?
+Excluding 2 posts that lacked any regular expressions, we found that 9 of the 28 posts (32\%) contained some mention of some part of the syntax.
+Unexplained expressions ranged in complexity from short and generic --- \texttt{(.*)} --- to longer and specific --- \texttt{\^{}[A-Z]\{3,\}\textbackslash{}s(.*)/index\textbackslash{}.php}. 
 
-For users who find code with unexplained languages and syntax, we propose that we can reduce the cost of looking up supplemental information that explains these micro-languages by automatically generating relevant explanations of this code on the fly.
+We note that in 15 of these 28 questions, the original poster of the question or another user posted a comment to the accepted answer about errors encountered when working with the code or a request to modify the code in some way to a new purpose.
+With this case study, we develop an intuition that the syntax of languages like regular expressions can go unexplained in online example code.
+\appachu{qualify? frequently go unexplained and the comments in SO posts indicate that readers would benefit from their explanation}

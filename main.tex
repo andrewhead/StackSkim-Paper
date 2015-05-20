@@ -26,15 +26,15 @@
 % affiliations
 \author{
 \IEEEauthorblockN{
-Andrew Head\IEEEauthorrefmark{1},
-Codanda Appachu\IEEEauthorrefmark{1},
-Marti Hearst\IEEEauthorrefmark{1}\IEEEauthorrefmark{2},
-Bj\"{o}rn Hartmann\IEEEauthorrefmark{1}
+Andrew Head,
+Codanda Appachu,
+Marti A. Hearst,
+Bj\"{o}rn Hartmann
 }
 \IEEEauthorblockA{
-\IEEEauthorrefmark{1}Computer Science Division, \IEEEauthorrefmark{2}School of Information \\
-U.C. Berkeley, Berkeley, CA 94703 \\
-\{andrewhead, appachu, bjoern\}@eecs.berkeley.edu, hearst@ischool.berkeley.edu
+Computer Science Division, \\
+U.C. Berkeley, Berkeley, CA 94720 \\
+\{andrewhead, appachu, bjoern\}@eecs.berkeley.edu, hearst@berkeley.edu
 }
 }
 
@@ -46,17 +46,19 @@ U.C. Berkeley, Berkeley, CA 94703 \\
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
-
+\pagestyle{plain} 
 \input{introduction}
+\input{terminology}
 \input{relatedwork}
-\input{preliminary}
+%\input{preliminary}
 \input{design}
 \input{examples}
 \input{evaluation}
+\input{discussion}
 \input{conclusion}
 
 \section*{Acknowledgments}
-This work was supported by NSF CAREER grant XXXX.
+This work was supported by NSF IIS 1149799.
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page

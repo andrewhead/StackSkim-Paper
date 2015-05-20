@@ -1,48 +1,46 @@
-\section{Examples of \Glspl{name}}
+\section{Designing and Implementing Rich \Glspl{exp} with \Glspl{name}}
 
-Methods to detect, parse, and explain code snippets are \emph{dependent on the source language and on the desired explanation.}
-In this section, we describe how we design and implement 3 \glspl{name}, highlighting the implementation decisions core to generating useful explanations.
-Through these cases, we provide rationale for building custom parsers, and methods for generating usage examples and mining common usage scenarios from crowd documentation.
+In this section, we describe how we design and implement \glspl{exp} for 3 languages, highlighting design inspirations and implementation details pertinent to generating helpful explanations.
+In particular, we discuss techniques for natural language generation, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and \texttt{wget}.
+We want to automatically create useful explanations for many different contexts without knowing those contexts ahead of time. 
+Our techniques show how to automatically generate useful examples, reusing and repurposing existing documentation (by reusing its codebase, and, where manual effort is needed, guide that effort to the most useful cases by extracting frequency information from the web.
 
-\subsection{CSS Selectors: Building a Custom Parser}
+\subsection{CSS}
 
-CSS selectors appear in tutorials that use JavaScript to select elements, stylesheets, and web scrapers that extract data from web pages.
-Advanced and compound CSS selectors are named as one of five knowledge-based error types programmers frequently make when writing code in HTML and CSS, with more than half of such errors unresolved during coding tasks~\cite{park_towards_2013}.
-We see them as an example of a micro-language frequently used in tandem with other languages, but infrequently described in detail when it appears.
-One natural way to describe selectors is from inside out --- for example, \texttt{div a} could be described as ``select all links from all divs''.
-Tokens we frequently found in online documentation included elements, IDs, classes, and properties (like \texttt{href} for links).
+CSS selectors appear in JavaScript, stylesheets, and even web scrapers, and despite their small size, advanced and compound CSS selectors are a frequent error for programmers working with HTML and CSS~\cite{park_towards_2013}.
 
-While we found an existing parser for CSS, this contained hundreds of lines of parse and lexer rules that covered all valid CSS, instead of the most common CSS.
-Since we already knew the method that we wanted to describe CSS selectors --- from inside out --- we built a parser generator in 21 lines of an ANTLR specification that would construct a tree of elements, where each element could be marked with an ID or a class.
-This provided us with a simple IR of our own specification that was simple to walk to provide the explanation we wanted.
-Pseudocode for generating natural language from walking the syntax tree is shown in Figure~\ref{alg:css_traversal}.
-We share examples of some of the sentences we generate in Table~\ref{tab:css_descriptions}.
+\subsubsection{Explaining CSS Selectors with text}
+
+Our method of building natural language explanations for CSS selectors involves language generation through parse tree traversal.
+Our English language explanation technique starts at leaf nodes and walk up the parse treee.
+First, it generates a clause at a leaf node that consists of a single noun --- the element's tag type.
+At each parent, it adds a complement to the clause of an additional clause that states that the child is chosen \emph{from} the parent (Figure~\ref{alg:css_traversal}).
+We map from HTML tag names to terms we expect are more understandable to those just starting with web programming --- for example, describing \texttt{a}s as `links' and \texttt{strong}s as `bolded text'. 
+English language is realized using SimpleNLG\footnote{\url{https://code.google.com/p/simplenlg/}}.
+Examples of text we generate to describe CSS selectors found in programming help are shown in Table~\ref{tab:css_descriptions}.
 
 \begin{figure}
 \begin{algorithmic}
 
 \Function{visit\_node}{node}
-    \State clause = plural(node.element)
     \If{node has id}
-        \State clause += (` with ID ' + node.id)
-    \ElsIf{node has class}
-        \State clause += (` of class ' + node.class)
+        clause = node.element
+        \State clause += ` with ID $node.id$'
+    \Else
+    \State clause = pluralize(node.element)    
+    \If{node has class}
+        \State clause += ` of class $node.class$'
+    \EndIf
     \EndIf
     \If{node has child}
-        \State ch\_clause = visit\_node(node.child)
-        \State clause = ch\_clause + `from' + clause
+        \State child = visit\_node(node.child)
+        \State clause += child + `from' + clause
     \EndIf
     \State \Return clause
 \EndFunction
 
-\State
-\Function{main}{parse\_tree}
-    \State root\_clause = \Call{visit\_node}{parse\_tree.root}
-    \State print ``This selector chooses '' + root\_clause
-\EndFunction
-
 \end{algorithmic}
-\caption{Procedure for generating text description of a CSS selector by traversing the parse tree.}
+\caption{A recursive function for generating an explanation of a CSS selector from a tree of elements and their attributes.}
 \label{alg:css_traversal}
 \end{figure}
 
@@ -57,73 +55,166 @@ We share examples of some of the sentences we generate in Table~\ref{tab:css_des
 \hline
 \thead{Selector} & \thead{Realized Text} \\
 \hline
-\texttt{div.featured a} & The selector 'div.featured a' chooses links from containers of class 'featured'. \\ \hline
 \texttt{div.video-summary-data a[href\^=/video]} & The selector 'div.video-summary-data a[href\^=/video]' chooses links with URLs starting with '/video' from containers of class 'video-summary-data'. \\ \hline
+\texttt{input:focus} & The selector 'input:focus' chooses in-focus inputs. \\ \hline
 \texttt{p.introduction::text} & The selector 'p.introduction::text' chooses text from paragraphs of class 'introduction'. \\ \hline
-\texttt{.watch-view-count} & The selector '.watch-view-count' chooses elements of class 'watch-view-count'. \\ \hline
-\texttt{.form\_box input:checked} & The selector '.form\_box input:visible' chooses visible inputs from elements of class 'form\_box'. \\ \hline
 \end{tabular}
 \end{table*}
+
+\subsubsection{Generating example DOMs}
+
+To demonstrate what CSS selectors choose, we build example HTML DOMs with elements that can be matched by that CSS selector.
+We gain motivation for this \gls{exp} from the knowledge that programmers must understand the structure of the DOM before writing selectors that leverage that structure, and that this structure is most often represented through HTML.
+
+Our DOM generation technique is implemented as a visitor for the parse tree our \gls{name} generates.
+For each node that represent the tag of an HTML element, we use PyQuery\footnote{\url{https://pypi.python.org/pypi/pyquery}} to construct an artificial HTML element.
+The visitor starts at the leaf nodes of the tree.
+As it ascends, the visitor append child nodes of the parse tree as child nodes in the DOM.
+The resulting DOM is then pretty-printed with BeautifulSoup\footnote{\url{http://www.crummy.com/software/BeautifulSoup/}}, and spaces, newlines, and carats escaped for display in the browser.
+
+As an example, consider the \texttt{``table tr td''} selector (Figure~\ref{fig:html_table}.
+The parse tree the \gls{name} produced consists of 3 nodes --- the \texttt{table} at the root, the \texttt{tr} as \texttt{table}'s only child, and \texttt{td} as the only child of \texttt{tr}.
+The visitor for the CSS \gls{name} constructs an HTML node, first visiting the \texttt{td} element to generate node \texttt{<td></td>}.
+It next visits the \texttt{tr} node, where it creates node \texttt{<tr></tr>} and appends the \texttt{<td></td>} element as a child.
+Finally, it reaches the root node, \texttt{table}, where it constructs a \texttt{<table></table>} node and appends \texttt{<tr></tr>} as the table's child.
+
+To convey that the leaf nodes are the elements the selector chooses (rather than all elements in the generated DOM), leaf nodes are marked with a \texttt{span} to bolden and color the element.
+If an element has no tag name, we create a generic \texttt{div} to represent it.
+Attributes, ids, and class names are added to the opening tag of the element.
+As pseudoclasses like \texttt{checked} and \texttt{hover} are not visible from the DOM but valid components of selectors, we demonstrate their presence as comments within the element that was selected~\ref{fig:html_pseudoclass}.
+
+Future iterations of CSS \glspl{exp} might benefit from rendering the DOMs as they would appear when viewed in a browser, particularly for inherently graphical elements like tables and form inputs.
+Example DOMs that we automatically generate for real code we found in online programming help are shown in Figure~\ref{fig:selector_demonstrations}.
+\if 0
+\bjoern{After the submission deadline, let's revisit this technique -- I think there is a much larger design space here of showing other candidate trees that match, as well as trees that do not match. Also, we may want to indicate that selectors return collections by repeating elements - e.g. td  siblings, or two different tables in the same document.}
+\andrew{Roger.  Yes, I think there's a lot to do with this case of example generation.}
+\fi
 
 \begin{figure}
 \centering{
     \subfigure[\texttt{p}]{
-        \includegraphics[width=.4\textwidth]{figures/html_p}
+        \includegraphics[width=.45\columnwidth]{figures/html_p}
         \label{fig:html_p}
     }
     \subfigure[\texttt{form.myform}]{
-        \includegraphics[width=.4\textwidth]{figures/html_form_myform}
+        \includegraphics[width=.45\columnwidth]{figures/html_form_myform}
         \label{fig:html_form.myform}
     }
     \subfigure[\texttt{table tr td}]{
-        \includegraphics[width=.4\textwidth]{figures/html_table}
+        \includegraphics[width=.45\columnwidth]{figures/html_table}
         \label{fig:html_table}
     }
     \subfigure[\texttt{\#first:hidden}]{
-        \includegraphics[width=.4\textwidth]{figures/html_pseudoclass}
+        \includegraphics[width=.45\columnwidth]{figures/html_pseudoclass}
         \label{fig:html_pseudoclass}
     }
     \caption{Examples of HTML DOMs that can be matched by a CSS selector, automatically generated by our CSS \gls{name}.
     Note that we bolden the font of the selected node, for example in subplot~\ref{fig:html_table}, where the selected element in the \texttt{td} nested inside a \texttt{tr} in a \texttt{table}.}
-    \label{fig:fuzzy_boundaries}
+    \label{fig:selector_demonstrations}
 }
 \end{figure}
 
-\subsection{Regular expressions: Generating Demonstrations}
+\subsection{Regular Expressions}
 
-Long regular expressions are cryptic even for expert readers to understand.
-We expect that in some contexts, providing readable examples of what strings will satisfy and fail to satisfy these patterns could help with comprehension of the regular expressions.
-While we have yet to integrate regular expressions into a \gls{name} server, we describe how we automatically generate examples of readable strings that satisfy regular expression patterns.
+Long regular expressions are cryptic even for expert readers to understand, leading developers to create tools to automatically generate token-by-token explanations\footnote{\url{http://rick.measham.id.au/paste/explain.pl}} and visualizations\footnote{\url{http://regexper.com/}}.
+We discuss techniques for making cryptic regular expressions understandable through automatically-generated \glspl{exp} for visualizing them and generating example strings that satisfy them.
 
-Given a regular expression, we parse a tree of branches, repetitions and literals.
-For each repeated group (not just a character) (* or +), we generate it exactly once to make sure that the group appears in the original best example.
-We print any literal exactly as it appears in the pattern.
-For each branch, we choose one of the paths to render.
-Whenever we have a repeated sequence of alphanumeric characters (repeated by + or *), we choose a dictionary word 4-6 letters in length.
-If the character class contains symbols or numbers, we insert 2 random non-alphabetic characters.
-In the future, we would like to implement in-place editors of regular expressions that enables real-time updating of these examples and checking user-defined test patterns.
+\subsubsection{Explaining Expressions through Diagrams via 3rd-Party Visualizations}
 
-\subsection{\texttt{wget}: Mining Higher-Level Meaning of Tokens}
+In an early prototype of a \gls{name}, we developed a regular expression \gls{name} for visualizing regular expressions, leveraging the 3rd-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
+While the technical implementation details are trivial, we include it here as an example that a \gls{name} author can leverage demonstrations produced by his peers to create compelling \glspl{exp}.
 
 \begin{figure}
-\centering{
-    \subfigure[A trivial \texttt{wget} command and an automatically-generated explanation of what it does.]{
-        \includegraphics[width=.4\textwidth]{figures/wget_trivial}
-        \label{fig:wget_trivial}
-    }
-    \subfigure[A complex, multi-level explanation of \texttt{wget} comprises three parts.
-        \emph{(a)} An introduction to the command.
-        \emph{(b)} A meaningful description of what this combination of options does at a high level.
-        \emph{(c)} A review of the meaning and values of each of the options.
-    ]{
-        \includegraphics[width=.4\textwidth]{figures/wget_complex_explained}
-        \label{fig:wget_trivial}
-    }
-    \caption{Descriptions of \texttt{wget} command lines, automatically generated by our \texttt{wget} \gls{name}.
-        We show both a trivial and a complex example of the explanations generated.}
-    \label{fig:wget_accelerators}
-}
+\centering
+\includegraphics[width=\columnwidth]{figures/explain_on_select}
+\caption{A \gls{exp} of a regular expression, adapted from the third-party tool into an in-situ tooltip \emph{RegExper}.}
+\label{fig:regex_visualization}
 \end{figure}
+
+\subsubsection{Generating example expressions}
+
+Inspired by recent work on building counterexample-guided feedback on automaton design problems~\cite{dantoni_how_2015}, we wondered, \emph{how can one generate helpful and instructive examples of what a regular expression can match?}
+While we have yet to implement the detection stage of the regular expression \gls{name}, the explanation stage we have developed shares thematic ties with the CSS selector DOM generator. 
+\if 0
+\bjoern{Do we not have a detector because of a lack of time or because of conceptual roadblocks? Can you find all string literals in a code block, compile a regular expression for it (re.match()) and test whether that produces an error?}
+\andrew{Lack of time. Sure -- I can make something that performs this.  Let me get to the preliminary study first and then move onto this.}
+\fi
+
+Like the demonstrations for CSS selectors, we choose to generate brief but demonstrative examples, assuming that strings cannot be too long, or else readers will not be able to grasp the core intent of the pattern.
+Given a regular expression, we build a parse tree that consists of branches, repetitions and literals by examining output from Python's built-in regular expression compiler.
+We generate each sub-pattern marked with a repetition \texttt{*} or \texttt{+} exactly once to ensure the subpattern is represented in the text without adding too much length to the string.
+All literals are printed exactly as they appear in the pattern, and for simplicity, we choose the left side of each branch. 
+
+Where we strive to make a regular expression-matching string readable is in word generation.
+When we find a repetition of alphanumeric characters, we print an English dictionary word 4-6 letters in length.
+If the character class contains symbols or numbers, we insert 2 random non-alphabetic characters from the class.
+In this way, we insert meaningful sub-patterns based on recognizable words as the constituents from which matching strings are built.
+
+\begin{figure}
+\centering
+\setlength{\fboxsep}{10pt}
+\noindent\framebox[\columnwidth][c]{
+\begin{minipage}{.95\columnwidth}
+\small\texttt{([0-9A-F]\{2\}[:])\{5\}([0-9A-F]\{2\})}: \\
+\emph{D8:E6:0C:ED:0E:79} \\ \\
+\small\texttt{\^{}(\textbackslash{}d\{3\})-(\textbackslash{}d\{3\})-(\textbackslash{}d\{4\})\$}: \\
+\emph{307-039-2703}
+\end{minipage}
+}
+\caption{Examples of strings we generate to match regular expressions.}
+\label{fig:regex_strings}
+\end{figure}
+
+\subsection{wget}
+
+The conciseness of command line options enables speedy typing, but recalling what each one does can be tricky~\cite{miller_inky_2008}.
+We created a tutoron for one frequently used command line utility, the file retrieval tool \texttt{wget}, to investigate how Tutorons can explain command lines. \texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly with its opaque short flags.
+Utilities like \texttt{wget} already have comprehensive (albeit non-adaptive) documentation accessible through \texttt{man} pages and the \texttt{-h} flag from the terminal that can be used as a starting point for building in-situ documentation.
+
+\subsubsection{Enumerating command line options and extracting help text form source code}
+
+We generate argument-level help for \texttt{wget} commands by extracting and modifying the short help phrases for each argument from the wget source.
+Two patterns in original help messages allowed us to build more context-relevant descriptions of the arguments.
+(a) Some help messages began with a noun that described what the value represented, e.g., ``location for temporary files created by the WARC writer.''
+If we detected that a help phrase started with a noun using a standard typed dependency parser\footnote{\url{http://nlp.stanford.edu/software/lex-parser.shtml}}, we could add the value to the start of the statement, e.g., ``\emph{my\_dir is a} location for temporary files created by the WARC writer.''
+(b) If the variable name was used in all capital letters in the help (e.g., STRING in ``insert STRING into the warcinfo record.''), we just substituted the value of the argument into the help phrase.
+
+\subsubsection{Compound explanations of co-occurring options}
+
+For wget, the intent of a command is often implied by a combination of options.
+For examples, when \texttt{--user} and \texttt{--password} are used together, the caller is authenticating to access a restricted resource.
+By using \texttt{-A}, \texttt{-r}, and \texttt{-l} together, users can recursively scrape a site for files of a certain type, to a certain depth level.
+
+Based on a pilot effort with \texttt{wget}, we propose a way to find common use cases of commands with many options by mining programming help.
+We scraped 1000 questions from StackOverflow matching the query `wget'.
+From these, we extracted 510 lines of code that began with the string `wget'.
+Using a custom \texttt{wget} parser from an earlier version of the \texttt{wget} \gls{name}, 346 of these lines were parsed without some lexical error.
+For all lines, we then computed the co-occurrence of options, counting how often certain options were used together (Table~\ref{tab:wget_arguments}).
+
+\begin{table}
+\caption{Arguments that frequently co-occur in a sample of 500 StackOverflow posts on wget.}
+\label{tab:wget_arguments}
+\centering
+\begin{tabular}{|l|l|c|}
+\hline
+\thead{Option 1} & \thead{Option 2} & \thead{Count} \\
+\hline
+-r & -A & 28 \\ \hline
+--user & --password & 23 \\ \hline
+-r & -l & 22 \\ \hline
+%-p & -k & 17 \\ \hline
+%-r & -e & 14 \\ \hline
+%-r & -P & 13 \\ \hline
+%-r & -nd & 12 \\ \hline
+... & ... & ... \\ \hline
+\end{tabular}
+\end{table}
+
+The common option combinations indeed form semantically  meaningful units. 
+The combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
+In our \texttt{wget} \gls{name}, we create \emph{compound explanations}, or string templates for describing the intent of  these most-frequent groups of options, into which the values of the parameters can be substituted (Table ~\ref{tab:wget_combos}).
+We enforce a requirement that any one option can be described in at most one compound explanation to reduce the verbosity of text descriptions generated.
+With the techniques described above, we generated explanations for \texttt{wget} command lines like those shown in Figure~\ref{fig:wget_accelerators}.
 
 \newcolumntype{L}{>{\scriptsize\arraybackslash}m{5cm}}
 \newcolumntype{C}{>{\tiny\arraybackslash}m{4cm}}
@@ -149,30 +240,27 @@ Authenticate at http://\urltarget{} with username 'andrew' and password 'mypass'
 \end{tabular}
 \end{table*}
 
-Command lines arguments are short for speed of typing, but recalling what each one does can be tricky.
-\andrew{There's a reference we can find the Inky paper.}
-\texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly if its short flag is used instead of its full name.
-
-We detect lines of \texttt{wget} by stripping whitespace and PS1 tokens (the small user-specific signature printed at the start of every prompt for input) from the start of lines, and then seeing if the line begins with `wget'.
-We pass detected lines to modified wget source code, which processes the arguments and outputs them as plaintext that we can read via Python.
-
-We noticed that for wget, the meaning of a command is often more than the sum of the value of its arguments.
-For examples, when \texttt{--user} and \texttt{--password} are used together, the caller is authenticating to access a restricted resource.
-By using \texttt{-A} and \texttt{-r} together, users can recursively scrape a site for files of a certain type.
-
-Here, we propose a workflow for extracting common use cases for commands with multiple arguments that should be explained as a unit instead of a `sum of parts'.
-Using StackOverflow, developers can mine combinations of parameters that mean more than the sum of individual parameters.
-Through a preliminary effort with \texttt{wget}, we showed that we can find combinations of arguments that should be described together by scraping and observing frequent combinations of arguments from commands scraped from StackOverflow (Figure~\ref{fig:wget_arguments}).
-For example, for \texttt{wget}, the combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
-
-Using this procedure, we can create explanations like those in (Figure~\ref{fig:wget_accelerators}).
-An initial description may just contain an overview of what the command does as a whole, inferred from the combination of arguments.
-However, asking for information can provide a detailed breakdown of how each option affects the execution of the command.
-
 \begin{figure}
 \centering{
-    \includegraphics[width=.3\textwidth]{figures/wget_arguments}
+\if 0
+    \subfigure[A trivial \texttt{wget} command and an automatically-generated explanation of what it does. \bjoern{Error in figure - commandline says "fileurl" but explanation says 
+    "http://fileurl" --http isn't automatically prepended by wget. Also, you can skip the simple example if you need space.}]{
+        \includegraphics[width=\columnwidth]{figures/wget_trivial}
+        \label{fig:wget_trivial}
+    }
+\fi
+\if 0
+    \subfigure[]{
+        \label{fig:wget_complex}
+    }
+    \fi
+    \includegraphics[width=\columnwidth]{figures/wget_complex_explained}
+    \caption{
+    A multi-level explanation of \texttt{wget} comprises three parts.
+        \emph{(a)} An introduction to the command.
+        \emph{(b)} A meaningful description of what this combination of options does at a high level.
+        \emph{(c)} A review of the meaning and values of each of the options.
+    }.
+    \label{fig:wget_accelerators}
 }
-\caption{\texttt{wget} arguments that frequently co-occur in uses of \texttt{wget} in StackOverflow questions. \andrew{A table would may be more readable here.}}
-\label{fig:wget_arguments}
 \end{figure}

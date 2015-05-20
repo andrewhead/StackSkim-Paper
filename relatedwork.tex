@@ -1,28 +1,29 @@
 \section{Related Work}
 
-Most closely related, Webcrystal~\cite{chang_webcrystal_2012} generates explanations of user-selected elements of HTML pages to help webpage authors learn how to construct similar elements on their own web pages.
-Gross \& Kelleher~\cite{gross_non-programmers_2010} recommend strategies for non-programmers to understand unfamiliar code in the Storytelling Alice programming environment.
-\andrew{This needs a better explanation.}
+Our work is related to research in multiple directions.
+In this paper, we compare our work to past research in the automatic explanation of code and demonstration of code.
 
-A great deal of work has been done in the last five years automatically generating natural language explanations of code and software engineering artifacts~\cite{sridhara_automatically_2011,burden_natural_2011,sridhara_towards_2010,kamimura_towards_2013,mcburney_automatic_2014,sridhara_generating_2011,haiduc_supporting_2010,moreno_automatic_2013}.
-Much of this work has focused on how to reduce the amount of time developers spend reading poorly-documented code by automatically summarizing Java methods~\cite{sridhara_towards_2010}, blocks of code~\cite{sridhara_automatically_2011}, method parameters~\cite{sridhara_generating_2011}, and classes~\cite{moreno_automatic_2013}.
-Similar to this work, our system takes code as input and provides a natural language description of the procedures followed.
+\subsection{Automatic Explanation of Code}
 
-In our own research, we leverage insights from this past work that has focused on improving software maintenance tasks.
-Our ultimate goal is to help end user and novice programmers understand short snippets of unfamiliar code online.
-We believe we are the first to examine the problem of explaining code in this light.
-This problem is challenging in its own right.
-First, we examine syntactic patterns of micro-language structure beyond Java and recommend methods to explain these languages.
-Second, we introduce a method of planning and implementing explanations of multiple levels of detail based on usage information mined from the web.
+Most closely related to our work is Webcrystal~\cite{chang_webcrystal_2012}, a tool that assists web authors with low-level programming tasks required to learn from and reuse examples.  
+Webcrystal generates human-readable textual answers to user's ``how'' questions about how to recreate aspects of selected HTML elements as well as customized code snippets for the user's to recreate the design.
+Similar to Webcrystal, we generate human-readable representations of code to help programmers learn from and reuse online examples.
+In contrast to Webcrystal, we focus on the task of describing several small languages instead of DOMs, focusing on generalizable design patterns for explanations that can apply to generating explanation support for other programming languages in the future.
 
-Additionally related to the problem of explaining code are the following systems.
-PythonTutor visualizes program output for arbitrary Python programs~\cite{guo_online_2013}.
-\andrew{An Interactive System for Data Structure Development: visualizing arbitrary pointer-based data structures}
-Outside of programming, O'Rourke et al.'s automatically generating interactive instructional demonstrations that interleaves natural language explanations of procedural steps of math problems in code for problem-solving algorithms.~\cite{orourke_framework_2015}.
-Similarly, we envision \gls{name} developers opportunistically making use of existing parsing code to build syntax trees or lists of arguments that can be used to generate explanations.
-\andrew{Active Code Completion: library-specific visualizations of code structures.}
+In its technical approach, our work also relates to recent work on generating natural language explanations of code and software engineering artifacts~\cite{sridhara_automatically_2011,burden_natural_2011,sridhara_towards_2010,kamimura_towards_2013,mcburney_automatic_2014,sridhara_generating_2011,haiduc_supporting_2010,moreno_automatic_2013}.
+This body of work focuses on how to reduce the amount of time developers spend reading poorly-documented code by automatically summarizing Java methods~\cite{sridhara_towards_2010}, blocks of code~\cite{sridhara_automatically_2011}, method parameters~\cite{sridhara_generating_2011}, and classes~\cite{moreno_automatic_2013}.
+Similar to ourselves, Sridhara et al. consider how to detect explainable code prior to generating descriptions~\cite{sridhara_automatically_2011,sridhara_towards_2010}.
+However, their code detection process emphasizes summarization of methods and blocks of code rather than locating instances of a language in a heterogeneous code snippet.
+In addition, we distance ourselves from this past work by examining the code explanation problem from the perspective of unexplained code on the web.
+This enables us to test out and propose guidelines for detecting, parsing and explaining code by minding the constraints and affordances of the language.
 
-We also see our work supporting a larger effort to help programmers make use of and learn how to program in unstrutured, out-of-classroom contexts.
-\andrew{Elaborate on the lessons learned from each of these projects}.
-The Idea Garden~\cite{cao_barriers_2012}\cite{cao_end-user_2013} provokes users to answer solve their own problems by asking 3 types of questions designed to help them think and seek new information productively.
-ScriptABLE~\cite{dorn_scriptable_2011} wraps online tutorials as `informal learning cases' to improve users' abilities to take lessons away from them. 
+\subsection{Automatic Demonstration of Code}
+
+Software visualization has a long history of producing visual representations of code for varying purposes~\cite{sorva_visual_2012}.
+PythonTutor~\cite{guo_online_2013} is one current example of a programming visualization tool for CS education.
+Embeddable within a webpage, it supports simultaneous viewing of program source code, program execution, visual representations of Python objects, and program output.
+More recently, Ou et al. produced visualizations of arbitrary pointer-based data structures in the heap~\cite{ou_interactive_2015}.
+Beyond visualizations, code can be represented by discrete structures.
+Dantoni et al.~\cite{dantoni_how_2015} demonstrate how to create counterexamples of system behaviors for helpful feedback for computer science students completing automata design problems.
+We draw inspiration broadly from this past work in both visualization and example generation to automatically produce demonstrations of regular expresions and HTML.
+We believe we are the first to consider building demonstrations from the perspective of writing design guidelines for micro-explanations of code found in online programming help.
