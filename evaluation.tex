@@ -36,13 +36,13 @@ While high recall is also important to draw users' attention to explainable code
 \caption{Accuracy of our explainable region detection.}
 \label{tab:detection_accuracy}
 \centering
-\begin{tabular}{|l|l|c|}
-\hline
+\begin{tabular}{llc}
+\toprule
 \thead{Language} & \thead{Precision} & \thead{Recall} \\
-\hline
-wget & 45\% & 58\% \\ \hline
-CSS selectors & 70\% & 40\% \\ \hline
-RegEx & 41\% & 19\% \\ \hline
+\midrule
+wget & 45\% & 58\% \\ \midrule
+CSS selectors & 70\% & 40\% \\ \midrule
+RegEx & 41\% & 19\% \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -136,12 +136,12 @@ Participants viewed \glspl{exp} for alternating tasks so we could observe differ
 Our primary goal in observing participants was to determine if \gls{name}-generated \glspl{exp} were helpful  during code modification tasks and reduced the need to reference additional documentation.
 In the discussion below, we refer to individual participants as $P{1-9}$.
 
-\subsubsection{ \Glspl{exp} Help Programmers Modify Code Without Using Other Documentation}
+\subsubsection{\Glspl{exp} Help Programmers Modify Code Without Using Other Documentation}
 
 \begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{figures/doc_accesses}
-\caption{
+\caption{%
 Tasks for which participants sought additional documentation beyond the snippet. In white rows, participants used \glspl{exp}; in gray rows, they did not.
 A cell is marked with the letter `D' if a participant accessed external documentation during that task.
 }
@@ -149,7 +149,7 @@ A cell is marked with the letter `D' if a participant accessed external document
 \end{figure}
 
 When using the \glspl{exp}, 34 out of 36 tasks, or 94\% did not require external documentation.  However, for those tasks where \glspl{exp} were not available, 63\% of the time participants did indeed access external resources in order to complete the task.  The wget tasks especially required external help, with man pages and other resources being accessed in 89\% of cases.  
-A detailed breakdown of external document usage is shown in Figure \ref{fig:doc_accesses}. 
+A detailed breakdown of external document usage is shown in Figure~\ref{fig:doc_accesses}. 
 
 
 %%In total, out of 72  tasks, participants sought out additional documentation a total of 25 times (Figure~\ref{fig:doc_accesses}).
@@ -168,7 +168,7 @@ For others, the \gls{exp} affirmed a guess that the participant already had abou
 
 {\bf Context-relevant pattern matching.}
 One participant noted that the \glspl{exp} helped  to map flags for the wget command line to the higher-level intent of the task ($P4$). 
-For the most complex CSS selector task (see Figure \ref{fig:study_snippet}), two participants noted
+For the most complex CSS selector task (see Figure~\ref{fig:study_snippet}), two participants noted
 that the example HTML shown in the \gls{exp} 
 provided a pattern of what fields needed to be changed  from the selector in the snippet to capture the element and ID required by the task prompt ($P2$, $P4$).
 

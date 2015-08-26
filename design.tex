@@ -1,28 +1,26 @@
 \section{Authors and Readers in the \Gls{name} Ecosystem}
 
 In the current incarnation of \glspl{name}, an author of code documentation writes a \gls{name} in order to adaptively describe  code programmers find while they browse the web.
-A \gls{name} is an engine for generating explanations or demonstrations of code for a specific language, accessible as a simple web API.
+A \gls{name} is an engine for generating explanations or demonstrations of code for a specific language, accessible as a simple web API\@.
 When queried with the text of a web page, a \gls{name} detects explainable regions of the language, parses them, and returns explanations for each region as formatted HTML that can be viewed in a tooltip.
 
 \begin{figure}
 %%\centering
     \includegraphics[width=\columnwidth]{figures/tutoron_ecosystem}
-    \caption{
+    \caption{%
     The \Glspl{name} ecosystem and information flow.
     A programmer browses for help in a web browser with the \Glspl{name} addon.
     When she visits a page, the addon queries a bank of \gls{name} servers for different programming languages.
     Each server detects explainable regions of code and produces \glspl{exp}, or explanations and demonstrations of this code.
     The programmer can then view these in-situ and on-demand in tooltip-style overlays by simpling selecting explainable regions of code with the mouse.
-    }
-    \label{fig:tutoron_ecosystem}
+    }\label{fig:tutoron_ecosystem}
 \end{figure}
 
 \if 0
 \begin{figure}
 \centering
     \includegraphics[width=\columnwidth]{figures/explanation_pipeline}
-    \caption{\Glspl{name} \emph{detect} relevant code snippets, \emph{parse} them, and then \emph{generate explanations}.  Here we show examples of the output of each stage of the pipeline for a \gls{name} that explains CSS selectors.}
-    \label{fig:explanation_pipeline}
+    \caption{\Glspl{name} \emph{detect} relevant code snippets, \emph{parse} them, and then \emph{generate explanations}.  Here we show examples of the output of each stage of the pipeline for a \gls{name} that explains CSS selectors.}\label{fig:explanation_pipeline}
 \end{figure}
 \fi
 
@@ -36,7 +34,7 @@ We note that our approach could work in other settings, e.g., as a Wordpress plu
 The addon uses a \emph{push} method for fetching explanations rather than a \emph{pull} method, requesting for a server to detect all explainable instances of a language for a webpage.
 This choice enables all explanations to be generated in a single batch when the user first accesses the page, reducing the load time to milliseconds instead of seconds to access explanations.
 Each server is queried in parallel once the document is ready.
-The original webpage is instantly available to the programmer, and \glspl{exp} for each language become available as each \gls{name} processes the DOM.
+The original webpage is instantly available to the programmer, and \glspl{exp} for each language become available as each \gls{name} processes the DOM\@.
 Computational burden resides on the server, dependent on the implementation.
 Client procedures consists of string matching to explainable regions detected followed by insertion of generated HTML into a tooltip, which will be linear in time to the number of explanations.
 
@@ -47,35 +45,29 @@ This includes highlighting explainable regions in colors corresponding to each \
 
 \begin{figure}
     \centering
-    \framebox{\includegraphics[width=\columnwidth]{figures/browser_tutorons_short}}
-    \label{fig:browser_tutorons_markup}
+    \framebox{\includegraphics[width=\columnwidth]{figures/browser_tutorons_short}}\label{fig:browser_tutorons_markup}
     \caption{A user installs the \Glspl{name} addon.  \emph{(a)} Once she activates it, \emph{(b)} she can view automatically-generated, context-relevant explanations of code of supported languages in-situ while she browses programming help.}
 \end{figure}
 
 \begin{figure}
-\centering{
-    \subfigure[The CSS selector.]{
-        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_best}}
-        \label{fig:selection_best}
+\centering{%
+    \subfigure[The CSS selector.]{%
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_best}}\label{fig:selection_best}
     }
-    \subfigure[The CSS selector with quotes.]{
-        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_quotes}}
-        \label{fig:selection_quotes}
+    \subfigure[The CSS selector with quotes.]{%
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_quotes}}\label{fig:selection_quotes}
     }
-    \subfigure[A jQuery selection.]{
-        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_jquery}}
-        \label{fig:selection_jquery}
+    \subfigure[A jQuery selection.]{%
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_jquery}}\label{fig:selection_jquery}
     }
-    \subfigure[A sloppy selection.]{
-        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_sloppy}}
-        \label{fig:selection_sloppy}
+    \subfigure[A sloppy selection.]{%
+        \framebox{\includegraphics[width=.2\textwidth]{figures/selection_sloppy}}\label{fig:selection_sloppy}
     }
-    \caption{
+    \caption{%
     The \Glspl{name} addon activates explanations for code when a user selects text.
     Explainable regions of code are detected on an explanation server and returned to the browser, where the addon enables users to view explanations with fuzzy selections.
     This lets them view \glspl{exp} without knowing the exact syntactic boundaries of the code they want to have described.
-    }
-    \label{fig:fuzzy_boundaries}
+    }\label{fig:fuzzy_boundaries}
 }
 \end{figure}
 

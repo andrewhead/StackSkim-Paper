@@ -1,6 +1,6 @@
 \section{Introduction}
 
-Many programmers develop code by interleaving opportunistic information foraging with writing code~\cite{brandt_two_2009}\cite{brandt_example-centric_2010}.
+Many programmers develop code by interleaving opportunistic information foraging with writing code~\cite{brandt_two_2009,brandt_example-centric_2010}.
 When learning about unfamiliar technologies, programmers start by searching for tutorial web sites.
 Instead of examining the prose, they experiment with code examples, using source code from the pages to support learning by doing~\cite{brandt_two_2009}.
 However, programmers of all backgrounds~\cite{duala-ekoko_asking_2012,dorn_lost_2013,dorn_learning_2010} struggle to leverage web documentation to solve programming problems.
@@ -13,20 +13,17 @@ It is impractical for the author to introduce all relevant parts of each languag
 As a result, today's Q\&A sites like StackOverflow and tutorial-style blogs lack immediate scaffolding for readers seeking clarification on unfamiliar or complex syntax. 
 
 \begin{figure}[!t]
-\centering{
-    \subfigure[A \gls{exp} with automatically generated natural language explanation of a CSS selector and a demonstration of an HTML element it matches.]{
-        \includegraphics[width=\columnwidth]{figures/accelerator_css}
-        \label{fig:accelerator_css}
+\centering{%
+    \subfigure[A \gls{exp} with automatically generated natural language explanation of a CSS selector and a demonstration of an HTML element it matches.]{%
+        \includegraphics[width=\columnwidth]{figures/accelerator_css}\label{fig:accelerator_css}
     }
-    \subfigure[A \gls{exp} describing the high-level intent and low-level argument values of a \texttt{wget} command line.]{
-        \includegraphics[width=\columnwidth]{figures/accelerator_wget}
-        \label{fig:accelerator_wget}
+    \subfigure[A \gls{exp} describing the high-level intent and low-level argument values of a \texttt{wget} command line.]{%
+        \includegraphics[width=\columnwidth]{figures/accelerator_wget}\label{fig:accelerator_wget}
     }
-    \caption{
+    \caption{%
     \Gls{name}-generated \glspl{exp} enable programmers to seek in-situ help when reading and adapting code found in online tutorials and Q\&As.
     Programmers select the code they want clarification about, and view natural language descriptions and demonstrations of what the code does.
-    }
-    \label{fig:accelerators}
+    }\label{fig:accelerators}
 }
 \end{figure}
 
@@ -50,7 +47,7 @@ This distinguishes these explanations from getting-started guides and reference 
 We draw on inspiration of layered documentation to justify our current work. \appachu{one liner to describe layered documentation}
 Decades of research on technical communication provide best practices for writing usable documentation.
 In the domain of software, minimalist instruction~\cite{carroll_nurnberg_1990} recommends enabling users to start immediately on realistic tasks, minimizing the necessary  reading and other passive activity, and supporting error recognition and recovery.
-Farkas ~\cite{farkas_layering_1998} introduces layered documentation as an extension to minimalist instruction that enables users from different backgrounds to benefit from the same documents by providing optional backup information for tasks like error recognition and correction.
+Farkas~\cite{farkas_layering_1998} introduces layered documentation as an extension to minimalist instruction that enables users from different backgrounds to benefit from the same documents by providing optional backup information for tasks like error recognition and correction.
 \fi 
 
 Such explanations can describe languages like CSS selectors, regular expressions, and terminal commands (see Figure~\ref{fig:accelerators}).

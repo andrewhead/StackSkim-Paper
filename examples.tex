@@ -25,19 +25,19 @@ Examples of text we generate to describe CSS selectors found in programming help
 \Function{visit\_node}{node}
     \If{node has id}
         clause = node.element
-        \State clause += ` with ID $node.id$'
-    \Else
-    \State clause = pluralize(node.element)    
+	\State{clause += ` with ID $node.id$'}
+    \Else{}
+    \State{clause = pluralize(node.element)}
     \If{node has class}
-        \State clause += ` of class $node.class$'
-    \EndIf
-    \EndIf
+        \State{clause += ` of class $node.class$'}
+    \EndIf{}
+    \EndIf{}
     \If{node has child}
-        \State child = visit\_node(node.child)
-        \State clause += child + `from' + clause
-    \EndIf
-    \State \Return clause
-\EndFunction
+        \State{child = visit\_node(node.child)}
+        \State{clause += child + `from' + clause}
+    \EndIf{}
+    \State{\Return{clause}}
+\EndFunction{}
 
 \end{algorithmic}
 \caption{A recursive function for generating an explanation of a CSS selector from a tree of elements and their attributes.}
@@ -51,28 +51,28 @@ Examples of text we generate to describe CSS selectors found in programming help
 \caption{Text Generated to Explain CSS Selectors}
 \label{tab:css_descriptions}
 \centering
-\begin{tabular}{|S|T|}
-\hline
+\begin{tabular}{ST}
+\toprule
 \thead{Selector} & \thead{Realized Text} \\
-\hline
-\texttt{div.video-summary-data a[href\^=/video]} & The selector 'div.video-summary-data a[href\^=/video]' chooses links with URLs starting with '/video' from containers of class 'video-summary-data'. \\ \hline
-\texttt{input:focus} & The selector 'input:focus' chooses in-focus inputs. \\ \hline
-\texttt{p.introduction::text} & The selector 'p.introduction::text' chooses text from paragraphs of class 'introduction'. \\ \hline
+\midrule
+\texttt{div.video-summary-data a[href\^=/video]} & The selector `div.video-summary-data a[href\^=/video]' chooses links with URLs starting with `/video' from containers of class `video-summary-data'. \\ \midrule
+\texttt{input:focus} & The selector `input:focus' chooses in-focus inputs. \\ \midrule
+\texttt{p.introduction::text} & The selector `p.introduction::text' chooses text from paragraphs of class `introduction'. \\ \bottomrule
 \end{tabular}
 \end{table*}
 
 \subsubsection{Generating example DOMs}
 
 To demonstrate what CSS selectors choose, we build example HTML DOMs with elements that can be matched by that CSS selector.
-We gain motivation for this \gls{exp} from the knowledge that programmers must understand the structure of the DOM before writing selectors that leverage that structure, and that this structure is most often represented through HTML.
+We gain motivation for this \gls{exp} from the knowledge that programmers must understand the structure of the DOM before writing selectors that leverage that structure, and that this structure is most often represented through HTML\@.
 
 Our DOM generation technique is implemented as a visitor for the parse tree our \gls{name} generates.
 For each node that represent the tag of an HTML element, we use PyQuery\footnote{\url{https://pypi.python.org/pypi/pyquery}} to construct an artificial HTML element.
 The visitor starts at the leaf nodes of the tree.
-As it ascends, the visitor append child nodes of the parse tree as child nodes in the DOM.
+As it ascends, the visitor append child nodes of the parse tree as child nodes in the DOM\@.
 The resulting DOM is then pretty-printed with BeautifulSoup\footnote{\url{http://www.crummy.com/software/BeautifulSoup/}}, and spaces, newlines, and carats escaped for display in the browser.
 
-As an example, consider the \texttt{``table tr td''} selector (Figure~\ref{fig:html_table}.
+As an example, consider the \texttt{``table tr td''} selector (Figure~\ref{fig:html_table}).
 The parse tree the \gls{name} produced consists of 3 nodes --- the \texttt{table} at the root, the \texttt{tr} as \texttt{table}'s only child, and \texttt{td} as the only child of \texttt{tr}.
 The visitor for the CSS \gls{name} constructs an HTML node, first visiting the \texttt{td} element to generate node \texttt{<td></td>}.
 It next visits the \texttt{tr} node, where it creates node \texttt{<tr></tr>} and appends the \texttt{<td></td>} element as a child.
@@ -86,31 +86,26 @@ As pseudoclasses like \texttt{checked} and \texttt{hover} are not visible from t
 Future iterations of CSS \glspl{exp} might benefit from rendering the DOMs as they would appear when viewed in a browser, particularly for inherently graphical elements like tables and form inputs.
 Example DOMs that we automatically generate for real code we found in online programming help are shown in Figure~\ref{fig:selector_demonstrations}.
 \if 0
-\bjoern{After the submission deadline, let's revisit this technique -- I think there is a much larger design space here of showing other candidate trees that match, as well as trees that do not match. Also, we may want to indicate that selectors return collections by repeating elements - e.g. td  siblings, or two different tables in the same document.}
+\bjoern{After the submission deadline, let's revisit this technique --- I think there is a much larger design space here of showing other candidate trees that match, as well as trees that do not match. Also, we may want to indicate that selectors return collections by repeating elements --- e.g.\ td  siblings, or two different tables in the same document.}
 \andrew{Roger.  Yes, I think there's a lot to do with this case of example generation.}
 \fi
 
 \begin{figure}
-\centering{
-    \subfigure[\texttt{p}]{
-        \includegraphics[width=.45\columnwidth]{figures/html_p}
-        \label{fig:html_p}
+\centering{%
+    \subfigure[\texttt{p}]{%
+        \includegraphics[width=.45\columnwidth]{figures/html_p}\label{fig:html_p}
     }
-    \subfigure[\texttt{form.myform}]{
-        \includegraphics[width=.45\columnwidth]{figures/html_form_myform}
-        \label{fig:html_form.myform}
+    \subfigure[\texttt{form.myform}]{%
+        \includegraphics[width=.45\columnwidth]{figures/html_form_myform}\label{fig:html_form.myform}
     }
-    \subfigure[\texttt{table tr td}]{
-        \includegraphics[width=.45\columnwidth]{figures/html_table}
-        \label{fig:html_table}
+    \subfigure[\texttt{table tr td}]{%
+        \includegraphics[width=.45\columnwidth]{figures/html_table}\label{fig:html_table}
     }
-    \subfigure[\texttt{\#first:hidden}]{
-        \includegraphics[width=.45\columnwidth]{figures/html_pseudoclass}
-        \label{fig:html_pseudoclass}
+    \subfigure[\texttt{\#first:hidden}]{%
+        \includegraphics[width=.45\columnwidth]{figures/html_pseudoclass}\label{fig:html_pseudoclass}
     }
     \caption{Examples of HTML DOMs that can be matched by a CSS selector, automatically generated by our CSS \gls{name}.
-    Note that we bolden the font of the selected node, for example in subplot~\ref{fig:html_table}, where the selected element in the \texttt{td} nested inside a \texttt{tr} in a \texttt{table}.}
-    \label{fig:selector_demonstrations}
+    Note that we bolden the font of the selected node, for example in subplot~\ref{fig:html_table}, where the selected element in the \texttt{td} nested inside a \texttt{tr} in a \texttt{table}.}\label{fig:selector_demonstrations}
 }
 \end{figure}
 
@@ -137,7 +132,7 @@ Inspired by recent work on building counterexample-guided feedback on automaton 
 While we have yet to implement the detection stage of the regular expression \gls{name}, the explanation stage we have developed shares thematic ties with the CSS selector DOM generator. 
 \if 0
 \bjoern{Do we not have a detector because of a lack of time or because of conceptual roadblocks? Can you find all string literals in a code block, compile a regular expression for it (re.match()) and test whether that produces an error?}
-\andrew{Lack of time. Sure -- I can make something that performs this.  Let me get to the preliminary study first and then move onto this.}
+\andrew{Lack of time. Sure --- I can make something that performs this.  Let me get to the preliminary study first and then move onto this.}
 \fi
 
 Like the demonstrations for CSS selectors, we choose to generate brief but demonstrative examples, assuming that strings cannot be too long, or else readers will not be able to grasp the core intent of the pattern.
@@ -153,7 +148,7 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 \begin{figure}
 \centering
 \setlength{\fboxsep}{10pt}
-\noindent\framebox[\columnwidth][c]{
+\noindent\framebox[\columnwidth][c]{%
 \begin{minipage}{.95\columnwidth}
 \small\texttt{([0-9A-F]\{2\}[:])\{5\}([0-9A-F]\{2\})}: \\
 \emph{D8:E6:0C:ED:0E:79} \\ \\
@@ -170,7 +165,7 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 The conciseness of command line options enables speedy typing, but recalling what each one does can be tricky~\cite{miller_inky_2008}.
 We created a tutoron for one frequently used command line utility, the file retrieval tool \texttt{wget}, to investigate how Tutorons can explain command lines. \texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly with its opaque short flags.
 Utilities like \texttt{wget} already have comprehensive (albeit non-adaptive) documentation accessible through \texttt{man} pages and the \texttt{-h} flag from the terminal that can be used as a starting point for building in-situ documentation.
-\shortchange{
+\shortchange{%
 We focused on wget as it represents complex command lines and their problems, including argumets with meanings poorly conveyed by their symbols, and so many options to preclude recall even after extended use.
 }
 
@@ -198,24 +193,24 @@ For all lines, we then computed the co-occurrence of options, counting how often
 \caption{Arguments that frequently co-occur in a sample of 500 StackOverflow posts on wget.}
 \label{tab:wget_arguments}
 \centering
-\begin{tabular}{|l|l|c|}
-\hline
+\begin{tabular}{llc}
+\toprule
 \thead{Option 1} & \thead{Option 2} & \thead{Count} \\
-\hline
--r & -A & 28 \\ \hline
---user & --password & 23 \\ \hline
--r & -l & 22 \\ \hline
+\midrule
+\texttt{-r} & \texttt{-A} & 28 \\ \midrule
+\texttt{--user} & \texttt{--password} & 23 \\ \midrule
+\texttt{-r} & \texttt{-l} & 22 \\ \midrule
 %-p & -k & 17 \\ \hline
 %-r & -e & 14 \\ \hline
 %-r & -P & 13 \\ \hline
 %-r & -nd & 12 \\ \hline
-... & ... & ... \\ \hline
+\dots & \dots & \dots \\ \bottomrule
 \end{tabular}
 \end{table}
 
 The common option combinations indeed form semantically  meaningful units. 
 The combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, without following the recommended etiquette for crawler \texttt{robots}.
-In our \texttt{wget} \gls{name}, we create \emph{compound explanations}, or string templates for describing the intent of  these most-frequent groups of options, into which the values of the parameters can be substituted (Table ~\ref{tab:wget_combos}).
+In our \texttt{wget} \gls{name}, we create \emph{compound explanations}, or string templates for describing the intent of  these most-frequent groups of options, into which the values of the parameters can be substituted (Table~\ref{tab:wget_combos}).
 We enforce a requirement that any one option can be described in at most one compound explanation to reduce the verbosity of text descriptions generated.
 With the techniques described above, we generated explanations for \texttt{wget} command lines like those shown in Figure~\ref{fig:wget_accelerators}.
 
@@ -227,56 +222,52 @@ With the techniques described above, we generated explanations for \texttt{wget}
 \caption{Templates for Describing Combinations of wget options}
 \label{tab:wget_combos}
 \centering
-\begin{tabular}{|L|C|R|}
-\hline
+\begin{tabular}{LCR}
+\toprule
 \thead{Template} & \thead{Command} & \thead{Realized Text} \\
-\hline
-Recursively scrape web pages linked from \{url\} of type '\{accept\}', following links \{level\} times. &
-\texttt{wget -l3 -A '*.jpg' \urltarget{}} & 
-Recursively scrape web pages linked from http://\urltarget{} of type '*.jpg', following links 3 times. \\
-\hline
-Authenticate at {url} with username '{user}' and password '{password}'. &
+\midrule
+Recursively scrape web pages linked from \{url\} of type `\{accept\}', following links \{level\} times. &
+\texttt{wget -l3 -A `*.jpg' \urltarget{}} & 
+Recursively scrape web pages linked from http://\urltarget{} of type `*.jpg', following links 3 times. \\
+\midrule
+Authenticate at {url} with username `{user}' and password `{password}'. &
 \texttt{wget --user andrew 
 --password mypass \urltarget{}} & 
-Authenticate at http://\urltarget{} with username 'andrew' and password 'mypass'. \\
-\hline
+Authenticate at http://\urltarget{} with username `andrew' and password `mypass'. \\
+\bottomrule
 \end{tabular}
 \end{table*}
 
 \begin{figure}
-\centering{
+\centering{%
 \if 0
-    \subfigure[A trivial \texttt{wget} command and an automatically-generated explanation of what it does. \bjoern{Error in figure - commandline says "fileurl" but explanation says 
-    "http://fileurl" --http isn't automatically prepended by wget. Also, you can skip the simple example if you need space.}]{
-        \includegraphics[width=\columnwidth]{figures/wget_trivial}
-        \label{fig:wget_trivial}
+    \subfigure[A trivial \texttt{wget} command and an automatically-generated explanation of what it does. \bjoern{Error in figure --- commandline says ``fileurl'' but explanation says 
+    ``http://fileurl'' --http isn't automatically prepended by wget. Also, you can skip the simple example if you need space.}]{%
+        \includegraphics[width=\columnwidth]{figures/wget_trivial}\label{fig:wget_trivial}
     }
 \fi
 \if 0
-    \subfigure[]{
-        \label{fig:wget_complex}
-    }
+    \subfigure[]{\label{fig:wget_complex}}
     \fi
     \includegraphics[width=\columnwidth]{figures/wget_complex_explained}
-    \caption{
+    \caption{%
     A multi-level explanation of \texttt{wget} comprises three parts.
         \emph{(a)} An introduction to the command.
         \emph{(b)} A meaningful description of what this combination of options does at a high level.
         \emph{(c)} A review of the meaning and values of each of the options.
-    }.
-    \label{fig:wget_accelerators}
+    }\label{fig:wget_accelerators}
 }
 \end{figure}
 
-\shortchange{
+\shortchange{%
 \subsection{Generalized design guidelines}
-\andrew{TODO: come up with generalized design guidelines}
+\andrew{TODO\@: come up with generalized design guidelines}
 Developing \glspl{name} requires embedded domain expertise to generate useful explanations.
 We clarify that we contribute in-situ documentation for opportunistic programming and code detection and example generation techniques expected to generalize to other languages.
 
 With \glspl{name}' consideralbe implementation cost, which includes explanation design and implementation, we expect authors will self-select as dedicated members of programmer communities or instructors.
-\andrew{
-TODO: what are the expected costs?
+\andrew{%
+TODO\@: what are the expected costs?
 What are the highest costs to development?
 }
 }
