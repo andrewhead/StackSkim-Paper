@@ -30,6 +30,16 @@ As a result, today's Q\&A sites like StackOverflow and tutorial-style blogs lack
 }
 \end{figure}
 
+\begin{changes}
+One of the attributes of recognized answers on StackOverflow, according to Nasehi et al.~\cite{nasehi_what_2012}, is step-by-step solutions.
+A step-by-step solution is presented in a detailed and ordered fashion, in a simple way, in a way that's familiar to the questioner or friendly to newcomers.
+Answers with this attribute sometimes provide a simulation of what the code does, or describe multiple elements needed to perform a single programming task. \if 0
+Three common attributes of low-vote answers on StackOverflow (lack of explanation, in addition to lack of code and shortcomings of solution).
+This implies that some code examples could be more valuable to programmers looking for online inspiration if their explanations were complete and at the appropriate level of detail~\cite{nasehi_what_2012}.
+\fi
+The routines we develop here enable step-by-step explanations and simulations of existing code to add value to existing code examples.
+\end{changes}
+
 To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce on-demand, context-relevant descriptions of code from domain-specific languages and commands.
 \Glspl{name} automatically find pieces of code in webpages and augment these with \glspl{exp}.
 These explanations are \emph{on-demand} --- they can describe code found anywhere, to provide just-in-time understanding of code.

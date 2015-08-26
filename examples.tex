@@ -3,7 +3,7 @@
 In this section, we describe how we design and implement \glspl{exp} for 3 languages, highlighting design inspirations and implementation details pertinent to generating helpful explanations.
 In particular, we discuss techniques for natural language generation, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and \texttt{wget}.
 We want to automatically create useful explanations for many different contexts without knowing those contexts ahead of time. 
-Our techniques show how to automatically generate useful examples, reusing and repurposing existing documentation (by reusing its codebase, and, where manual effort is needed, guide that effort to the most useful cases by extracting frequency information from the web.
+Our techniques show how to automatically generate useful examples, reusing and repurposing existing documentation by reusing its codebase, and, where manual effort is needed, guide that effort to the most useful cases by extracting frequency information from the web.
 
 \subsection{CSS}
 
@@ -170,6 +170,9 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 The conciseness of command line options enables speedy typing, but recalling what each one does can be tricky~\cite{miller_inky_2008}.
 We created a tutoron for one frequently used command line utility, the file retrieval tool \texttt{wget}, to investigate how Tutorons can explain command lines. \texttt{wget} has around 100 command line arguments, making it impractical to remember what each individual one means, particularly with its opaque short flags.
 Utilities like \texttt{wget} already have comprehensive (albeit non-adaptive) documentation accessible through \texttt{man} pages and the \texttt{-h} flag from the terminal that can be used as a starting point for building in-situ documentation.
+\shortchange{
+We focused on wget as it represents complex command lines and their problems, including argumets with meanings poorly conveyed by their symbols, and so many options to preclude recall even after extended use.
+}
 
 \subsubsection{Enumerating command line options and extracting help text form source code}
 
@@ -264,3 +267,16 @@ Authenticate at http://\urltarget{} with username 'andrew' and password 'mypass'
     \label{fig:wget_accelerators}
 }
 \end{figure}
+
+\shortchange{
+\subsection{Generalized design guidelines}
+\andrew{TODO: come up with generalized design guidelines}
+Developing \glspl{name} requires embedded domain expertise to generate useful explanations.
+We clarify that we contribute in-situ documentation for opportunistic programming and code detection and example generation techniques expected to generalize to other languages.
+
+With \glspl{name}' consideralbe implementation cost, which includes explanation design and implementation, we expect authors will self-select as dedicated members of programmer communities or instructors.
+\andrew{
+TODO: what are the expected costs?
+What are the highest costs to development?
+}
+}
