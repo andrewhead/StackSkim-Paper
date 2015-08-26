@@ -94,18 +94,17 @@ Note that if this can be combined with the parsing stage of the \gls{name} proce
 Finally, a \gls{name} may reduce false positives by filtering candidates to those containing tokens highly representative of the language.
 This is necessary when candidate regions are small and the terminals of a grammar accept large character classes.
 While the string \texttt{``marti''} in a JavaScript program could represent a custom HTML element we in a selector, it's really more likely a string for some other purpose --- elements in a CSS selector more often than not have tag names defined in the HTML specification (e.g., \texttt{p}, \texttt{div}, or \texttt{img}).
-
+%
 \begin{changes}
-In the future, many languages with similar syntax could be supported by a different \gls{name}.
-When multiple explanations are available for the same explainable region, how do we disambiguate which explanation is the best one to use?
-We propose a method of searching for `emblematic' patterns within a string that provide a confidence score that a region indeed belongs to a certain language.
-For example, searching for the tokens `\textasciicircum' at the beginning of text or `\$' at the end of a text is highly emblematic of regular expressions, but not CSS selectors.
+\subsection{Disambiguation}
+When multiple explanations are available for the same explainable region from different \glspl{name}, how do we choose which one to show?
+Here we describe how to search `emblematic' patterns within a string to produce language-specific confidence scores to rank the explanations.
+For example, searching for the tokens \textasciicircum\ at the beginning of text or \$ at the end of a text is highly emblematic of regular expressions, but not CSS selectors.
 The substrings `div' and `table' are, likewise, highly likely to occur in a selector but not in a regular expression.
-Through preliminary tests, we were able to demonstrate that with these confidence scores, we are capable of disambiguating between strings for regular \andrew{Finish this}
+Through preliminary tests, we were able to demonstrate that with these confidence scores, we are capable of disambiguating between strings for regular expressions.
 \end{changes}
 
 \subsection{Parsing}
-
 Detected code snippets are parsed into a parse tree.
 We have found two methods of building parsers to be useful.
 When it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors can modify existing parsers, introducing hooks for extracting results of parsing.

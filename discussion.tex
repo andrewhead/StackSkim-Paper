@@ -34,8 +34,12 @@ Finally, tasks in the study involved edit or deletion tasks with existing code.
 In a world where \glspl{name} were prevalent and one or more existed for each language and library, what would prevent multiple \glspl{name} from explaining the same code?
 We expect that in future versions, programmers will manage languages and libraries they want to explain from a central configuration interface.
 Toolbars can be added to the browser to allow users to rapidly turn off explanations that they don't need.
-\shortchange{%
-One other systematic solution is to use probabilistic language detection and use \glspl{name} for the highest-ranking match.
-}
+\shortchange{One other systematic solution is to use probabilistic language detection and use \glspl{name} for the highest-ranking match.}
 
-We are also interested in conducting a study with groups of  novice programmers. We believe that viewing the problem-solving strategies of novice programmers in particular will yield better recommendations for how to design in-situ help for this group.
+\begin{changes}
+In our experience, building reliable detectors requires iteration on a core set of tutorials that use a micro-language.
+Collecting this set of test documents, developing the detector code, reappropriating existing parsers, and designing and implmeneting a useful explainer can take dozens of hours.
+As the number of languages for which tutorons would be useful is likely in the dozens, such investments could be appropriate for dedicated members of the larger programmer community, rather than programmers looking for a weekend project.
+\end{changes}
+
+We are also interested in conducting a study with groups of  novice programmers. We believe that viewing the problem-solving strategies of novice programmers will yield better recommendations for how to design in-situ help for this group.

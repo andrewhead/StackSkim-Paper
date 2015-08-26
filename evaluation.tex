@@ -1,8 +1,7 @@
 \section{Evaluation}
 
 \begin{changes}
-
-To evaluation our \glspl{name}, we asked two questions.
+To evaluate our \glspl{name}, we asked two questions.
 First, how reliably can automatic explanations could be generated for the expanse of different formats of online tutorials?
 Second, can \glspl{exp} help programmers modify existing, unexplained code without having to consult additional documentation?
 We answered the first question through collecting a corpus of online tutorials and measuring the detection accuracy of our \glspl{name} for the languages we support.
@@ -15,7 +14,7 @@ For each language, we wanted a diversity of tutorials from different domains.
 We attempted to achieve diversity of task addressed in the tutorials for the same language by forming queries from common trigrams of StackOverflow tags containing a language.
 For example, fetching the most common tags related to CSS selectors yielded several task-specific trigrams including `css-selectors selenium webdriver' (for client-side application testing) and `css-selectors nokigiri ruby' (for web scraping with Ruby).
 For each language, for each of the top trigrams from most popular to least used on StackOverflow, we created a Google query by appending the word `tutorial' to the trigram, fetched the first 10 pages from the search results into our corpus, and stopped after we had fetched 300 tutorials.
-After one round of filtering we found that 73\% of CSS selector tutorials, 81\% of wget tutorials, and 76\% of regular expression tutorials had at least some code example and was fetched without a download error, yielding >200 tutorials for each language.
+After one round of filtering we found that 73\% of CSS selector tutorials, 81\% of wget tutorials, and 76\% of regular expression tutorials had at least some code example and was fetched without a download error, yielding \textgreater 200 tutorials for each language.
 
 We developed a tool to log the locations of manually-selected `ground truth' explainable regions that we found by manually inspecting the tutorials.
 Location was stored as a tuple of absolute path to the containing element, and the start and end character indexes of the explainable region within that element.
@@ -38,11 +37,11 @@ While high recall is also important to draw users' attention to explainable code
 \centering
 \begin{tabular}{llc}
 \toprule
-\thead{Language} & \thead{Precision} & \thead{Recall} \\
+\headrow{Language} & \headrow{Precision} & \headrow{Recall} \\
 \midrule
-wget & 45\% & 58\% \\ \midrule
-CSS selectors & 70\% & 40\% \\ \midrule
-RegEx & 41\% & 19\% \\ \bottomrule
+wget & 84\% & 61\% \\ \midrule
+CSS selectors & 69\% & 48\% \\ \midrule
+RegEx & 78\% & 14\% \\ \bottomrule
 \end{tabular}
 \end{table}
 
