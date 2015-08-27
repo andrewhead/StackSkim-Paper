@@ -275,13 +275,14 @@ We propose three guidelines to aid in designing \glspl{exp} for micro-languages 
 
 First, minimize repeated text.
 While our CSS natural language explanation begins with a static introduction to CSS selectors, we found that over longer usage periods, parts of the \gls{exp} that remain unchanged are likely to be ignored.
-We found that 3 of the 9 participants in our usability study either commented that they were unlikely to read the introductory text as it remained unchanged, or that there was some informationt they had skimmed over that included a conceptual understanding that would have helped them.
-While we have not yet concretely observed this, we suspsect that template-based explanations dependent on the arguments used are likely to be prone to similar skimming or skipping if they do not change sufficiently between very different code examples.
+We found that 3 of the 9 participants in the usability study either commented that they were unlikely to read the introductory text because it remained unchanged, or that there was some information they had skimmed over that included an important conceptual point that would have been helpful for them.
+While we have not yet directly observed this, we suspect that template-based explanations dependent on the arguments used are likely to be prone to similar skimming or skipping if they do not change sufficiently between very different code examples.
+\marti{This last sentence is problematic.  Also, in the first sentence of this paragraph, I think rather than repeated text, this refers to showing the same text repeatedly.  Ideally, the code would keep track of how often and how recently the user has seen some explanation.  Do we do this?}
 
 Second, reappropriate existing documentation.
 Explanations for the wget \gls{name} were built from help strings built into the open source code for the utility.
 For notoriously cryptic languages like regular expressions, many have already built visualization and explanation engines vetted by extensive community use.
-The task of the \gls{name} author than becomes locating and making mashups of the parsers and explainers built by their peers to make this available to programmers in their everyday programming help searches by producing a reliable detection routine.
+The task of the \gls{name} author then becomes locating and making mashups of the parsers and explainers built by their peers to make this available to programmers in their everyday programming help searches by producing a reliable detection routine.
 
 Third, focus on common usage.
 A hand-written parser specification written in 30 lines of code successfully parsed over 99\% of CSS selectors detected in jQuery selectors, despite some simplifications of the CSS selector grammar.

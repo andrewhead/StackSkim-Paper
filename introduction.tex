@@ -40,12 +40,12 @@ The routines we develop here enable step-by-step explanations and simulations of
 
 To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code from domain-specific languages and commands.
 \Glspl{name} automatically find pieces of code in webpages and augment these with \glspl{exp}.
-The explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, in domain-specific terms.
+The explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, using domain-specific terms.
 In comparison to getting-started guides and reference documentation, \glspl{name} minimize the amount of text programmers have to inspect to understand source code.
 \begin{changes}
 Such explanations begin to resemble the ``good answers'' from online Q\&A by providing detailed step-by-step solutions in a way that is familiar to the questioner~\cite{nasehi_what_2012}.
 \end{changes}
-They are also \emph{on-demand} --- they can describe confusing code found anywhere, to provide just-in-time understanding of code.
+They are also \emph{on-demand} --- they can describe confusing code found anywhere, to provide just-in-time understanding.
 
 \if 0
 We draw on inspiration of layered documentation to justify our current work. \appachu{one liner to describe layered documentation}
@@ -55,14 +55,15 @@ Farkas~\cite{farkas_layering_1998} introduces layered documentation as an extens
 \fi 
 %
 \begin{changes}
-\Glspl{name} can be built to generate \glspl{name} for cryptic languages like CSS selectors, regular expressions, and terminal commands (see Figure~\ref{fig:accelerators}). 
+\Glspl{name} can be built to generate explanations for cryptic languages like CSS selectors, regular expressions, and terminal commands (see Figure~\ref{fig:accelerators}). 
 They are programmed to detect relevant code, parse it, and generate explanations and demonstrations of that code. 
-\end{changes}
+\end{changes}\marti{This repeats a sentence in the abstract (or close to it.)}
 In our implementation, each language can be supported in several hundred lines of code.
 Each one can be built as a standalone server, accessible by an addon in the programmer's browser to provide just-in-time explanations of a language or command anywhere on the web.
-\if 0 With the \glspl{name} that we build for CSS selectors, regular expressions and terminal commands, \fi We show an expanse of domain-specific representations of code, from natural language to example HTML DOMs.
+\marti{This just-in-time wording is also at line 48.}
+\if 0 With the \glspl{name} that we build for CSS selectors, regular expressions and terminal commands, \fi We show an expanse of domain-specific representations of code, from natural language to example HTML DOMs. 
 
 We make three main contributions.
-First, we introduce a framework for building \Glspl{name}, generators of explanations and demonstrations for domain-specific languages and terminal commands.
-Second, we describe the processing pipeline, technical considerations, and design guidelines involved in build \glspl{name} by providing details about our efforts to implement them for CSS selectors, regular expressions, and terminal commands.
-Finally, we show through an in-lab study how \gls{name}-generated explanations can help programmers modify existing code containing CSS selectors and wget commands without referring to external documentation.
+First, we introduce a framework for building \Glspl{name}, generators of explanations and demonstrations for domain-specific languages and terminal commands.\marti{This also repeats that language.}
+Second, we describe the processing pipeline, technical considerations, and design guidelines involved in build \glspl{name} by providing details about our efforts to implement them for CSS selectors, regular expressions, and terminal commands. \marti{More captilization inconsistency.  We are also inconsistend about the spacing in "webpage" (or web page).}
+Finally, we show through an in-lab study how \gls{name}-generated explanations can help programmers modify existing code containing CSS selectors and wget commands without referring to external documentation. \marti{Both times that I read this, I wondered why didn't we test the regex's.  Just sayin'.}
