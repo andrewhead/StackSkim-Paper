@@ -1,12 +1,16 @@
 \section{Evaluation}
 
 \begin{changes}
-To evaluate our \glspl{name}, we asked two questions.
+We evaluate how reliably we can detect and parse explainable regions in online programming help, and conduct an in-lab usability study to observe how programmers use \glspl{exp} when modifying unexplained code.
+\end{changes}
+\if 0
 First, how reliably can automatic explanations could be generated for the expanse of different formats of online tutorials?
 Second, can \glspl{exp} help programmers modify existing, unexplained code without having to consult additional documentation?
 We answered the first question through collecting a corpus of online tutorials and measuring the detection accuracy of our \glspl{name} for the languages we support.
 We address the second question through an in-lab study with programmers modifying unexplained code to perform new tasks, aided by \glspl{name}.
-
+\fi
+%
+\begin{changes}
 \subsection{Reliability of Snippet Detection}
 
 To determine the reliabilty of our explainable region detection techniques, we first built a corpus of tutorials that used the languages explained by our \glspl{name}.
@@ -30,7 +34,9 @@ Ultimately, we suspsect that high precision is important to assure \glspl{name} 
 We have yet to verify this experimentally.
 While high recall is also important to draw users' attention to explainable code in the browser, \glspl{name} can easily support an architecture where users manually request an explanation for a code snippet that they recognize as being explainable but not automatically detected
 \andrew{SIFTER and using machine learning to detect when instances of words are commands.}
-
+\end{changes}
+%
+\if 0
 \begin{table}
 \caption{Accuracy of our explainable region detection.}
 \label{tab:detection_accuracy}
@@ -44,14 +50,16 @@ CSS selectors & 69\% & 48\% \\ \midrule
 RegEx & 78\% & 14\% \\ \bottomrule
 \end{tabular}
 \end{table}
-
+\fi
+%
+\begin{changes}
 \subsection{Correctness of Parser}
 
 While our parsers for wget and regular expressions were built on top of existing parsers, we built our simple CSS parser by hand.
 We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error.
 Of the 334 selectors from the last step, 322 (96.4\%) parsed successfully.
 Of the 12 that failed to parse, 10 of them could not be lexed as they included incorrectly-formatted characters in the original HTML markup (such as curly quotation marks instead of straight ones) or jQuery-specific pseudo-classes (e.g., \texttt{:jqmData}) that do not belong to the CSS syntax.
-With these adjustments, our parser was able to successfully parse 332 our of 334 selectors found online (99.4\%).
+With these adjustments, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
 
 \end{changes}
 
@@ -83,7 +91,6 @@ E.g., in Figure~\ref{fig:study_snippet}, the participant was shown a snippet con
 After reading the snippet, to solve the task, participants could use any resources they wanted to, including searching the web.
 
 \begin{changes}
-
 Example tasks included:
 \begin{itemize}
 
@@ -166,7 +173,7 @@ Participants were  able to identify which flags had to be removed from wget comm
 For others, the \gls{exp} affirmed a guess that the participant already had about how to construct a CSS selector ($P1$).
 
 {\bf Context-relevant pattern matching.}
-One participant noted that the \glspl{exp} helped  to map flags for the wget command line to the higher-level intent of the task ($P4$). 
+One participant noted that the \glspl{exp} helped  to map flags for a wget command to the higher-level intent of the task ($P4$). 
 For the most complex CSS selector task (see Figure~\ref{fig:study_snippet}), two participants noted
 that the example HTML shown in the \gls{exp} 
 provided a pattern of what fields needed to be changed  from the selector in the snippet to capture the element and ID required by the task prompt ($P2$, $P4$).

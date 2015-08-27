@@ -1,13 +1,13 @@
 \section{Definitions}
 
-Throughout this paper, that we refer to the following terms to describe our system, its input and output:
+Throughout this paper, that we refer to the following terms to describe our system, and its input and output:
 
 A \emph{\gls{name}} is a routine on a web server with language-specific rules for detecting, parsing and explaining source code written on a web page.
+
+An \emph{explainable region} is a substring of an online code snippet that a \gls{name} can parse and explain.  For example, the term \texttt{div} in the JavaScript code \texttt{\$(\qs{}div\qs{}).css(\{\qs{}display\qs{}: \qs{}none\qs{}\})} is an explainable region for the CSS \gls{name}.
 
 A \emph{\gls{exp}} is the output of a \gls{name} for an explainable region of code. This can be a natural language explanation or a domain-specific demonstration of what the code does.
 
 %%A \emph{code snippet} is a block of code on a page encompassed in a single DOM element --- e.g., a \texttt{<code>} or \texttt{<pre>} block --- that a programmer is taking effort to understand or reuse.
 
-An \emph{explainable region} is a substring of an online code snippet that a \gls{name} can parse and explain.  For example, the term \texttt{div} in the JavaScript code \texttt{\$(`div').css(\{`display': `none'\})} is an explainable region for the CSS \gls{name}.
-
-The \emph{\Glspl{name} addon} is a browser extension that queries \glspl{name} for \gls{exp} of code.  We use the addon to demonstrate the advantages of on-demand, context-relevant in-situ programming help.
+The \emph{\Glspl{name} addon} is a browser extension that queries \glspl{name} for \glspl{exp} of code and displays them on-demand for explainable regions.  We use the addon to demonstrate the advantages of context-relevant, on-demand in-situ programming help.
