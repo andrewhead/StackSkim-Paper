@@ -13,7 +13,7 @@ We address the second question through an in-lab study with programmers modifyin
 \begin{changes}
 \subsection{Reliability of Snippet Detection}
 
-We started by collecting representative set of programming help documents that included a micro-language.  For each micro-language, we queried the API for StackOverflow, a popular programing Q\&A site, for popular pairs of tags that co-occurred with the language's tag.  This yielded triplets of tags related to both tasks (`mod-rewrite redirect regex') and related languages and libraries (`casperjs css-selectors javascript').  For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
+We started by collecting a representative set of programming help documents that include a micro-language.  For each micro-language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.  This yielded triplets of tags related to  tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').  For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
 
 For each micro-language, we manually extracted the element and character location of all uses of the micro-language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
@@ -100,7 +100,6 @@ In one condition, snippets were enhanced with \Glspl{name}.
 The \gls{name} did not contain exactly the missing information to complete the task.
 For example, for wget tasks, participants were shown descriptions of all options and asked to discover and modify or remove only those relevant to the task.
 While these tasks limit the generalizability of our study, we believe that it shows that \Glspl{name} can help in the situations we devised and tested.
-\end{changes}
 
 Participants were told they would have 5 minutes for each task; when participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
 When in the \gls{exp} condition participants were asked to find and view all \glspl{exp} for the source code after reading the snippet.
