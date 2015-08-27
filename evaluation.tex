@@ -13,26 +13,11 @@ We address the second question through an in-lab study with programmers modifyin
 \begin{changes}
 \subsection{Reliability of Snippet Detection}
 
-To determine the reliabilty of our explainable region detection techniques, we first built a corpus of tutorials that used the languages explained by our \glspl{name}.
-For each language, we wanted a diversity of tutorials from different domains.
-We attempted to achieve diversity of task addressed in the tutorials for the same language by forming queries from common trigrams of StackOverflow tags containing a language.
-For example, fetching the most common tags related to CSS selectors yielded several task-specific trigrams including `css-selectors selenium webdriver' (for client-side application testing) and `css-selectors nokigiri ruby' (for web scraping with Ruby).
-For each language, for each of the top trigrams from most popular to least used on StackOverflow, we created a Google query by appending the word `tutorial' to the trigram, fetched the first 10 pages from the search results into our corpus, and stopped after we had fetched 300 tutorials.
-After one round of filtering we found that 73\% of CSS selector tutorials, 81\% of wget tutorials, and 76\% of regular expression tutorials had at least some code example and was fetched without a download error, yielding \textgreater 200 tutorials for each language.
+We started by collecting representative set of programming help documents that included a micro-language.  For each micro-language, we queried the API for StackOverflow, a popular programing Q\&A site, for popular pairs of tags that co-occurred with the language's tag.  This yielded triplets of tags related to both tasks (`mod-rewrite redirect regex') and related languages and libraries (`casperjs css-selectors javascript').  For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
 
-We developed a tool to log the locations of manually-selected `ground truth' explainable regions that we found by manually inspecting the tutorials.
-Location was stored as a tuple of absolute path to the containing element, and the start and end character indexes of the explainable region within that element.
-A match occurred when both the tutoron and a human judge had located an explainable region with exactly the same containing element, and start and end characters.  
-`Precision' measured the ratio of correct tutoron detections to the total number of detections, and `recall' measured the ratio of correct tutoron detections to the total number of ground truth explainable regions.
+For each micro-language, we manually extracted the element and character location of all uses of the micro-language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
-We consistently saw high precision yet low recall with the \glspl{name} (see Table~\ref{tab:detection_accuracy}).    
-Low recall can be explained by the fact that code sometimes appears in textual paragraphs, either due to the author's styling preferences, code in unformatted comments at the end of a tutorial, or the author's desire to reference or include a command or abbreviate code snippet in-line with text that describes it.
-It is difficult to detect code snippets that are interspersed in textual paragraphs, as there is no textual or structural indicator of where the code starts or ends.
-As a result, extra non-code text may be grouped in with the code.
-If we restrict \glspl{name} to only scan `code' and `pre' elements on the page, we see an increase in recall to XX-YY\%.
-Ultimately, we suspsect that high precision is important to assure \glspl{name} users that the \glspl{exp} illuminate real code, instead of spuriously explaining non-code.
-We have yet to verify this experimentally.
-While high recall is also important to draw users' attention to explainable code in the browser, \glspl{name} can easily support an architecture where users manually request an explanation for a code snippet that they recognize as being explainable but not automatically detected
+After several iterations of refinement, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.  Our detectors achieve high precision yet low recall.  Major reasons for low recall are a failure to reliably detect code examples within a sentence of text (wget), scanning only `pre' and `code' nodes while skipping `div' nodes (CSS selectors), and reliably detecting some cases (Apache server configurations, sed patterns) while completely omitting others (Python string, Perl regular rexpressions) (regular expressions).  To improve the recall of regular expressions, more specialized rules are needed to detect the pattern in the major languages where it appears.  For CSS selectors and wget, support can be provided for tricky-to-detect scenarios by allowing programmers to request explanations for arbitrary text selections.
 \andrew{SIFTER and using machine learning to detect when instances of words are commands.}
 \end{changes}
 %
@@ -65,41 +50,33 @@ With these adjustments, our parser was able to successfully parse 332 / 334 sele
 
 \subsection{In-Lab Usability Study}
 
-We conducted a qualitative usability study to understand how \Glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
+We conducted a usability study to understand how \Glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
 We recruited 9 programmers from university listservs for undergraduate and graduate students in computer science and information science.
-All participants had at least two years of programming experience, with a median of 4 years of experience in their longest-used language.  Participants were asked to explain their actions via think-aloud method which was audio-recorded, and their actions were screen-captured and analyzed post-hoc. 
+All participants had at least two years of programming experience, with a median of 4 years of experience in their longest-used language.
 
-Each participant attempted 8 code modification tasks (plus 2 practice tasks) using two different languages: CSS selectors and \texttt{wget}.
+Each participant attempted 8 code modification tasks (plus 2 practice tasks) using two different languages: CSS selectors and wget.
 For each language the 4 coding tasks increased in difficulty with the fourth being especially tricky.
-We created snippets consisting of a block of code and optionally  explanatory text and comments for each task, based on  existing online programming help.
-\begin{changes}
-Snippets were from StackOverflow questions or answers.
-Tasks asked participants to modify unexplained code from snippets for a purpose unrelated to the StackOverflow question.
-\end{changes}
-\begin{changes}
-While \glspl{name} are designed to help programmers understand code, our tasks focused on code generation and modification.
-We see understanding code as central to code modification, and designed tasks to force users to find and understand relevant parts of code.
-\end{changes}
 
-Each code modification task consisted of the following steps:
+\begin{changes}
+Each code modification asked a participant to:
 \begin{enumerate}
-\item Read a task --- e.g., \emph{write a CSS selector that selects only elements of class \texttt{myInput}.}
-\item View a snippet with some clue about the task.
-E.g., in Figure~\ref{fig:study_snippet}, the participant was shown a snippet containing CSS selectors that choose elements of class \emph{myCheckbox} without explaining the syntax.
-\item Write and test the code in a sandbox we provided.
+\item Read a task.  For example: ``modify the command so it does not automatically fetch the images necessary to display the webpage.''
+\item View a snippet that is unrelated to the task, but that contains some clue on how to do it.  For example, a StackOverflow post that includes, but doesn't explain, the following command:
+\snippet{wget --random-wait -r -p -nd -e robots=off -A``.pdf''  -U mozilla http://math.stanford.edu/undergrad/}
+\item Write and test the code against a test condition we provide.
 \end{enumerate}
 After reading the snippet, to solve the task, participants could use any resources they wanted to, including searching the web.
-
+Snippets were from StackOverflow questions or answers.
+Tasks focused on code modification, as we intended to force users to find and understand relevant parts of code through the \glspl{name}.
+\end{changes}
+%
+\if 0
 \begin{changes}
 Example tasks included:
 \begin{itemize}
 
 \item
 Snippet (excerpt):
-
-\snippet{wget --random-wait -r -p -nd -e robots=off -A``.pdf''  -U mozilla http://math.stanford.edu/undergrad/}
-
-Task: modify the command so it does not automatically fetch the images necessary to display the webpage.
 
 \item
 Snippet (excerpt):
@@ -117,6 +94,7 @@ Snippet (excerpt, 1 of 15 lines):
 Task: write a selector that selects only the button elements with IDs starting with bid
 
 \end{itemize}
+\fi
 
 In one condition, snippets were enhanced with \Glspl{name}.
 The \gls{name} did not contain exactly the missing information to complete the task.
@@ -124,7 +102,10 @@ For example, for wget tasks, participants were shown descriptions of all options
 While these tasks limit the generalizability of our study, we believe that it shows that \Glspl{name} can help in the situations we devised and tested.
 \end{changes}
 
-Participants were told they would have 5 minutes for each task; when participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process. When in the \gls{exp} condition participants were asked to find and view all \glspl{exp} for the source code after reading the snippet.
+Participants were told they would have 5 minutes for each task; when participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
+When in the \gls{exp} condition participants were asked to find and view all \glspl{exp} for the source code after reading the snippet.
+Participants were asked to explain their actions via think-aloud method which was audio-recorded, and their actions were screen-captured and analyzed post-hoc. 
+
 
 \begin{figure}
 \centering
