@@ -8,7 +8,7 @@ When queried with the content of a web page, a \gls{name} detects explainable re
 %%\centering
     \includegraphics[width=\columnwidth]{figures/tutoron_ecosystem}
     \caption{%
-    The \Glspl{name} ecosystem and information flow.
+    The \glspl{name} ecosystem and information flow.
     A programmer browses for help in a web browser with the \Glspl{name} addon.
     When they visit a page, the addon queries a bank of \gls{name} servers for different programming languages.
     Each server detects explainable regions of code and produces \glspl{exp} of this code.
@@ -24,11 +24,11 @@ When queried with the content of a web page, a \gls{name} detects explainable re
 \end{figure}
 \fi
 
-By installing an addon for the browser, a programmer receives instant access to \glspl{exp}, or in-situ descriptions of code found while browsing, from \gls{name} servers (Figure~\ref{fig:browser_tutorons_markup}).
+By installing an addon for the browser, a programmer receives instant access to \glspl{exp}, or in-situ descriptions of code found while browsing, from \gls{name} servers.
 The addon queries existing \glspl{name} with the page source, receiving micro-explanations for all explainable regions of code.
 After receiving explanations, an explanation will appear in a tooltip overlaid on the document directly beneath the code example any time the programmer selects an explainable string of text.
 The addon can query many explanation servers for multi-language support within the same page.
-The information flow of the \Glspl{name} ecosystem is shown in Figure~\ref{fig:tutoron_ecosystem}.
+The information flow of the \glspl{name} ecosystem is shown in Figure~\ref{fig:tutoron_ecosystem}.
 Our approach could work in other settings, e.g., as a Wordpress plugin, which would shift the burden of installing software from user to tutorial author, \shortchange{and is in fact implemented as a Javascript library for easy integration into indivdual tutorial pages}.
 
 \begin{changes}
@@ -36,7 +36,7 @@ Once a page loads in the browser, the browser sends parallel requests to the ava
 By uploading the document on load, all \glspl{exp} can be generated when the user first visits the page.
 Explanations can therefore be generated in a single batch when the user first accesses the page, reducing the load time to milliseconds instead of seconds to access explanations.
 \end{changes}
-The original webpage is instantly available to the programmer, and \glspl{exp} for each language become available as each \gls{name} processes the document.
+The original web page is instantly available to the programmer, and \glspl{exp} for each language become available as each \gls{name} processes the document.
 Computational burden then resides on the server.
 \if 0 Client procedures consists of string matching to explainable regions detected followed by insertion of generated HTML into a tooltip, which will be linear in time to the number of explanations.\fi
 
@@ -45,11 +45,13 @@ Pre-computing these explainable text regions, we allow users to select explainab
 \shortchange{Our qualitative evaluations have shown that this selection mechanism is easy to use, and led us to implement additional mechanisms to improve usability.
 This includes highlighting explainable regions in colors corresponding to each \gls{name} to indicate what code programmers can gain clarification on, and showing tooltips on click rather than selection events.}
 
+\if 0
 \begin{figure}
     \centering
     \framebox{\includegraphics[width=\columnwidth]{figures/browser_tutorons_short}}\label{fig:browser_tutorons_markup}
-    \caption{A user installs the \Glspl{name} addon.  \emph{(a)} Once she activates it, \emph{(b)} she can view automatically-generated, context-relevant explanations of code of supported languages in-situ while she browses programming help.}
+    \caption{A user installs the \Glspl{name} addon.  \emph{(a)} Once they activate it, \emph{(b)} she can view automatically-generated, context-relevant explanations of code of supported languages in-situ while she browses programming help.}
 \end{figure}
+\fi
 
 \begin{figure}
 \centering{%

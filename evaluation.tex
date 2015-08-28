@@ -11,16 +11,22 @@ We address the second question through an in-lab study with programmers modifyin
 \fi
 %
 \begin{changes}
-\subsection{Reliability of Snippet Detection}
+\subsection{Detection and Parsing Reliability}
 
-We started by collecting a representative set of programming help documents that include a micro-language.  For each micro-language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.  This yielded triplets of tags related to  tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').  For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
+We started by collecting a representative set of programming help documents that include a micro-language.
+For each micro-language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.
+This yielded triplets of tags related to  tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').
+For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
 
 For each micro-language, we manually extracted the element and character location of all uses of the micro-language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
-After several iterations of refinement, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.  Our detectors achieve high precision yet low recall.  Major reasons for low recall are a failure to reliably detect code examples within a sentence of text (wget), scanning only `pre' and `code' nodes while skipping `div' nodes (CSS selectors), and reliably detecting some cases (Apache server configurations, sed patterns) while completely omitting others (Python string, Perl regular rexpressions) (regular expressions).  To improve the recall of regular expressions, more specialized rules are needed to detect the pattern in the major languages where it appears.  For CSS selectors and wget, support can be provided for tricky-to-detect scenarios by allowing programmers to request explanations for arbitrary text selections.
+After several iterations of refinement, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
+Our detectors achieve high precision yet low recall.
+Major reasons for low recall are a failure to reliably detect code examples within a sentence of text (wget), scanning only `pre' and `code' nodes while skipping `div' nodes (CSS selectors), and reliably detecting some cases (Apache server configurations, sed patterns) while completely omitting others (Python string, Perl regular rexpressions) (regular expressions).
+To improve the recall of regular expressions, more specialized rules are needed to detect the pattern in the major languages where it appears.  
+For CSS selectors and wget, support can be provided for tricky-to-detect scenarios by allowing programmers to request explanations for arbitrary text selections.
 \andrew{SIFTER and using machine learning to detect when instances of words are commands.}
-\end{changes}
-%
+
 \if 0
 \begin{table}
 \caption{Accuracy of our explainable region detection.}
@@ -36,9 +42,6 @@ RegEx & 78\% & 14\% \\ \bottomrule
 \end{tabular}
 \end{table}
 \fi
-%
-\begin{changes}
-\subsection{Correctness of Parser}
 
 While our parsers for wget and regular expressions were built on top of existing parsers, we built our simple CSS parser by hand.
 We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error.
@@ -50,7 +53,7 @@ With these adjustments, our parser was able to successfully parse 332 / 334 sele
 
 \subsection{In-Lab Usability Study}
 
-We conducted a usability study to understand how \Glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
+We conducted a usability study to understand how \glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
 We recruited 9 programmers from university listservs for undergraduate and graduate students in computer science and information science.
 All participants had at least two years of programming experience, with a median of 4 years of experience in their longest-used language.
 
@@ -63,15 +66,15 @@ Each code modification asked a participant to:
 \item Read a task.  For example: ``modify the command so it does not automatically fetch the images necessary to display the webpage.''
 \item View a snippet that is unrelated to the task, but that contains some clue on how to do it.  For example, a StackOverflow post that includes, but doesn't explain, the following command:
 \snippet{wget --random-wait -r -p -nd -e robots=off -A``.pdf''  -U mozilla http://math.stanford.edu/undergrad/}
-\item Write and test the code against a test condition we provide.
+\item Write and test code against a condition we provide.
 \end{enumerate}
-After reading the snippet, to solve the task, participants could use any resources they wanted to, including searching the web.
-Snippets were from StackOverflow questions or answers.
-Tasks focused on code modification, as we intended to force users to find and understand relevant parts of code through the \glspl{name}.
+
+After reading the snippet, participants could use any resources they wanted to, including web search, to complete the task.
+Snippets were adapted from StackOverflow questions or answers.
+Tasks asked participants to modify code, as we hoped to find whether the \glspl{name} provided enough understanding of the code to help programmers perform a practical task.
 \end{changes}
-%
+
 \if 0
-\begin{changes}
 Example tasks included:
 \begin{itemize}
 
@@ -95,32 +98,37 @@ Task: write a selector that selects only the button elements with IDs starting w
 
 \end{itemize}
 \fi
-
-In one condition, snippets were enhanced with \Glspl{name}.
-The \gls{name} did not contain exactly the missing information to complete the task.
+%
+\begin{changes}
+In one condition, snippets were enhanced with \glspl{exp}.
+The explanation did not contain exactly the missing information to complete the task.
 For example, for wget tasks, participants were shown descriptions of all options and asked to discover and modify or remove only those relevant to the task.
-While these tasks limit the generalizability of our study, we believe that it shows that \Glspl{name} can help in the situations we devised and tested.
+While these tasks limit the generalizability of our study, we believe that it shows that \glspl{name} can help in the situations we devised and tested.
 
-Participants were told they would have 5 minutes for each task; when participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
+Participans viewed \glspl{exp} for alternating tasks so we could observe differences in how they approached the tasks with and without them; order of exposure to \glspl{exp} was counter-balanced across participants. 
 When in the \gls{exp} condition participants were asked to find and view all \glspl{exp} for the source code after reading the snippet.
-Participants were asked to explain their actions via think-aloud method which was audio-recorded, and their actions were screen-captured and analyzed post-hoc. 
 
+Participants were told they would have 5 minutes for each task; if participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
+We asked them to ``think aloud'' as they performed these tasks.
 
+\end{changes}
+
+\if 0
 \begin{figure}
 \centering
 \framebox{\includegraphics[width=\columnwidth]{figures/study_snippet}}
 \caption{An example snippet shown as a clue for a code modification task, accompanied by a \gls{exp} that a participant in our study would have viewed if they were instructed to do so in this task.}
 \label{fig:study_snippet}
 \end{figure}
+\fi
 
-Participants viewed \glspl{exp} for alternating tasks so we could observe differences in how they approached the tasks with and without \glspl{exp}; exposure to \glspl{exp} was counter-balanced across participants. 
 
 %%This ordering was counterbalanced across participants so that we could see all tasks performed both with and without \gls{name}-generated \glspl{exp}.
 
 \subsection{Results}
 
 Our primary goal in observing participants was to determine if \gls{name}-generated \glspl{exp} were helpful  during code modification tasks and reduced the need to reference additional documentation.
-In the discussion below, we refer to individual participants as $P{1-9}$.
+In the discussion below, we refer to our participants as $P{1-9}$.
 
 \subsubsection{\Glspl{exp} Help Programmers Modify Code Without Using Other Documentation}
 
@@ -135,7 +143,7 @@ A cell is marked with the letter `D' if a participant accessed external document
 \end{figure}
 
 When using the \glspl{exp}, 34 out of 36 tasks, or 94\% did not require external documentation.  However, for those tasks where \glspl{exp} were not available, 63\% of the time participants did indeed access external resources in order to complete the task.  The wget tasks especially required external help, with man pages and other resources being accessed in 89\% of cases.  
-A detailed breakdown of external document usage is shown in Figure~\ref{fig:doc_accesses}. 
+A log of external document accesses is shown in Figure~\ref{fig:doc_accesses}. 
 
 
 %%In total, out of 72  tasks, participants sought out additional documentation a total of 25 times (Figure~\ref{fig:doc_accesses}).
@@ -154,7 +162,7 @@ For others, the \gls{exp} affirmed a guess that the participant already had abou
 
 {\bf Context-relevant pattern matching.}
 One participant noted that the \glspl{exp} helped  to map flags for a wget command to the higher-level intent of the task ($P4$). 
-For the most complex CSS selector task (see Figure~\ref{fig:study_snippet}), two participants noted
+For the most complex CSS selector task, two participants noted
 that the example HTML shown in the \gls{exp} 
 provided a pattern of what fields needed to be changed  from the selector in the snippet to capture the element and ID required by the task prompt ($P2$, $P4$).
 
@@ -170,23 +178,35 @@ Her follow-up queries with English language query terms  yielded search results 
 
 Participants also had difficulty navigating conventional forms of programming help.
 When looking for the \texttt{-r} flag in the man page for wget ($P2$, $P4$), participants found that a page-internal  search for the flag yielded so many matches that it was difficult to find the desired definition.
-The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not directly adjacent to where the flag was introduced, causing one participant to overlook this information, even though it was only 10 lines away ($P3$).
+The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not directly adjacent to where the flag was introduced, causing one participant to overlook this information($P3$).
 
 These results underscore the usefulness of context-relevant explanations located within the tutorial text itself.
 
 \subsubsection{Opportunities for Improvement}
 In those cases where the \gls{exp} did not aid programmers, there were a few primary causes.
 
-{\bf No visual affordances.} We did not place  visible cues showing where explanations were available.
-Programmers may fail to find \glspl{exp} since they have to be explicitly invoked through a right-click.
-Although $P2$ eventually found a \gls{exp} that led him to writing a successful CSS selector for the most difficult CSS task, he had to click around the snippet to find it, and did so only upon being reminded by the experimenter that he had not viewed all the \glspl{exp} in the snippet ($P2$).  We plan to experiment with providing visual affordances for the presence of \glspl{exp} in future.
-
+{\bf No visual affordances.} For this study, we did not place  visible cues showing where explanations were available.
+Programmers may fail to find \glspl{exp} since they have to be explicitly invoked through a left-click.
+\shortchange{One participant ($P2$) had to be reminded that he had to click around the snippet to find \glspl{exp} for unexplained code when he had not found all explainable regions.}
+\if 0
+Although $P2$ eventually found a \gls{exp} that led him to writing a successful CSS selector for the most difficult CSS task, he had to click around the snippet to find it, and did so only upon being reminded by the experimenter that he had not viewed all the \glspl{exp} in the snippet ($P2$).
+\fi
+Since this study, the browser add-on has been instrumented with visual feedback of all regions automatically detected.
 
 {\bf Selection region ambiguity.}
-The leniency of our algorithm for matching a text selection to an explained code fragment caused confusion for programmers about which fragments would be explained on each page ($P1$, $P2$, $P5$).
-For the same reason, explanations generated did not always match the fragment selected ($P1$, $P3$, $P5$).
+\begin{changes}
+At the time of the study, the algorithm we used to summon an explanation for selected text caused irrelevant explanations to appear when users selected text that was a substring of a detected, explained string.
+Several participants experienced this problem ($P1$, $P3$, $P5$).
+\if 0
 For example, one participant selected the text \texttt{<p>} for which no explanation was generated by the explanation server, because no CSS selector starts with a less-than sign.
-However, our selection matching algorithm matched this string to the \texttt{p.mainPageMeters} selector for which an explanation \emph{had} been generated by the server.  As a result, this participant viewed an irrelevant explanation for the code fragment he was viewing ($P5$).  More work is required to determine the right balance of fuzziness for the matching algorithm, with perhaps a drop-down menu of choices for alternative matches.
+However, our selection matching algorithm matched this string to the \texttt{p.mainPageMeters} selector for which an explanation \emph{had} been generated by the server.
+As a result, this participant viewed an irrelevant explanation for the code fragment he was viewing ($P5$).
+More work is required to determine the right balance of fuzziness for the matching algorithm, with perhaps a drop-down menu of choices for alternative matches.
+\fi
+With the addition of visual information scent, clickable regions now have exactly one correct explanation to overcome this problem in the default case.
+However the mechanics of "fuzziness" should be revisited for user-reported instances of a language that are not automatically detected by \glspl{name}.
+\end{changes}
 
 {\bf Incomplete explanations.} The  \gls{exp} text may not include enough detail to help programmers  develop adequate mental models of unfamiliar material. For instance,
-even after completing all 4 CSS selector tasks, $P5$ appeared to believe that CSS selectors were HTML elements themselves, rather than labels that could fetch them, perhaps confused by the example HTML produced in each \gls{exp} ($P5$).  That said, the idea of \gls{exp} can be expanded by adding links to fuller tutorial material.
+even after completing all 4 CSS selector tasks, $P5$ appeared to believe that CSS selectors were HTML elements themselves, rather than labels that could fetch them, perhaps confused by the example HTML produced in each \gls{exp} ($P5$).
+That said, the idea of \gls{exp} can be expanded by adding links to fuller tutorial material.
