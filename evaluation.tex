@@ -20,12 +20,14 @@ For around 20 of these most-common triplets for each language, we queried Google
 
 For each micro-language, we manually extracted the element and character location of all uses of the micro-language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
-After several iterations of refinement, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
+With the current \glspl{name}, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
-Major reasons for low recall are a failure to reliably detect code examples within a sentence of text (wget), scanning only `pre' and `code' nodes while skipping `div' nodes (CSS selectors), and reliably detecting some cases (Apache server configurations, sed patterns) while completely omitting others (Python string, Perl regular rexpressions) (regular expressions).
-To improve the recall of regular expressions, more specialized rules are needed to detect the pattern in the major languages where it appears.  
-For CSS selectors and wget, support can be provided for tricky-to-detect scenarios by allowing programmers to request explanations for arbitrary text selections.
-\andrew{SIFTER and using machine learning to detect when instances of words are commands.}
+Major reasons for low recall are:
+\emph{(a)} wget: we fail to reliably detect code examples within a sentence of text.
+\emph{(b)} selectors: we scan only `pre' and `code' nodes while skipping `div' nodes.
+\emph{(c)} regular expressions: while we write rules to reliably detect some regular expressions in some contexts (Apache server configs, sed, grep, and Javascript), rules are missing for others (Python, Perl, etc.).
+We can compensate for low recall by extending the browser addon to allow programmers to request explanations for arbitrary text.
+Recall may be further improved by incorporating a machine learning approach to extracting commands (e.g.,~\cite{pavel_browsing_2013}).
 
 \if 0
 \begin{table}

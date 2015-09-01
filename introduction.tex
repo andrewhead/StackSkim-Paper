@@ -16,7 +16,7 @@ As a result, today's Q\&A sites like StackOverflow and tutorial-style blogs lack
     \subfigure[A \gls{exp} with automatically generated natural language explanation of a CSS selector and a demonstration of an HTML element it matches.]{%
         \includegraphics[width=\columnwidth]{figures/accelerator_css}\label{fig:accelerator_css}
     }
-    \subfigure[A \gls{exp} describing the high-level intent and low-level argument values of a \texttt{wget} command.\andrew{Update this example, as it `downloads content from None'}]{%
+    \subfigure[A \gls{exp} describing the high-level intent and low-level argument values of a wget command.]{%
         \includegraphics[width=\columnwidth]{figures/accelerator_wget}\label{fig:accelerator_wget}
     }
     \caption{%
@@ -56,13 +56,14 @@ Farkas~\cite{farkas_layering_1998} introduces layered documentation as an extens
 %
 \begin{changes}
 \Glspl{name} can be built to generate explanations for cryptic languages like CSS selectors, regular expressions, and terminal commands (see Figure~\ref{fig:accelerators}). 
-They are programmed to detect relevant code, parse it, and generate explanations and demonstrations of that code. 
-\end{changes}\marti{This repeats a sentence in the abstract (or close to it.)}
+\end{changes}
+\if 0 They are programmed to detect relevant code, parse it, and generate explanations and demonstrations of that code. 
+\marti{This repeats a sentence in the abstract (or close to it.)} \fi
 In our implementation, each language can be supported in several hundred lines of code.
 Each one can be built as a standalone server, accessible by an addon in the programmer's browser to provide explanations of code anywhere on the web.
-\if 0 With the \glspl{name} that we build for CSS selectors, regular expressions and terminal commands, \fi We show an expanse of domain-specific representations of code, from natural language to example HTML DOMs. 
+\if 0 With the \glspl{name} that we build for CSS selectors, regular expressions and terminal commands, \fi We show an expanse of domain-specific representations of code, from natural language to example HTML documents. 
 
 We make three main contributions.
-First, we introduce a framework for building \glspl{name}, generators of explanations and demonstrations for domain-specific languages and terminal commands.\marti{This also repeats that language.}
-Second, we describe the processing pipeline, technical considerations, and design guidelines involved in build \glspl{name} by providing details about our efforts to implement them for CSS selectors, regular expressions, and terminal commands. \marti{More captilization inconsistency.  We are also inconsistend about the spacing in ``webpage'' (or web page).}
-Finally, we show through an in-lab study how \gls{name}-generated explanations can help programmers modify existing code without referring to external documentation.
+First, we introduce a framework for building \glspl{name}. \if 0 generators of explanations and demonstrations for domain-specific languages and terminal commands.\marti{This also repeats that language.} \fi
+Second, we describe the processing pipeline, technical considerations, and design guidelines involved in building \glspl{name}, providing details about our efforts to implement them for CSS selectors, regular expressions, and terminal commands.
+Finally, we show through an in-lab study how \gls{name}-generated \glspl{exp} can help programmers modify existing code without referring to external documentation.

@@ -79,7 +79,7 @@ This includes highlighting explainable regions in colors corresponding to each \
 
 A \gls{name} is a routine that detects, parses, and explains code for a specific language in HTML documents.
 We describe each processing stage with overarching strategies we have determined for finding relevant code in a page, parsing languages, and generating domain-appropriate explanations.
-We augment our discussion with implementation details of two \glspl{name} we developed for CSS selectors and the \texttt{wget} command and \glspl{exp} we generate for regular expressions.
+We augment our discussion with implementation details of two \glspl{name} we developed for CSS selectors and the wget command and \glspl{exp} we generate for regular expressions.
 
 \subsection{Detection}
 In the \emph{detection} stage, a \gls{name} should extract explainable regions from an HTML document using the language's lexicon and / or syntax.
@@ -90,7 +90,7 @@ Our current tutorons extract bloks of code from \texttt{<code>} elements, though
 
 Second, it divides code blocks into candidate explainable regions based on language-dependent rules.
 CSS selectors and regular expressions can be detected as string literals in parsed Python or JavaScript code, requiring an initial parsing stage to detect these candidate regions.
-Commands like \texttt{wget} often occupy a line of a script, meaning that candidate regions can be found by splitting code blocks into lines.
+Commands like wget often occupy a line of a script, meaning that candidate regions can be found by splitting code blocks into lines.
 
 Third, it passes candidate regions through a language-specific syntax checker to determine if it follows the grammar.
 Note that if this can be combined with the parsing stage of the \gls{name} processing pipeline.
@@ -111,7 +111,7 @@ Detected code snippets are parsed into \shortchange{some data structure in prepa
 We have found two methods of building parsers to be useful.
 When it is necessary to recognize a wide range of symbols and their semantics, \gls{name} authors can modify existing parsers, introducing hooks to extract results of parsing.
 This process can be highly involved, requiring a \gls{name} author to have access to the source code and for him to understand how to extract the information and exit the application safely at the appropriate time.
-However, we found that given the complex handling of spaces, quotation marks, and redirects involved in parsing terminal commands, it was appropriate to introduce hooks into the parsing output of the \texttt{wget} source code.
+However, we found that given the complex handling of spaces, quotation marks, and redirects involved in parsing terminal commands, it was appropriate to introduce hooks into the parsing output of the wget source code.
 
 In other cases, it may be more expedient to develop a custom parser for the language that supports a subset of the language.
 \begin{changes}
