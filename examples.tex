@@ -1,12 +1,12 @@
 \section{Designing and Implementing Rich \Glspl{exp} with \Glspl{name}}
 
 \shortchange{We designed and implemented \glspl{exp} for 3 languages.
-As we describe these efforts, we highlight design inspirations and implementation details pertinent to generating helpful explanations.}
-In particular, we discuss techniques for natural language explanations, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and wget.
-We aim to automatically create useful explanations for a range of possible code examples without knowing the precise content ahead of time. 
+\if 0 As we describe these efforts, we highlight design inspirations and implementation details pertinent to generating helpful explanations.\fi} 
+For each, we aim to generate useful explanations for a range of possible code examples without knowing the precise content ahead of time. 
+We discuss techniques for natural language explanations, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and wget.
 \if 0 Our techniques show how to automatically generate useful examples, reusing and repurposing existing documentation by reusing its codebase, and, where manual effort is needed, guide that effort to the most useful cases by extracting frequency information from the web. \fi
 
-\subsection{CSS}
+\subsection{CSS Selectors}
 
 CSS selectors appear in JavaScript, stylesheets, and web scrapers.
 Despite their small size, advanced and compound CSS selectors cause errors for programmers working with HTML and CSS~\cite{park_towards_2013}, making them an appropriate language for developing effective automatic \glspl{exp}.
@@ -128,7 +128,7 @@ While the technical implementation details are trivial, we mention it here as an
 \begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{figures/explain_on_select}
-\caption{A \gls{exp} of a regular expression, adapted from the third-party tool into an in-situ tooltip \emph{RegExper}.}
+\caption{A \gls{exp} of a regular expression that adapts content from the third-party tools \emph{Regexper} and \emph{explain.pl} into an in-situ tooltip.}
 \label{fig:regex_visualization}
 \end{figure}
 
@@ -270,7 +270,7 @@ Authenticate at http://\urltarget{} with username `andrew' and password `mypass'
 %
 \begin{changes}
 \subsection{Design Guidelines for \Glspl{exp}}
-We propose three guidelines to aid in designing explanations for micro-languages in online code examples.
+We propose three guidelines to aid in designing explanations for small, cryptic languages in online code examples.
 
 First, reduce boilerplate text.
 Our CSS natural language explanations open with one sentence introducing the purpose of CSS selectors.

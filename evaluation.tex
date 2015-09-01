@@ -13,12 +13,12 @@ We address the second question through an in-lab study with programmers modifyin
 \begin{changes}
 \subsection{Detection and Parsing Reliability}
 
-We started by collecting a representative set of programming help documents that include a micro-language.
-For each micro-language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.
+We started by collecting a representative set of programming help documents that include a language.
+For each language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.
 This yielded triplets of tags related to  tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').
 For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
 
-For each micro-language, we manually extracted the element and character location of all uses of the micro-language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
+For each language, we manually extracted the element and character location of all uses of the language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
 With the current \glspl{name}, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
