@@ -8,13 +8,14 @@ In this paper, we compare \Glspl{name} to past work on the automatic explanation
 Most closely related to our work is Webcrystal~\cite{chang_webcrystal_2012}, a tool that assists web authors with low-level programming tasks required to learn from and reuse examples.  
 Webcrystal generates human-readable textual answers to user's ``how'' questions about how to recreate aspects of selected HTML elements as well as customized code snippets for the users to recreate the design.
 Similarly to Webcrystal, we generate human-readable representations of code to help programmers reuse and learn from online examples.
-In contrast to Webcrystal, we focus on describing short, embedded, cryptic languages like regular expressions and terminal commands instead of HTML, developing generalizable design patterns that can apply to generating explanations for other languages in the future.
+In contrast to Webcrystal, we focus on describing short, embedded, cryptic languages like regular expressions and Unix commands instead of HTML, developing generalizable design patterns that can apply to generating explanations for other languages in the future.
 
 In its technical approach, our work relates to recent efforts to generate natural language explanations of code and software engineering artifacts~\cite{sridhara_automatically_2011,burden_natural_2011,sridhara_towards_2010,kamimura_towards_2013,mcburney_automatic_2014,sridhara_generating_2011,haiduc_supporting_2010,moreno_automatic_2013}.
 This body of work aims to reduce the amount of time developers spend reading poorly-documented code by automatically summarizing Java methods~\cite{sridhara_towards_2010}, blocks of code~\cite{sridhara_automatically_2011}, method parameters~\cite{sridhara_generating_2011}, and classes~\cite{moreno_automatic_2013}.
-Like we do, Sridhara et al.\ consider how to detect explainable code prior to generating descriptions~\cite{sridhara_automatically_2011,sridhara_towards_2010}.
+Similarly to Sridhara et al., we consider how to detect explainable code prior to generating descriptions~\cite{sridhara_automatically_2011,sridhara_towards_2010}.
 However, their code detection process emphasizes summarization of methods and blocks of code rather than locating instances of a language in potentially mixed-language code snippets.
 We also distinguish ourselves from this past work by examining the code explanation problem from the perspective of several frequently used yet under-explained lanuages used in web-based programming help.
+\andrew{This is wordy and uncorroborated.}
 This enables us to test out and propose guidelines for detecting, parsing and explaining code by considering the syntax, purpose, and usage scenarios of each language.
 
 \subsection{Automatic Demonstration of Code}
@@ -24,6 +25,6 @@ PythonTutor~\cite{guo_online_2013} is a recent programming visualization tool fo
 The tutor is embeddable within a web page and supports simultaneous viewing of program source code, program execution, visual representations of Python objects, and program output.
 More recently, Ou et al.\ produced visualizations of pointer-based data structures in the heap~\cite{ou_interactive_2015}.
 Beyond visualizations, code can be represented by discrete structures.
-Dantoni et al.~\cite{dantoni_how_2015}\ demonstrate how to create counterexamples of system behaviors for helpful feedback for computer science students completing automata design problems.
+Dantoni et al.~\cite{dantoni_how_2015}\ demonstrate how to create counterexamples of system behaviors to provide helpful feedback for computer science students completing automata design problems.
 We draw inspiration broadly from this past work in both visualization and example generation to automatically produce demonstrations of regular expresions and HTML\@.
 We believe we are the first to consider building demonstrations from the perspective of writing design guidelines for micro-explanations of code found in online programming help.

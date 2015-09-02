@@ -9,7 +9,7 @@ One source of confusion is that authors write learning materials with a certain 
 This intended target audience determines what information is included, and what is omitted.
 For example, an author of a tutorial on web scraping may expect readers to be familiar with Python, CSS selectors, regular expressions, and threads.
 However, the actual audience may have different skills.
-As a result, today's Q\&A sites like StackOverflow and tutorial-style blogs lack immediate scaffolding for readers seeking clarification on unfamiliar or complex syntax. 
+As a result, \shortchange{answers on Q\&A sites like StackOverflow may lack enough explanation~\cite{nasehi_what_2012}}, and tutorial-style blogs lack immediate scaffolding for readers seeking clarification on unfamiliar or complex syntax.
 
 \begin{figure}[!t]
 \centering{%
@@ -38,13 +38,14 @@ The routines we develop here enable step-by-step explanations and simulations of
 \end{changes}
 \fi
 
-To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\glspl{name}} that produce context-relevant, on-demand descriptions of code from domain-specific languages and commands.
-\Glspl{name} automatically find pieces of code in web pages and augment these with \glspl{exp}.
-The explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, using domain-specific terms.
-In comparison to getting-started guides and reference documentation, \glspl{name} minimize the amount of text programmers have to inspect to understand source code.
+To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code from domain-specific languages and commands.
+\Glspl{name} automatically find pieces of code in web pages and augment these with \glspl{exp}: such explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, using domain-specific terms.
+In comparison to getting-started guides and reference documentation, \Glspl{name} minimize the amount of text programmers have to inspect to understand source code.
+\if 0 
 \begin{changes}
 Such explanations begin to resemble the ``good answers'' from online Q\&A by providing detailed step-by-step solutions in a way that is familiar to the questioner~\cite{nasehi_what_2012}.
 \end{changes}
+\fi
 They are also \emph{on-demand} --- they can describe confusing code found anywhere, to provide just-in-time understanding.
 
 \if 0
@@ -55,15 +56,15 @@ Farkas~\cite{farkas_layering_1998} introduces layered documentation as an extens
 \fi 
 %
 \begin{changes}
-\Glspl{name} can be built to generate explanations for cryptic languages like CSS selectors, regular expressions, and terminal commands (see Figure~\ref{fig:accelerators}). 
+\Glspl{name} can be built to generate explanations for languages like CSS selectors, regular expressions, Unix commands (see Figure~\ref{fig:accelerators}), and other short one-liner languages. 
 \end{changes}
 \if 0 They are programmed to detect relevant code, parse it, and generate explanations and demonstrations of that code. 
 \marti{This repeats a sentence in the abstract (or close to it.)} \fi
 In our implementation, each language can be supported in several hundred lines of code.
 Each one can be built as a standalone server, accessible by an addon in the programmer's browser to provide explanations of code anywhere on the web.
-\if 0 With the \glspl{name} that we build for CSS selectors, regular expressions and terminal commands, \fi We show an expanse of domain-specific representations of code, from natural language to example HTML documents. 
+\if 0 With the \Glspl{name} that we build for CSS selectors, regular expressions and Unix commands, \fi \if 0 We show an expanse of domain-specific representations of code, from natural language to example HTML documents.\fi 
 
 We make three main contributions.
-First, we introduce a framework for building \glspl{name}. \if 0 generators of explanations and demonstrations for domain-specific languages and terminal commands.\marti{This also repeats that language.} \fi
-Second, we describe the processing pipeline, technical considerations, and design guidelines involved in building \glspl{name}, providing details about our efforts to implement them for CSS selectors, regular expressions, and terminal commands.
-Finally, we show through an in-lab study how \gls{name}-generated \glspl{exp} can help programmers modify existing code without referring to external documentation.
+First, we introduce a framework for building \Glspl{name}. \if 0 generators of explanations and demonstrations for domain-specific languages and Unix commands.\marti{This also repeats that language.} \fi
+Second, we describe the processing pipeline, technical considerations, and design guidelines involved in building \Glspl{name}, providing details about our efforts to implement them for CSS selectors, regular expressions, and Unix commands.
+Finally, we show through an in-lab study how \Gls{name}-generated \glspl{exp} can help programmers modify existing code without referring to external documentation.

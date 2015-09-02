@@ -1,33 +1,35 @@
 \section{Evaluation}
 
+\if 0
 \begin{changes}
 We evaluate how reliably we can detect and parse explainable regions in online programming help, and conduct an in-lab usability study to observe how programmers use \glspl{exp} when modifying unexplained code.
 \end{changes}
-\if 0
 First, how reliably can automatic explanations could be generated for the expanse of different formats of online tutorials?
 Second, can \glspl{exp} help programmers modify existing, unexplained code without having to consult additional documentation?
-We answered the first question through collecting a corpus of online tutorials and measuring the detection accuracy of our \glspl{name} for the languages we support.
-We address the second question through an in-lab study with programmers modifying unexplained code to perform new tasks, aided by \glspl{name}.
+We answered the first question through collecting a corpus of online tutorials and measuring the detection accuracy of our \Glspl{name} for the languages we support.
+We address the second question through an in-lab study with programmers modifying unexplained code to perform new tasks, aided by \Glspl{name}.
 \fi
 %
+\subsection{Detection and Parsing Accuracy}
 \begin{changes}
-\subsection{Detection and Parsing Reliability}
+While users can explicitly select text on a page, automatic preprocessing and detection of explainable regions can provide improved information scent.
+In this section, we assess our \Glspl{name}' accuracy in detecting explainable regions.
 
-We started by collecting a representative set of programming help documents that include a language.
-For each language, we queried the API for StackOverflow, a popular programming Q\&A site, for the pairs of tags that most frequently co-occurred with the language's tag.
-This yielded triplets of tags related to  tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').
-For around 20 of these most-common triplets for each language, we queried Google with the triplet and the word `tutorial', yielding around 200 programming help documents for each language that covered a variety of different programming tasks.
+We collected a set of programming help documents that the language of each of our \Glspl{name}.
+To assemble this corpus, we formulated queries for tutorials.
+Using the API for StackOverflow, a popular programming Q\&A site, we extracted the most frequent triplets of tags that included each language's tag.
+% These triplets of tags related to tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').
+For these triplets, we queried Google with the triplet and the word `tutorial' (e.g. `mod-rewrite redirect regex tutorial`), yielding around 200 programming help documents per language. % that covered a variety of different programming tasks.
+We manually extracted the element and character location of all uses of the language from 50 randomly selected tutorials, yielding more than 100 examples per language.  We ran the \Glspl{name} on each document and compared the regions detected to those we extracted by hand. 
 
-For each language, we manually extracted the element and character location of all uses of the language from 50 randomly selected tutorials, yielding more than 100 examples for all languages.  We ran the \glspl{name} on each document and compared the regions detected to those we extracted by hand. 
-
-With the current \glspl{name}, we observed 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
+With the current \Glspl{name}, we observe 84\% precision (114/136) and 61\% recall (114/188) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
 Major reasons for low recall are:
 \emph{(a)} wget: we fail to reliably detect code examples within a sentence of text.
 \emph{(b)} selectors: we scan only `pre' and `code' nodes while skipping `div' nodes.
 \emph{(c)} regular expressions: while we write rules to reliably detect some regular expressions in some contexts (Apache server configs, sed, grep, and Javascript), rules are missing for others (Python, Perl, etc.).
 We can compensate for low recall by extending the browser addon to allow programmers to request explanations for arbitrary text.
-Recall may be further improved by incorporating a machine learning approach to extracting commands (e.g.,~\cite{pavel_browsing_2013}).
+Recall may be further improved by incorporating a machine learning approach to recognizing commands (e.g.,~\cite{pavel_browsing_2013}).
 
 \if 0
 \begin{table}
@@ -45,17 +47,17 @@ RegEx & 78\% & 14\% \\ \bottomrule
 \end{table}
 \fi
 
-While our parsers for wget and regular expressions were built on top of existing parsers, we built our simple CSS parser by hand.
+We built our CSS selector parser by hand, and discuss its accuracy on real selectors from the web here.
 We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error.
 Of the 334 selectors from the last step, 322 (96.4\%) parsed successfully.
-Of the 12 that failed to parse, 10 of them could not be lexed as they included incorrectly-formatted characters in the original HTML markup (such as curly quotation marks instead of straight ones) or jQuery-specific pseudo-classes (e.g., \texttt{:jqmData}) that do not belong to the CSS syntax.
-With these adjustments, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
+Of the 12 that failed to parse, 10 of them could not be lexed as they included incorrectly-formatted characters in the original HTML markup or jQuery-specific pseudo-classes that do not belong to the CSS syntax.
+By leaving out these invalid selectors, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
 
 \end{changes}
 
 \subsection{In-Lab Usability Study}
 
-We conducted a usability study to understand how \glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
+We conducted a usability study to understand how \Glspl{name}-generated \glspl{exp} affected programmers' ability to perform code modification tasks with online example code.
 We recruited 9 programmers from university listservs for undergraduate and graduate students in computer science and information science.
 All participants had at least two years of programming experience, with a median of 4 years of experience in their longest-used language.
 
@@ -67,13 +69,15 @@ Each code modification asked a participant to:
 \begin{enumerate}
 \item Read a task.  For example: ``modify the command so it does not automatically fetch the images necessary to display the webpage.''
 \item View a snippet that is unrelated to the task, but that contains some clue on how to do it.  For example, a StackOverflow post that includes, but doesn't explain, the following command:
-\snippet{wget --random-wait -r -p -nd -e robots=off -A``.pdf''  -U mozilla http://math.stanford.edu/undergrad/}
+\vspace{.2em}
+\snippet{wget --random-wait -r -p -nd -e robots=off -A".pdf"  -U mozilla http://math.stanford.edu/undergrad/}
+\vspace{.2em}
 \item Write and test code against a condition we provide.
 \end{enumerate}
 
 After reading the snippet, participants could use any resources they wanted to, including web search, to complete the task.
-Snippets were adapted from StackOverflow questions or answers.
-Tasks asked participants to modify code, as we hoped to find whether the \glspl{name} provided enough understanding of the code to help programmers perform a practical task.
+To make the code examples similar to what a programmer would find when searching for help, we adapted snippets from StackOverflow questions or answers.
+Tasks asked participants to modify code, as we hoped to find whether the \Glspl{name} provided enough understanding of the code to help programmers perform a practical task.
 \end{changes}
 
 \if 0
@@ -105,12 +109,13 @@ Task: write a selector that selects only the button elements with IDs starting w
 In one condition, snippets were enhanced with \glspl{exp}.
 The explanation did not contain exactly the missing information to complete the task.
 For example, for wget tasks, participants were shown descriptions of all options and asked to discover and modify or remove only those relevant to the task.
-While these tasks limit the generalizability of our study, we believe that it shows that \glspl{name} can help in the situations we devised and tested.
+While these tasks limit the generalizability of our study, we believe that it shows that \Glspl{name} can help in the situations we devised and tested.
 
-Participans viewed \glspl{exp} for alternating tasks so we could observe differences in how they approached the tasks with and without them; order of exposure to \glspl{exp} was counter-balanced across participants. 
+Participants viewed \glspl{exp} for alternating tasks so we could observe differences in how they approached the tasks with and without them; order of exposure to \glspl{exp} was counter-balanced across participants. 
 When in the \gls{exp} condition participants were asked to find and view all \glspl{exp} for the source code after reading the snippet.
 
-Participants were told they would have 5 minutes for each task; if participants had extra time, if  they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
+Participants were told they would have 5 minutes for each task; if participants had extra time and they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
+For this study, the browser addon was not instrumented with visual indicators of explainable regions as this feature was not yet conceived, although \glspl{exp} were pre-fetched.
 We asked them to ``think aloud'' as they performed these tasks.
 
 \end{changes}
@@ -125,11 +130,11 @@ We asked them to ``think aloud'' as they performed these tasks.
 \fi
 
 
-%%This ordering was counterbalanced across participants so that we could see all tasks performed both with and without \gls{name}-generated \glspl{exp}.
+%%This ordering was counterbalanced across participants so that we could see all tasks performed both with and without \Gls{name}-generated \glspl{exp}.
 
 \subsection{Results}
 
-Our primary goal in observing participants was to determine if \gls{name}-generated \glspl{exp} were helpful  during code modification tasks and reduced the need to reference additional documentation.
+Our primary goal in observing participants was to determine if \Gls{name}-generated \glspl{exp} were helpful  during code modification tasks and reduced the need to reference additional documentation.
 In the discussion below, we refer to our participants as $P{1-9}$.
 
 \subsubsection{\Glspl{exp} Help Programmers Modify Code Without Using Other Documentation}
@@ -154,10 +159,10 @@ A log of external document accesses is shown in Figure~\ref{fig:doc_accesses}.
 
 
 %%In total, out of 72  tasks, participants sought out additional documentation a total of 25 times (Figure~\ref{fig:doc_accesses}).
-%%In all wget tasks and in the fourth CSS selector task, a majority of participants without \glspl{name} viewed documentation at some point while trying to find a solution to the problem.
+%%In all wget tasks and in the fourth CSS selector task, a majority of participants without \Glspl{name} viewed documentation at some point while trying to find a solution to the problem.
 %%In the all 4 CSS selector tasks and the first 3 wget tasks, no participants with access to the \glspl{exp} sought additional documentation in order to solve the problem.
 
-%Only in the final wget task did any participants with access to \glspl{name} seek documentation.
+%Only in the final wget task did any participants with access to \Glspl{name} seek documentation.
 
 
 These preliminary results suggest that the \glspl{exp} are effective at reducing the need to switch contexts to find relevant programming help  for completing some programming tasks. 
@@ -185,7 +190,7 @@ Her follow-up queries with English language query terms  yielded search results 
 
 Participants also had difficulty navigating conventional forms of programming help.
 When looking for the \texttt{-r} flag in the man page for wget ($P2$, $P4$), participants found that a page-internal  search for the flag yielded so many matches that it was difficult to find the desired definition.
-The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not directly adjacent to where the flag was introduced, causing one participant to overlook this information($P3$).
+The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not adjacent to where the flag was introduced, causing one participant to overlook this information($P3$).
 
 These results underscore the usefulness of context-relevant explanations located within the tutorial text itself.
 
@@ -211,7 +216,7 @@ As a result, this participant viewed an irrelevant explanation for the code frag
 More work is required to determine the right balance of fuzziness for the matching algorithm, with perhaps a drop-down menu of choices for alternative matches.
 \fi
 With the addition of visual information scent, clickable regions now have exactly one correct explanation to overcome this problem in the default case.
-However the mechanics of "fuzziness" should be revisited for user-reported instances of a language that are not automatically detected by \glspl{name}.
+However the mechanics of "fuzziness" should be revisited for user-reported instances of a language that are not automatically detected by \Glspl{name}.
 \end{changes}
 
 {\bf Incomplete explanations.} The  \gls{exp} text may not include enough detail to help programmers  develop adequate mental models of unfamiliar material. For instance,
