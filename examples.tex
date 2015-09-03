@@ -14,11 +14,18 @@ Despite their small size, advanced and compound CSS selectors cause errors for p
 \subsubsection{Explaining CSS Selectors with natural language}
 
 Our method of building natural language explanations for CSS selectors involves language generation through parse tree traversal.
-Our English language explanation technique starts at leaf nodes and walk up the parse tree.
-First, it generates a clause at a leaf node that consists of a single noun --- a description of the element's tag type in plain English (e.g., `link' instead of the anchor tag `a', and `bolded text' instead of `strong').
-At each parent, a complement is added to the child clause that states that the child is chosen \emph{from} the parent (Figure~\ref{alg:css_traversal}).
+Our English language explanation technique is implemented as a tree walker that starts at a leaf node and climbs up through its ancestors.
+The walker first generates a clause at a leaf node that consists of a single noun --- a description of the element's tag type in plain English (e.g., `link' instead of the anchor tag `a', and `bolded text' instead of `strong').
+\begin{changes}
+It then appends modifiers to the noun to describe the ID, classes, attributes, and pseudo-selectors for the node which must be present for the node to be selected.
+
+Then the walker ascends.
+At each ancestor, it forms a phrase that its child selector is picked ``from'' the parent (see Figure~\ref{alg:css_traversal}).
+When it reaches the root, the walker completes a sentence describing that the selector shown chooses the child via all of its ancestors.
+\end{changes}
 English language is realized using SimpleNLG\footnote{\url{https://code.google.com/p/simplenlg/}}.
-We show descriptions we generate in Table~\ref{tab:css_descriptions}. \marti{This is a not a complete explanation of how the NLP is done ... how is the Start of the sentence generated, the word "chooses" generated, etc.}
+We show descriptions we generate in Table~\ref{tab:css_descriptions}. 
+% \marti{This is a not a complete explanation of how the NLP is done ... how is the Start of the sentence generated, the word "chooses" generated, etc.}
 
 \begin{figure}
 \begin{algorithmic}
