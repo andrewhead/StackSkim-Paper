@@ -15,10 +15,10 @@ Despite their small size, advanced and compound CSS selectors cause errors for p
 
 Our method of building natural language explanations for CSS selectors involves language generation through parse tree traversal.
 Our English language explanation technique starts at leaf nodes and walk up the parse tree.
-First, it generates a clause at a leaf node that consists of a single noun --- a description of the element's tag type in plain English (e.g., `link' instead of `a', and `bolded text' instead of `strong').
+First, it generates a clause at a leaf node that consists of a single noun --- a description of the element's tag type in plain English (e.g., `link' instead of the anchor tag `a', and `bolded text' instead of `strong').
 At each parent, a complement is added to the child clause that states that the child is chosen \emph{from} the parent (Figure~\ref{alg:css_traversal}).
 English language is realized using SimpleNLG\footnote{\url{https://code.google.com/p/simplenlg/}}.
-We show descriptions we generate in Table~\ref{tab:css_descriptions}.
+We show descriptions we generate in Table~\ref{tab:css_descriptions}. \marti{This is a not a complete explanation of how the NLP is done ... how is the Start of the sentence generated, the word "chooses" generated, etc.}
 
 \begin{figure}
 \begin{algorithmic}
@@ -125,12 +125,12 @@ Example documents that we automatically generate for real code we found in onlin
 \begin{changes}
 Regular expressions can be difficult for novices and time-consuming for experts to understand.
 There is a plethora of tools to automatically that generate token-by-token explanations of patterns\footnote{\url{http://rick.measham.id.au/paste/explain.pl}}, visualize them\footnote{\url{http://regexper.com/}}, and help programmers debug them\footnote{\url{https://www.debuggex.com/}}.
-We discuss techniques for visualizaing and explaining regular expression by reappropriating third-party tools generating example strings.
+We discuss techniques for visualizing and explaining regular expression by reappropriating third-party tools generating example strings.
 \end{changes}
 
 \subsubsection{Explaining Expressions through Diagrams via 3rd-Party Visualizations}
 
-In an early prototype of a \Gls{name}, we developed a regular expression \Gls{name} for visualizing regular expressions, leveraging the 3rd-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
+In an early prototype, we developed a  \Gls{name} for visualizing regular expressions, leveraging the 3rd-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
 While the technical implementation details are trivial, we mention it here as an example that a \Gls{name} author can leverage demonstrations produced by their peers to create \glspl{exp}.
 
 \begin{figure}
@@ -173,7 +173,7 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 \emph{307-039-2703}
 \end{minipage}
 }
-\caption{Examples of strings we generate to match regular expressions.}
+\caption{Examples of regular expressions followed by automatically generated example strings.}
 \label{fig:regex_strings}
 \end{figure}
 

@@ -15,12 +15,12 @@ We address the second question through an in-lab study with programmers modifyin
 While users can explicitly select text on a page, automatic preprocessing and detection of explainable regions can provide improved information scent.
 In this section, we assess our \Glspl{name}' accuracy in detecting explainable regions.
 
-We collected a set of programming help documents that the language of each of our \Glspl{name}.
+We collected a set of programming help documents that the language of each of our \Glspl{name}. \marti{Fix this sentence.}
 To assemble this corpus, we formulated queries for tutorials.
 Using the API for StackOverflow, a popular programming Q\&A site, we extracted the most frequent triplets of tags that included each language's tag.
 % These triplets of tags related to tasks (`mod-rewrite redirect regex') as well as  languages and libraries (`casperjs css-selectors javascript').
-For these triplets, we queried Google with the triplet and the word `tutorial' (e.g. `mod-rewrite redirect regex tutorial`), yielding around 200 programming help documents per language. % that covered a variety of different programming tasks.
-We manually extracted the element and character location of all uses of the language from 50 randomly selected tutorials, yielding more than 100 examples per language.  We ran the \Glspl{name} on each document and compared the regions detected to those we extracted by hand. 
+For these triplets, we queried Google with the triplet and the word `tutorial' (e.g. `mod-rewrite redirect regex tutorial'), yielding around 200 programming help documents per language. % that covered a variety of different programming tasks.
+We manually extracted the element and character location of all uses of the language from 50 randomly selected tutorials, yielding more than 100 examples per language. \marti{Randomly selected from where?  From this set you just queried?}  We ran the \Glspl{name} on each document and manually evaluated extracted regions. \marti{check this rewording} 
 
 With the current \Glspl{name}, we observe 95\% precision (129/136) and 64\% recall (129/203) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
@@ -47,8 +47,8 @@ RegEx & 78\% & 14\% \\ \bottomrule
 \end{table}
 \fi
 
-We built our CSS selector parser by hand, and discuss its accuracy on real selectors from the web here.
-We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error.
+We built our CSS selector parser by hand, and discuss its accuracy on real selectors from the web here. \marti{Not clear why the earlier test was not real and not the web.}
+We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error. \marti{Don't know what you are talking about here.}
 Of the 334 selectors from the last step, 322 (96.4\%) parsed successfully.
 Of the 12 that failed to parse, 10 of them could not be lexed as they included incorrectly-formatted characters in the original HTML markup or jQuery-specific pseudo-classes that do not belong to the CSS syntax.
 By leaving out these invalid selectors, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
@@ -141,7 +141,7 @@ In the discussion below, we refer to our participants as $P{1-9}$.
 
 \begin{figure}
 \centering
-\includegraphics[width=\columnwidth]{figures/doc_accesses}
+\includegraphics[width=\columnwidth]{figures/doc_accesses_with_bars}
 \caption{%
 Tasks for which participants sought additional documentation beyond the snippet. In white rows, participants used \glspl{exp}; in gray rows, they did not.
 A cell is marked with the letter `D' if a participant accessed external documentation during that task.
@@ -190,7 +190,7 @@ Her follow-up queries with English language query terms  yielded search results 
 
 Participants also had difficulty navigating conventional forms of programming help.
 When looking for the \texttt{-r} flag in the man page for wget ($P2$, $P4$), participants found that a page-internal  search for the flag yielded so many matches that it was difficult to find the desired definition.
-The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not adjacent to where the flag was introduced, causing one participant to overlook this information($P3$).
+The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not adjacent to where the flag was introduced, causing one participant to overlook this information ($P3$).
 
 These results underscore the usefulness of context-relevant explanations located within the tutorial text itself.
 
@@ -216,7 +216,7 @@ As a result, this participant viewed an irrelevant explanation for the code frag
 More work is required to determine the right balance of fuzziness for the matching algorithm, with perhaps a drop-down menu of choices for alternative matches.
 \fi
 With the addition of visual information scent, clickable regions now have exactly one correct explanation to overcome this problem in the default case.
-However the mechanics of "fuzziness" should be revisited for user-reported instances of a language that are not automatically detected by \Glspl{name}.
+However the mechanics of ``fuzziness'' should be revisited for user-reported instances of a language that are not automatically detected by \Glspl{name}.
 \end{changes}
 
 {\bf Incomplete explanations.} The  \gls{exp} text may not include enough detail to help programmers  develop adequate mental models of unfamiliar material. For instance,

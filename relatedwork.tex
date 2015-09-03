@@ -14,17 +14,17 @@ In its technical approach, our work relates to recent efforts to generate natura
 This body of work aims to reduce the amount of time developers spend reading poorly-documented code by automatically summarizing Java methods~\cite{sridhara_towards_2010}, blocks of code~\cite{sridhara_automatically_2011}, method parameters~\cite{sridhara_generating_2011}, and classes~\cite{moreno_automatic_2013}.
 Similarly to Sridhara et al., we consider how to detect explainable code prior to generating descriptions~\cite{sridhara_automatically_2011,sridhara_towards_2010}.
 However, their code detection process emphasizes summarization of methods and blocks of code rather than locating instances of a language in potentially mixed-language code snippets.
-We also distinguish ourselves from this past work by examining the code explanation problem from the perspective of several frequently used yet under-explained lanuages used in web-based programming help.
-\andrew{This is wordy and uncorroborated.}
-This enables us to test out and propose guidelines for detecting, parsing and explaining code by considering the syntax, purpose, and usage scenarios of each language.
+This work is also distinguished from this past work by examining  several frequently used yet under-explained languages used in web-based programming help.
+%%This enables us to test out and propose guidelines for detecting, parsing and explaining code by considering the syntax, purpose, and usage scenarios of each language.
 
 \subsection{Automatic Demonstration of Code}
 
-Software visualization has a long history of producing visual representations of code for many purposes~\cite{sorva_visual_2012}.
+%Software visualization has a long history of producing visual representations of code for many purposes~\cite{sorva_visual_2012}.
+Visual tools have been used to aid in programming instruction; Sorva \cite{sorva_visual_2012} presents a good review.\marti{Note my change in wording and to the reference here.}
 PythonTutor~\cite{guo_online_2013} is a recent programming visualization tool for CS education.
 The tutor is embeddable within a web page and supports simultaneous viewing of program source code, program execution, visual representations of Python objects, and program output.
 More recently, Ou et al.\ produced visualizations of pointer-based data structures in the heap~\cite{ou_interactive_2015}.
 Beyond visualizations, code can be represented by discrete structures.
 Dantoni et al.~\cite{dantoni_how_2015}\ demonstrate how to create counterexamples of system behaviors to provide helpful feedback for computer science students completing automata design problems.
-We draw inspiration broadly from this past work in both visualization and example generation to automatically produce demonstrations of regular expresions and HTML\@.
-We believe we are the first to consider building demonstrations from the perspective of writing design guidelines for micro-explanations of code found in online programming help.
+We draw inspiration broadly from this past work in both visualization and example generation to automatically produce demonstrations of regular expressions and HTML\@.
+We believe we are the first to consider building demonstrations from the perspective of writing design guidelines for micro-explanations of code found in online programming help. \marti{what is meant by "design guidelines" here?}

@@ -1,15 +1,15 @@
 \section{Introduction}
 
 Many programmers develop code by interleaving opportunistic information foraging with writing code~\cite{brandt_two_2009,brandt_example-centric_2010}.
-When learning about unfamiliar technologies, programmers start by searching for tutorial web sites.
+When learning about unfamiliar technologies, programmers often start by searching for tutorial web sites.
 Instead of examining the prose, they experiment with code examples, using source code from the pages to support learning by doing~\cite{brandt_two_2009}.
 However, programmers of all backgrounds~\cite{duala-ekoko_asking_2012,dorn_lost_2013,dorn_learning_2010} struggle to leverage web documentation to solve programming problems.
 
-One source of confusion is that authors write learning materials with a certain audience in mind.
-This intended target audience determines what information is included, and what is omitted.
+One source of confusion is that authors write teaching materials with a certain audience in mind.
+This target audience determines what  information is included, and what is omitted.
 For example, an author of a tutorial on web scraping may expect readers to be familiar with Python, CSS selectors, regular expressions, and threads.
 However, the actual audience may have different skills.
-As a result, \shortchange{answers on Q\&A sites like StackOverflow may lack enough explanation~\cite{nasehi_what_2012}}, and tutorial-style blogs lack immediate scaffolding for readers seeking clarification on unfamiliar or complex syntax.
+As a result, \shortchange{answers on Q\&A sites like StackOverflow may have insufficient  explanation~\cite{nasehi_what_2012}}, and tutorial-style blogs may lack  scaffolding for readers seeking clarification on unfamiliar or complex syntax.
 
 \begin{figure}[!t]
 \centering{%
@@ -38,7 +38,7 @@ The routines we develop here enable step-by-step explanations and simulations of
 \end{changes}
 \fi
 
-To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code from domain-specific languages and commands.
+To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code for domain-specific languages and commands.
 \Glspl{name} automatically find pieces of code in web pages and augment these with \glspl{exp}: such explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, using domain-specific terms.
 In comparison to getting-started guides and reference documentation, \Glspl{name} minimize the amount of text programmers have to inspect to understand source code.
 \if 0 
