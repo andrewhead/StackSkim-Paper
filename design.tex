@@ -1,6 +1,6 @@
 \section{Authors and Readers in the \Gls{name} Ecosystem}
 
-In the current incarnation of \Glspl{name}, an author of code documentation writes a \Gls{name} to adaptively describe  code programmers find while they browse the web.
+In the current incarnation of \Glspl{name}, an author of code documentation writes a \Gls{name} to adaptively describe  code that programmers find while they browse the web.
 A \Gls{name} is a routine for generating explanations or demonstrations of code for a specific language, accessible as a web API\@.
 When queried with the content of a web page, a \Gls{name} detects explainable regions of the language, parses them, and returns explanations for each region as formatted HTML that can be viewed in a tooltip.
 
@@ -24,11 +24,12 @@ When queried with the content of a web page, a \Gls{name} detects explainable re
 \end{figure}
 \fi
 
+The information flow of the \Glspl{name} ecosystem is shown in Figure~\ref{fig:tutoron_ecosystem}.
 By installing an addon for the browser, a programmer receives instant access to \glspl{exp}, or in-situ descriptions of code found while browsing, from \Gls{name} servers.
 The addon queries existing \Glspl{name} with the page source, receiving micro-explanations for all explainable regions of code.
-After receiving explanations, an explanation will appear in a tooltip overlaid on the document directly beneath the code example any time the programmer selects an explainable string of text (see Figure~\ref{fig:accelerators}).
+After receiving explanations, an explanation will appear in a tooltip overlaid on the document directly beneath the code example any time the programmer selects an explainable string of text (see Figure~\ref{fig:accelerators}). \marti{Why say "After receiving explanations, and explanation will appear?}
 The addon can query many explanation servers for multi-language support within the same page.
-The information flow of the \Glspl{name} ecosystem is shown in Figure~\ref{fig:tutoron_ecosystem}.
+
 
 \begin{changes}
 Once a page loads in the browser, the browser sends parallel requests to the \Glspl{name} server to detect all explainable instances of each language.
@@ -40,8 +41,8 @@ Computational burden then resides on the server.
 
 \begin{changes}
 The addon highlights explainable regions to indicate what code programmers can gain clarification on, and showing tooltips on click rather than selection events.
-By requiring \Gls{name} servers to detect explainable regions, we resolve the problem where a user's selection may not cover a complete statement of the syntax of a language.
-Pre-computing these explainable text regions, we allow users to select explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
+By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
+By pre-computing these explainable text regions, we allow users to select explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
 \end{changes}
 \if 0 \shortchange{Our qualitative evaluations have shown that this selection mechanism is easy to use, and led us to implement additional mechanisms to improve usability. \fi
 
@@ -91,14 +92,14 @@ In the \emph{detection} stage, a \Gls{name} should extract explainable regions f
 This can consist of four steps.
 
 First, the \Gls{name} extracts blocks of code from HTML pages by selecting code-related elements.
-Our current tutorons extract blocks of code from \texttt{<code>}, \texttt{<pre>}, \texttt{<div>}, and \texttt{<p>} elements.
+Our current tutorons extract blocks of code from \texttt{<code>}, \texttt{<pre>}, \texttt{<div>}, and \texttt{<p>} elements. \marti{why lower case tutoron?}
 
 Second, it divides code blocks into candidate explainable regions based on language-dependent rules.
 CSS selectors and regular expressions can be detected as string literals in parsed Python or JavaScript code, requiring an initial parsing stage to detect these candidate regions.
 Commands like wget often occupy a line of a script, meaning that candidate regions can be found by splitting code blocks into lines.
 
 Third, it passes candidate regions through a language-specific syntax checker to determine if it follows the grammar.
-Note that if this can be combined with the parsing stage of the \Gls{name} processing pipeline.
+Note that if this can be combined with the parsing stage of the \Gls{name} processing pipeline. \marti{Sentence fragment}
 
 Finally, a \Gls{name} may reduce false positives by filtering candidates to those containing tokens highly representative of the language.
 This is necessary when candidate regions are small and the terminals of a grammar accept large character classes.
@@ -106,19 +107,23 @@ While a string like \texttt{\qs{}my\_string\qs{}} in a JavaScript program could 
 Elements in a CSS selector more often than not have tag names defined in the HTML specification (e.g., \texttt{p}, \texttt{div}, or \texttt{img}).
 
 \begin{changes}
-It may happen that the same explainable region is detected by multiple tutorons.
+It may happen that the same explainable region is detected by multiple tutorons. \marti{why lower case?}
 For example, \texttt{div} could be a CSS selector as well as a regular expression of all literals.
 While in practice the candidate regions of our current \Glspl{name} differ enough that this is not a noticeable problem, we describe approaches to solve this problem in the discussion.
 \end{changes}
+\marti{lower case tutoron in paragraph above}
 
 \subsection{Parsing}
 Detected code snippets are parsed into \shortchange{some data structure in preparation for explanation}.
-We have found two methods of building parsers to be useful.
-When it is necessary to recognize a wide range of symbols and their semantics, \Gls{name} authors can modify existing parsers, introducing hooks to extract results of parsing.
-This process can be highly involved, requiring a \Gls{name} author to have access to the parser's source code and to understand how to extract the information and exit the application safely at the appropriate time.
-However, we found that given the complex handling of spaces, quotation marks, and redirects involved in parsing Unix commands, it was appropriate to introduce hooks into the parsing output of the wget source code.
+We have found two methods of building parsers to be useful. Method 1: introduce hooks to extract the results of parsing.  This is useful 
+when it is necessary to recognize a wide range of symbols and their semantics, %\Gls{name} authors can modify existing parsers, introducing hooks to extract results of parsing.
+%This process can be highly involved, requiring a \Gls{name} author to have access to the parser's source code and to understand how to extract the information and exit the application safely at the appropriate time.
+%However, we found that given the
+such as the complex handling of spaces, quotation marks, and redirects involved in parsing Unix commands.
+%, it was appropriate to introduce hooks into the parsing output of the wget source code. 
+\marti{I tightened this up; be sure it is correct.}
 
-In other cases, it may be more expedient to develop a custom parser for the language that supports a subset of the language.
+Method 2: Develop a custom parser for the language that supports a subset of the language.
 \begin{changes}
 For CSS selectors, by writing a 30-line ANTLR\footnote{\url{www.antlr.org}} parser, we gained control over the structure of the parse tree, allowing us to adapt this structure to how we wanted to generate explanations.
 The resulting parser integrated nicely into existing code for the selector \Gls{name}.
