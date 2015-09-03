@@ -170,16 +170,17 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 
 \begin{figure}
 \centering
-\setlength{\fboxsep}{10pt}
-\noindent\framebox[\columnwidth][c]{%
-\begin{minipage}{.95\columnwidth}
-\footnotesize{\texttt{([0-9A-F]\{2\}[:])\{5\}([0-9A-F]\{2\})}:} 
-\emph{D8:E6:0C:ED:0E:79}
-\vspace{.5em} \\
-\footnotesize{\texttt{\^{}(\textbackslash{}d\{3\})-(\textbackslash{}d\{3\})-(\textbackslash{}d\{4\})\$}}: 
-\emph{307-039-2703}
-\end{minipage}
-}
+\includegraphics[width=\columnwidth]{figures/regex-example-table}
+%\setlength{\fboxsep}{10pt}
+%\noindent\framebox[\columnwidth][c]{%
+%\begin{minipage}{.95\columnwidth}
+%\footnotesize{\texttt{([0-9A-F]\{2\}[:])\{5\}([0-9A-F]\{2\})}:} 
+%\emph{D8:E6:0C:ED:0E:79}
+%\vspace{.5em} \\
+%\footnotesize{\texttt{\^{}(\textbackslash{}d\{3\})-(\textbackslash{}d\{3\})-(\textbackslash{}d\{4\})\$}}: 
+%\emph{307-039-2703}
+%\end{minipage}
+%}
 \caption{Examples of regular expressions followed by automatically generated example strings.}
 \label{fig:regex_strings}
 \end{figure}
