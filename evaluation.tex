@@ -12,7 +12,7 @@ We address the second question through an in-lab study with programmers modifyin
 %
 \subsection{Detection and Parsing Accuracy}
 \begin{changes}
-While users can explicitly select text on a page, automatic preprocessing and detection of explainable regions can provide improved information scent.
+While users can explicitly select text that they want to have explained with the \Glspl{name} addon, automatic preprocessing and detection of explainable regions can provide improved information scent.
 In this section, we assess our \Glspl{name}' accuracy in detecting explainable regions.
 
 We collected a set of online programming help pages that used the languages of each of our \Glspl{name}.
@@ -27,9 +27,9 @@ We ran the \Glspl{name} on each document and compared the regions the \Glspl{nam
 With the current \Glspl{name}, we observe 95\% precision (129/136) and 64\% recall (129/203) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
 Major reasons for low recall are:
-\emph{(a)} wget: we fail to reliably detect code examples within a sentence of text.
+\emph{(a)} wget: we fail to reliably detect code examples within sentences of text.
 \emph{(b)} selectors: we scan only `pre' and `code' nodes while skipping `div' nodes.
-\emph{(c)} regular expressions: while we write rules to reliably detect some regular expressions in some contexts (Apache server configs, sed, grep, and Javascript), rules are missing for others (Python, Perl, etc.).
+\emph{(c)} regular expressions: while we write rules to reliably detect regular expressions in some contexts (Apache server configs, sed, grep, and Javascript), rules are missing for others (Python, Perl, etc.).
 We can compensate for low recall by extending the browser addon to allow programmers to request explanations for arbitrary text.
 Recall may be further improved by incorporating a machine learning approach to recognizing commands (e.g.,~\cite{pavel_browsing_2013}).
 
@@ -69,8 +69,8 @@ For each language the 4 coding tasks increased in difficulty with the fourth bei
 \begin{changes}
 Each code modification asked a participant to:
 \begin{enumerate}
-\item Read a task.  For example: ``modify the command so it does not automatically fetch the images necessary to display the webpage.''
-\item View a snippet that is unrelated to the task, but that contains some clue on how to do it.  For example, a StackOverflow post that includes, but doesn't explain, the following command:
+    \item Read a task.  For example: ``modify the [wget] command so it does not automatically fetch the images necessary to display the webpage.''
+\item View a snippet that is unrelated to the specific modification task, but that contains some clue on how to do it.  For example, a StackOverflow post that includes, but doesn't explain, this command:
 \vspace{.2em}
 \snippet{wget --random-wait -r -p -nd -e robots=off -A".pdf"  -U mozilla http://math.stanford.edu/undergrad/}
 \vspace{.6em}
@@ -118,7 +118,7 @@ When in the \gls{exp} condition participants were asked to find and view all \gl
 
 Participants were told they would have 5 minutes for each task; if participants had extra time and they had not completed the task, we often asked them to continue so we could observe their problem-solving process.
 For this study, the browser addon was not instrumented with visual indicators of explainable regions as this feature was not yet conceived, although \glspl{exp} were pre-fetched.
-We asked them to ``think aloud'' as they performed these tasks.
+We asked participants to ``think aloud'' as they performed these tasks.
 
 \end{changes}
 
@@ -130,8 +130,6 @@ We asked them to ``think aloud'' as they performed these tasks.
 \label{fig:study_snippet}
 \end{figure}
 \fi
-
-
 %%This ordering was counterbalanced across participants so that we could see all tasks performed both with and without \Gls{name}-generated \glspl{exp}.
 
 \subsection{Results}
@@ -163,7 +161,7 @@ When using the \glspl{exp}, 2 out of 36 tasks, or 6\% required external document
 However, for those tasks where \glspl{exp} were not available, 63\% of the time participants did indeed access external resources in order to complete the task.
 This difference is significant (Fisher's exact test, $p < 0.0001$)
 \end{changes}
-The wget tasks especially required external help, with man pages and other resources being accessed in 89\% of cases.  
+The wget tasks especially required external help, with \texttt{man} pages and other resources being accessed in 89\% of cases.  
 A log of external document accesses is shown in Figure~\ref{fig:doc_accesses}. 
 
 
@@ -178,7 +176,7 @@ These preliminary results suggest that the \glspl{exp} are effective at reducing
 The \gls{exp} aided the programmers in several ways:
 
 {\bf Reducing need to access external documentation.}
-Participants were  able to identify which flags had to be removed from wget commands without consulting external documentation, despite not having used the wget before ($P4$).
+Participants were  able to identify which flags had to be removed from wget commands without consulting external documentation, despite not having used wget before ($P4$).
 For others, the \gls{exp} affirmed a guess that the participant already had about how to construct a CSS selector ($P1$).
 
 {\bf Context-relevant pattern matching.}
@@ -193,12 +191,12 @@ For another participant with little previous experience with CSS selectors, a \g
 \subsubsection{Programmers Without \Gls{exp} Searched External Documentation}
 
 Some of the difficulties participants faced in the no-\gls{exp} condition  highlight the benefits of in-situ help.
-Some participants had difficulty searching for programming help on a web search engine (Google) and using the seach results.
-One participant could not express the symbols `\texttt{\^{}=}' as a query term when searching for what  this pattern signifies in CSS selectors.
+Some participants had difficulty searching for programming help on a web search engine (Google) and using the search results.
+One participant could not express the symbols `\texttt{\^{}=}' as a query term when searching for the pattern's meaning for CSS selectors.
 Her follow-up queries with English language query terms  yielded search results that were not relevant ($P3$).
 
 Participants also had difficulty navigating conventional forms of programming help.
-When looking for the \texttt{-r} flag in the man page for wget ($P2$, $P4$), participants found that a page-internal  search for the flag yielded so many matches that it was difficult to find the desired definition.
+When looking for the \texttt{-r} flag in the \texttt{man} page for wget, participants found that a page-internal search for the flag yielded so many matches that it was difficult to find the desired definition ($P2$, $P4$).
 The description of the \texttt{-N} timestamp flag that was relevant to the code modification task was not adjacent to where the flag was introduced, causing one participant to overlook this information ($P3$).
 
 These results underscore the usefulness of context-relevant explanations located within the tutorial text itself.
@@ -206,13 +204,13 @@ These results underscore the usefulness of context-relevant explanations located
 \subsubsection{Opportunities for Improvement}
 In those cases where the \gls{exp} did not aid programmers, there were a few primary causes.
 
-{\bf No visual affordances.} For this study, we did not place  visible cues showing where explanations were available.
-Programmers may fail to find \glspl{exp} since they have to be explicitly invoked through a left-click.
+{\bf No visual affordances.} For this study, we did not place visible cues showing where explanations were available.
+Some programmers failed to find \glspl{exp} since they had to be explicitly invoked by selecting text.
 \shortchange{One participant ($P2$) had to be reminded that he had to click around the snippet to find \glspl{exp} for unexplained code when he had not found all explainable regions.}
 \if 0
 Although $P2$ eventually found a \gls{exp} that led him to writing a successful CSS selector for the most difficult CSS task, he had to click around the snippet to find it, and did so only upon being reminded by the experimenter that he had not viewed all the \glspl{exp} in the snippet ($P2$).
 \fi
-Since this study, the browser add-on has been instrumented with visual feedback of all regions automatically detected.
+Since this study, the browser addon has been instrumented with visual feedback of all regions automatically detected.
 
 {\bf Selection region ambiguity.}
 \begin{changes}
@@ -225,9 +223,9 @@ As a result, this participant viewed an irrelevant explanation for the code frag
 More work is required to determine the right balance of fuzziness for the matching algorithm, with perhaps a drop-down menu of choices for alternative matches.
 \fi
 With the addition of visual information scent, clickable regions now have exactly one correct explanation to overcome this problem in the default case.
-However the mechanics of ``fuzziness'' should be revisited for user-reported instances of a language that are not automatically detected by \Glspl{name}.
+However, the mechanics of ``fuzzy'' selection boundaries should be investigated further for when users manually request explanations of a language that are not automatically detected by \Glspl{name} through a right-click.
 \end{changes}
 
 {\bf Incomplete explanations.} The  \gls{exp} text may not include enough detail to help programmers  develop adequate mental models of unfamiliar material. For instance,
-even after completing all 4 CSS selector tasks, $P5$ appeared to believe that CSS selectors were HTML elements themselves, rather than labels that could fetch them, perhaps confused by the example HTML produced in each \gls{exp} ($P5$).
+even after completing all 4 CSS selector tasks, $P5$ appeared to believe that CSS selectors were HTML elements themselves, rather than labels that could fetch them, perhaps confused by the example HTML produced in each \gls{exp}.
 That said, the idea of \gls{exp} can be expanded by adding links to fuller tutorial material.

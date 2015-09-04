@@ -2,16 +2,16 @@
 
 \shortchange{We designed and implemented \glspl{exp} for 3 languages.
 \if 0 As we describe these efforts, we highlight design inspirations and implementation details pertinent to generating helpful explanations.\fi} 
-For each, we aim to generate useful explanations for a range of possible code examples without knowing the precise content ahead of time. 
+For each, we aimed to generate useful explanations for a range of possible code examples without knowing the precise content ahead of time. 
 We discuss techniques for natural language explanations, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and wget.
 \if 0 Our techniques show how to automatically generate useful examples, reusing and repurposing existing documentation by reusing its codebase, and, where manual effort is needed, guide that effort to the most useful cases by extracting frequency information from the web. \fi
 
 \subsection{CSS Selectors}
 
 CSS selectors appear in JavaScript, stylesheets, and web scrapers.
-Despite their small size, advanced and compound CSS selectors cause errors for programmers working with HTML and CSS~\cite{park_towards_2013}, making them an appropriate language for developing effective automatic \glspl{exp}.
+Despite their small size, advanced and compound CSS selectors cause errors for programmers working with HTML and CSS~\cite{park_towards_2013}, making them an appropriate language for developing automatic \glspl{exp}.
 
-\subsubsection{Explaining CSS Selectors with natural language}
+\subsubsection{Explaining CSS selectors with natural language}
 
 Our method of building natural language explanations for CSS selectors involves language generation through parse tree traversal.
 Our English language explanation technique is implemented as a tree walker that starts at a leaf node and climbs up through its ancestors.
@@ -64,7 +64,7 @@ We show descriptions we generate in Table~\ref{tab:css_descriptions}.
 \toprule
 \headrow{Selector} & \headrow{Realized Text} \\
 \midrule
-\texttt{div.video-summary-data a[href\^=/video]} & The selector `div.video-summary-data a[href\^=/video]' chooses links with URLs starting with `/video' from containers of class `video-summary-data'. \\ \midrule
+\texttt{div.video-summary-data a[href\^{}=/video]} & The selector `div.video-summary-data a[href\^{}=/video]' chooses links with URLs starting with `/video' from containers of class `video-summary-data'. \\ \midrule
 \texttt{input:focus} & The selector `input:focus' chooses in-focus inputs. \\ \midrule
 \texttt{p.introduction::text} & The selector `p.introduction::text' chooses text from paragraphs of class `introduction'. \\ \bottomrule
 \end{tabular}
@@ -83,7 +83,7 @@ We gain motivation for this \gls{exp} from the knowledge that programmers must u
 \fi
 
 Our generation technique is implemented as a visitor for the parse tree of a CSS selector.
-For each node that represent the tag of an HTML element, we use PyQuery\footnote{\url{https://pypi.python.org/pypi/pyquery}} to construct an HTML element.
+For each node that represents a tag of an HTML element, we use PyQuery\footnote{\url{https://pypi.python.org/pypi/pyquery}} to construct an HTML element.
 The visitor starts at the leaf nodes of the tree.
 As it ascends, the visitor constructs the document by appending child nodes to their parent.
 The resulting document is pretty-printed with BeautifulSoup\footnote{\url{http://www.crummy.com/software/BeautifulSoup/}} with spaces, newlines, and carets escaped for display in the browser.
@@ -99,7 +99,7 @@ Finally, it reaches the root node, \texttt{table}, where it constructs a \texttt
 To convey that the leaf nodes are the elements the selector chooses (rather than all elements in the generated document), leaf nodes are marked with a \texttt{span} to bolden and color the element.
 If an element has no tag name, we create a generic \texttt{div} to represent it.
 Attributes, ids, and class names are added to the opening tag of the element.
-As pseudoclasses like \texttt{checked} and \texttt{hover} are not visible from the document but valid components of selectors, we demonstrate their presence as comments within the element that was selected~\ref{fig:html_pseudoclass}.
+As pseudoclasses like \texttt{checked} and \texttt{hover} are not visible from the document but are valid components of selectors, we demonstrate their presence as comments within the element that was selected (see Figure~\ref{fig:html_pseudoclass}).
 
 Future iterations of CSS \glspl{exp} might benefit from rendering the documents as they would appear when viewed in a browser, particularly for graphical elements like tables and form inputs.
 \if 0
@@ -131,23 +131,23 @@ Example documents that we automatically generate for real code we found in onlin
 
 \begin{changes}
 Regular expressions can be difficult for novices and time-consuming for experts to understand.
-There is a plethora of tools to automatically that generate token-by-token explanations of patterns\footnote{\url{http://rick.measham.id.au/paste/explain.pl}}, visualize them\footnote{\url{http://regexper.com/}}, and help programmers debug them\footnote{\url{https://www.debuggex.com/}}.
-We discuss techniques for visualizing and explaining regular expression by reappropriating third-party tools generating example strings.
+There is a plethora of tools that generate token-by-token explanations of patterns\footnote{\url{http://rick.measham.id.au/paste/explain.pl}}, visualize them\footnote{\url{http://regexper.com/}}, and help programmers debug them\footnote{\url{https://www.debuggex.com/}}.
+We discuss techniques to visualize and explain regular expressions by reappropriating third-party tools and generating example strings.
 \end{changes}
 
-\subsubsection{Explaining Expressions through Diagrams via 3rd-Party Visualizations}
+\subsubsection{Explaining expressions through diagrams via third-party visualizations}
 
-In an early prototype, we developed a  \Gls{name} for visualizing regular expressions, leveraging the 3rd-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
+In an early prototype, we developed a \Gls{name} for visualizing regular expressions, leveraging the third-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
 While the technical implementation details are trivial, we mention it here as an example that a \Gls{name} author can leverage demonstrations produced by their peers to create \glspl{exp}.
 
 \begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{figures/explain_on_select}
-\caption{A \gls{exp} of a regular expression that adapts content from the third-party tools \emph{Regexper} and \emph{explain.pl} into an in-situ tooltip.}
+\caption{A \gls{exp} of a regular expression that reappropriates content from the third-party tools \emph{Regexper} and \emph{explain.pl} in an in-situ tooltip.}
 \label{fig:regex_visualization}
 \end{figure}
 
-\subsubsection{Generating example expressions}
+\subsubsection{Generating example strings}
 
 Inspired by recent work on building counterexample-guided feedback on automaton design problems~\cite{dantoni_how_2015}, we aimed to generate helpful and instructive examples of what a regular expression can match.
 The explanation stage we have developed shares thematic ties with the CSS selector document generator. 
@@ -156,7 +156,7 @@ The explanation stage we have developed shares thematic ties with the CSS select
 \andrew{Lack of time. Sure --- I can make something that performs this.  Let me get to the preliminary study first and then move onto this.}
 \fi
 
-Like the demonstrations for CSS selectors, we choose to generate brief but demonstrative examples, assuming that strings cannot be too long, or else readers will not be able to grasp the core intent of the pattern.
+Like the demonstrations for CSS selectors, we choose to generate brief but demonstrative examples, assuming that strings cannot be too long, or else readers will not be able to grasp the intent of the pattern.
 Given a regular expression, we build a parse tree that consists of branches, repetitions and literals by examining output from Python's built-in regular expression compiler.
 We generate each sub-pattern marked with a repetition \texttt{*} or \texttt{+} exactly once to ensure the subpattern is represented in the text without adding too much length to the string.
 All literals are printed exactly as they appear in the pattern, and we choose a random side of each branch. 
@@ -188,26 +188,28 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 \subsection{wget}
 
 \begin{changes}
-As Miller et al.~\cite{miller_inky_2008} point out, command lines offer efficiency at the price of learning command names and options through an up-front investment of effort.
+As Miller et al.~\cite{miller_inky_2008} point out, command lines offer efficiency at the price of learning command names and options through up-front effort.
 We created a \Gls{name} for the file retrieval Unix command ``wget'' to show how \Glspl{name} can reduce the effort of recalling the meaning of single-character argument symbols and positional arguments for Unix commands in general.
 \end{changes}
-wget has around 100 arguments, making it impractical to remember what each individual one means, particularly with its opaque short flags.
-Utilities like wget already have comprehensive (albeit non-adaptive) documentation accessible through \texttt{man} pages and the \texttt{-h} flag from the command line that can be used as a starting point for building in-situ documentation.
+wget has around 100 arguments, making it impractical to remember what each individual one means, particularly with its opaque flags.
+Utilities like wget already have comprehensive (albeit non-adaptive) documentation accessible through \texttt{man} pages and the \texttt{-h} flag from the command line.
+These documents can be used as a starting point for building in-situ \glspl{exp}.
 
 \subsubsection{Listing command options and extracting help text from source code}
 
-We generate argument-level help extracting and modifying help phrases for each argument as it is written into the wget C code.
-Two patterns in original help messages allowed us to build more context-relevant descriptions of the arguments.
-(a) Some help messages began with a noun that described what the value represented, e.g., ``location for temporary files created by the WARC writer.''
-If we detected that a help phrase started with a noun using a standard typed dependency parser\footnote{\url{http://nlp.stanford.edu/software/lex-parser.shtml}}, we could add the value to the start of the statement, (``\emph{my\_dir is a} location for temporary files created by the WARC writer'').
-(b) If the variable name was used in all capital letters in the help (STRING in ``insert STRING into the warcinfo record.''), we just substituted the value of the argument into the help phrase.
+We generate argument-level help by extracting and modifying help phrases for each argument from the wget source code.
+Two patterns in the help strings allow us to adapt them into more context-relevant descriptions of the arguments.
+\emph{(a)} Some strings begin with a noun indicating what the value represents, (e.g., ``location for temporary files created by the WARC writer.'')
+After detecting a noun at the start of a string using a standard typed dependency parser\footnote{\url{http://nlp.stanford.edu/software/lex-parser.shtml}}, we add the value to the start of the statement, (e.g., ``\emph{my\_dir is a} location for temporary\dots{}'').
+\emph{(b)} If the variable name occurs in all capital letters in the help (e.g., ``insert STRING into the warcinfo record.''), we substitute the value of the argument into the help phrase, replacing the variable's name.
 
 \subsubsection{Compound explanations of frequent option groups}
 
 For wget, the intent of a command can be inferred from a combination of options.
+\if 0
 For examples, when \texttt{--user} and \texttt{--password} are used together, the caller is authenticating to access a restricted resource.
 By using \texttt{-A}, \texttt{-r}, and \texttt{-l} together, programmers recursively scrape a site for files of a certain type, to a depth of following links.
-
+\fi
 Based on a pilot effort with wget, we propose a way to find common use cases of commands with many options by mining programming help.
 We scraped 1000 questions from StackOverflow matching the query `wget'.
 From these, we extracted 510 lines of code that began with the string `wget'.
@@ -239,13 +241,15 @@ For all lines, we then computed the co-occurrence of options, counting how often
 Commonly co-occurring option pairs include \texttt{-r} and \texttt{-A} (28 counts), \texttt{--user} and \texttt{--password} (23 counts), and \texttt{-r} and \texttt{-l} (22 counts).
 These pairs are indeed semantically meaningful:
 \texttt{-r}, \texttt{-l}, and \texttt{-A} can be used together to recursively scrape for a certain file type from a site;
-and \texttt{--user} and \texttt{--password} are used concurently to authenticate.
+and \texttt{--user} and \texttt{--password} are used concurrently to authenticate.
 \end{changes}
 
+\if 0
 The combination of the \texttt{-r}, \texttt{-l<level>}, \texttt{-A<ext>}, and \texttt{-e robots=off} tags suggest that a user is about to scrape a destination URL recursively to depth level \texttt{l} for files of type \texttt{A}, while disregarding the recommended etiquette for notifying the server that your crawler is a `bot'.
-In our wget \Gls{name}, we create compound explanations, or string templates for describing the intent of  these most-frequent groups of options, into which the values of the parameters can be substituted (Table~\ref{tab:wget_combos}).
+\fi
+In our wget \Gls{name}, we create string templates for describing the intent of these frequent groups of options, into which the values of the parameters can be substituted (Table~\ref{tab:wget_combos}).
 To reduce the verbosity of text descriptions, we require that any one option can be described in at most one compound explanation.
-With the techniques described above, we generated explanations for wget commands like those shown in Figure~\ref{fig:wget_accelerators}.
+With this technique, we generate explanations for wget commands like that shown in Figure~\ref{fig:wget_accelerators}.
 %
 \newcolumntype{L}{>{\scriptsize\arraybackslash}m{5cm}}
 \newcolumntype{C}{>{\scriptsize\arraybackslash}m{5cm}}
@@ -260,10 +264,10 @@ With the techniques described above, we generated explanations for wget commands
 \headrow{Template} & \headrow{Command} & \headrow{Realized Text} \\
 \midrule
 Recursively scrape web pages linked from \{url\} of type `\{accept\}', following links \{level\} times. &
-\texttt{wget -l3 -A `*.jpg' \urltarget{}} & 
+\texttt{wget -l3 -A \qs{}*.jpg\qs{} \urltarget{}} & 
 Recursively scrape web pages linked from http://\urltarget{} of type `*.jpg', following links 3 times. \\
 \midrule
-Authenticate at {url} with username `{user}' and password `{password}'. &
+Authenticate at \{url\} with username `\{user\}' and password `\{password\}'. &
 \hangpara{.25in}{1}{\texttt{wget --user andrew --password mypass \urltarget{}}} & 
 Authenticate at http://\urltarget{} with username `andrew' and password `mypass'. \\
 \bottomrule
@@ -292,10 +296,10 @@ Authenticate at http://\urltarget{} with username `andrew' and password `mypass'
 \end{figure}
 %
 \begin{changes}
-\subsection{Design Guidelines for \Glspl{exp}}
+\subsection{Design Guidelines for Micro-Explanations}
 We propose four guidelines to aid in designing \glspl{exp} for languages in online code examples.
 
-First, leverage multiple representations to illuminate high-level intent and low-level understanding of syntax.
+First, leverage multiple representations to illuminate high-level intent and enable low-level understanding of syntax.
 We explain CSS selectors and regular expressions with text and examples, and wget with high-level and low-level explanations.
 Such a format supports multiple information needs at once, enabling a viewer to grasp the purpose of the code and engage in fine-grained inspection to prepare for modifying it.
 
@@ -314,7 +318,7 @@ The task of the \Gls{name} author, when good tools and documentation exists, is 
 Fourth, focus on common usage rather than full grammars.
 Common usage can be defined in a data-driven way, rather than relying on intuition.
 By parsing CSS selectors from jQuery code on 50 tutorial pages, we found that 233 / 343 (67.9\%) are simple ID or class selectors.
-To determine common argument groups that can be described together, a first-revision \Gls{name} can be used to detect and parse code examples from StackOverflow or web tutorials.
+To determine common argument groups that can be described together, a first-revision \Gls{name} can be used to detect and parse code examples from online Q\&As or web tutorials.
 % Some features of a language are rare and therefore likely do not need to be built into first-revision parsers and explainers.
 
 \end{changes}

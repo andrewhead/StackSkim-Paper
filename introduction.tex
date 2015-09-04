@@ -13,7 +13,7 @@ As a result, \shortchange{answers on Q\&A sites like StackOverflow may have insu
 
 \begin{figure}[!t]
 \centering{%
-    \subfigure[A \gls{exp} with automatically generated natural language explanation of a CSS selector and a demonstration of an HTML element it matches.]{%
+    \subfigure[A \gls{exp} of a CSS selector with an automatically generated natural language explanation and demonstration of an HTML element it matches.]{%
         \includegraphics[width=\columnwidth]{figures/accelerator_css}\label{fig:accelerator_css}
     }
     \subfigure[A \gls{exp} describing the high-level intent and low-level argument values of a wget command.]{%
@@ -38,15 +38,15 @@ The routines we develop here enable step-by-step explanations and simulations of
 \end{changes}
 \fi
 
-To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code for domain-specific languages and commands.
+To provide the missing scaffolding for unexplained code in tutorials, Q\&As, and other online programming help, we propose routines called \emph{\Glspl{name}} that produce context-relevant, on-demand descriptions of code for these embedded languages.
 \Glspl{name} automatically find pieces of code in web pages and augment these with \glspl{exp}: such explanations are \emph{context-relevant}, describing only the syntactic elements that are present and important within a snippet, using domain-specific terms.
-In comparison to getting-started guides and reference documentation, \Glspl{name} minimize the amount of text programmers have to inspect to understand source code.
+% In comparison to getting-started guides and reference documentation, \Glspl{name} minimize the amount of text programmers have to inspect to understand source code.
 \if 0 
 \begin{changes}
 Such explanations begin to resemble the ``good answers'' from online Q\&A by providing detailed step-by-step solutions in a way that is familiar to the questioner~\cite{nasehi_what_2012}.
 \end{changes}
 \fi
-They are also \emph{on-demand} --- they can describe confusing code found anywhere, to provide just-in-time understanding.
+They are also \emph{on-demand} --- they can describe confusing code found anywhere to provide just-in-time understanding.
 
 \if 0
 We draw on inspiration of layered documentation to justify our current work. \appachu{one liner to describe layered documentation}

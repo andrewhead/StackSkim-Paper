@@ -1,8 +1,8 @@
 \section{Authors and Readers in the \Gls{name} Ecosystem}
 
-In the current incarnation of \Glspl{name}, an author of code documentation writes a \Gls{name} to adaptively describe  code that programmers find while they browse the web.
+In the current incarnation of \Glspl{name}, an author of programming documentation writes a \Gls{name} to adaptively describe code that programmers find while they browse the web.
 A \Gls{name} is a routine for generating explanations or demonstrations of code for a specific language, accessible as a web API\@.
-When queried with the content of a web page, a \Gls{name} detects explainable regions of the language, parses them, and returns explanations for each region as formatted HTML that can be viewed in a tooltip.
+When queried with the content of a web page, a \Gls{name} detects explainable regions of the language, parses them, and returns explanations for each region as formatted HTML that can be viewed from a tooltip.
 
 \begin{figure}
 %%\centering
@@ -11,8 +11,8 @@ When queried with the content of a web page, a \Gls{name} detects explainable re
     The \Glspl{name} ecosystem and information flow.
     A programmer browses for help in a web browser with the \Glspl{name} addon.
     When they visit a page, the addon queries a bank of \Gls{name} servers for different programming languages.
-    Each server detects explainable regions of code and produces \glspl{exp} of this code.
-    The programmer can view these in-situ and on-demand in tooltip-style overlays by simpling selecting explainable regions of code with the mouse.
+    Each server detects explainable regions of code and produces \glspl{exp}.
+    The programmer can view these in-situ and on-demand in tooltip overlays by clicking on the explained regions.
     }\label{fig:tutoron_ecosystem}
 \end{figure}
 
@@ -25,24 +25,25 @@ When queried with the content of a web page, a \Gls{name} detects explainable re
 \fi
 
 The information flow of the \Glspl{name} ecosystem is shown in Figure~\ref{fig:tutoron_ecosystem}.
-By installing an addon for the browser, a programmer receives instant access to \glspl{exp}, or in-situ descriptions of code found while browsing, from \Gls{name} servers.
+By installing an addon for the browser, a programmer receives instant access to \glspl{exp}, or in-situ descriptions of code, from \Gls{name} servers.
 The addon queries existing \Glspl{name} with the page source, receiving micro-explanations for all explainable regions of code.
 After the addon receives a response, the programmer can click on any explainable string of text to view an explanation in a tooltip (see Figure~\ref{fig:accelerators}).
 The addon can query many explanation servers for multi-language support within the same page.
 
 
 \begin{changes}
-Once a page loads in the browser, the browser sends parallel requests to the \Glspl{name} server to detect all explainable instances of each language.
-Explanations can therefore be fetched in a single batch when the user first accesses the page, reducing the time to open an explanation on-demand to milliseconds.
+After a page loads in the browser, the addon sends parallel requests to the \Gls{name} servers to detect all explainable code.
+Explanations are therefore fetched in one batch when the user first accesses the page, reducing the time to open an explanation on-demand to milliseconds.
 \end{changes}
 The original web page is instantly available to the programmer, and \glspl{exp} for each language become available as each \Gls{name} processes the document.
 Computational burden then resides on the server.
 \if 0 Client procedures consists of string matching to explainable regions detected followed by insertion of generated HTML into a tooltip, which will be linear in time to the number of explanations.\fi
 
 \begin{changes}
-The addon highlights explainable regions to indicate what code programmers can gain clarification on, and showing tooltips on click rather than selection events.
+The addon colors explainable regions to indicate what code programmers can gain clarification on, and showing tooltips on click rather than selection events.
 By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
-By pre-computing these explainable text regions, we allow users to select explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
+Because the system precomputes these explainable regions, users can view explanations through a single click within the bounds of the explained code.
+%explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
 \end{changes}
 \if 0 \shortchange{Our qualitative evaluations have shown that this selection mechanism is easy to use, and led us to implement additional mechanisms to improve usability.} \fi
 
@@ -74,7 +75,7 @@ We have implemented a Javascript library so any tutorial page can fetch and disp
         \framebox{\includegraphics[width=.2\textwidth]{figures/selection_sloppy}}\label{fig:selection_sloppy}
     }
     \caption{%
-    The \Glspl{name} addon activates explanations for code when a user selects text.
+    % The \Glspl{name} addon activates explanations for code when a user selects text.
     Explainable regions of code are detected on an explanation server and returned to the browser, where the addon enables users to view explanations with fuzzy selections.
     This lets them view \glspl{exp} without knowing the exact syntactic boundaries of the code they want to have described.
     }\label{fig:fuzzy_boundaries}
@@ -83,9 +84,9 @@ We have implemented a Javascript library so any tutorial page can fetch and disp
 
 \section{How to Build a \Gls{name}}
 
-A \Gls{name} is a routine that detects, parses, and explains code for a specific language in HTML documents.
+A \Gls{name} is a routine that detects, parses, and explains code for a programming language in HTML documents.
 We describe each processing stage with overarching strategies we have determined for finding relevant code in a page, parsing languages, and generating domain-appropriate explanations.
-We augment our discussion with implementation details of two \Glspl{name} we developed for CSS selectors and the wget command and \glspl{exp} we generate for regular expressions.
+We augment our discussion with implementation details of \Glspl{name} we developed for CSS selectors, regular expressions, and the wget command.
 
 \subsection{Detection}
 In the \emph{detection} stage, a \Gls{name} should extract explainable regions from an HTML document using the language's lexicon and / or syntax.
@@ -101,14 +102,14 @@ Commands like wget often occupy a line of a script, meaning that candidate regio
 Third, it passes candidate regions through a language-specific syntax checker to determine if it follows the grammar.
 Note that this can be combined with the parsing stage of the \Gls{name} processing pipeline.
 
-Finally, a \Gls{name} may reduce false positives by filtering candidates to those containing tokens highly representative of the language.
-This is necessary when candidate regions are small and the terminals of a grammar accept large character classes.
+Finally, a \Gls{name} may reduce false positives by filtering candidates to those containing tokens representative of the language.
+This is necessary when candidate regions are small and the lexicon and syntax of the language are lenient or broad.
 While a string like \texttt{\qs{}my\_string\qs{}} in a JavaScript program could represent a custom HTML element in a selector, it is more likely a string for some other purpose.
 Elements in a CSS selector more often than not have tag names defined in the HTML specification (e.g., \texttt{p}, \texttt{div}, or \texttt{img}).
 
 \begin{changes}
 It may happen that the same explainable region is detected by multiple \Glspl{name}.
-For example, \texttt{div} could be a CSS selector as well as a regular expression of all literals.
+or example, \texttt{div} could be a CSS selector as well as a regular expression.
 While in practice the candidate regions of our current \Glspl{name} differ enough that this is not a noticeable problem, we describe approaches to solve this problem in the discussion.
 \end{changes}
 
