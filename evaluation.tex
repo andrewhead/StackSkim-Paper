@@ -24,7 +24,7 @@ After choosing random sample of 50 documents for each language from this set,
 we manually extracted the element and character location of all uses of each language, yielding more than 100 examples per language.
 We ran the \Glspl{name} on each document and compared the regions the \Glspl{name} found to those we extracted by hand.
 
-With the current \Glspl{name}, we observe 95\% precision (129/136) and 64\% recall (129/203) for wget, 62\% precision (164/238) and 48\% recall (164/343) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
+With the current \Glspl{name}, we observe 95\% precision (129/136) and 64\% recall (129/203) for wget, 80\% precision (191/238) and 41\% recall (191/466) for CSS selectors, and 78\% precision (100/129) and 14\% recall (100/445) for regular expressions.
 Our detectors achieve high precision yet low recall.
 Major reasons for low recall are:
 \emph{(a)} wget: we fail to reliably detect code examples within sentences of text.
@@ -49,13 +49,13 @@ RegEx & 78\% & 14\% \\ \bottomrule
 \end{table}
 \fi
 
-We expect a 100\% success rate parsing valid wget commands as we reuse the parser from the wget source code.
+We can achieve a 100\% success rate parsing valid wget commands by reusing the parser from the wget source code.
 As we built our CSS selector parser by hand, we discuss its accuracy parsing the ground truth selectors we extracted during the detection tests.
 % We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error. \marti{Don't know what you are talking about here.}
-Of the 343 selectors that we labeled, 330 (96.1\%) parsed without error.
-Of the 13 that failed to parse, 10 of them could not be lexed as they included incorrectly-formatted characters in the original HTML markup or jQuery-specific pseudo-classes that do not belong to the CSS syntax.
-The three selectors remaining selectors failed to parse as they delimited attribute values with double quotation marks.
-While this case was not originally handled by our parser, we have since adjusted the grammar.
+Of 466 selectors, 440 (94\%) parsed without error.
+Of the 26 that failed to parse, 13 of them included incorrectly-formatted characters in the original HTML markup or jQuery-specific pseudo-classes that do not belong to the CSS syntax.
+The remaining 13 selectors illuminated cases our parser cannot yet handle: selector groups (multiple selectors joined by commas), double quotes around attribute values, and pseudo-classes that take arguments (e.g., \texttt{:nth-child(5)}).
+Altogether, we achieve high parsing success rate for a concise hand-written parser, and will augment the selector \Gls{name} to properly parse the above cases in an upcoming revision.
 % By leaving out these invalid selectors, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
 
 \end{changes}
