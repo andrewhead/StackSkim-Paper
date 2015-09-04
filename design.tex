@@ -43,9 +43,9 @@ Computational burden then resides on the server.
 \begin{changes}
 The addon colors explainable regions to indicate what code programmers can gain clarification on.
 If a \Gls{name} fails to detect code that a programmer wants to have explained, they can select text and pick a \Gls{name} to generate an explanation from a context menu.
-Users may select the bounds of an explainable region in a way that the \Gls{name} doesn't expect, e.g., including quotation marks surrounding a CSS selector string literal.
+Users may select the bounds of an explainable region in a way that the \Gls{name} doesn't expect, e.g., including the quotation marks on either side of a CSS selector string literal.
 \Glspl{name} can adjust the boundaries of user-reported regions before parsing, if given sufficient context from the browser addon.
-As an example, one variant of our selectors \Gls{name} fixes sloppy region bounds for selectors in jQuery strings by searching for the pair of quotation marks nearest to the user's original selection (see Figure~\ref{fig:fuzzy_boundaries}).
+As an example, one variant of our CSS selector \Gls{name} fixes sloppy region bounds for selectors in jQuery strings by searching for the pair of quotation marks nearest to the user's original selection (see Figure~\ref{fig:fuzzy_boundaries}).
 
 % By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
 % Because the system precomputes these explainable regions, users can view explanations through a single click within the bounds of the explained code.
@@ -95,11 +95,11 @@ We have implemented a Javascript library so any tutorial page can fetch and disp
 
 A \Gls{name} is a routine that detects, parses, and explains code for a programming language in HTML documents.
 We describe each processing stage with overarching strategies we have determined for finding relevant code in a page, parsing languages, and generating domain-appropriate explanations.
-We augment our discussion with implementation details of \Glspl{name} we developed for CSS selectors, regular expressions, and the wget command.
+We augment our discussion with implementation details of \Glspl{name} we developed for CSS selectors, regular expressions, and the wget Unix command.
 
 \subsection{Detection}
 In the \emph{detection} stage, a \Gls{name} should extract explainable regions from an HTML document using the language's lexicon and / or syntax.
-This can consist of four steps.
+This can consist of four steps:
 
 First, the \Gls{name} extracts blocks of code from HTML pages by selecting code-related elements.
 Each of our current \Glspl{name} extracts blocks of code from some combination of \texttt{<code>}, \texttt{<pre>}, \texttt{<div>}, and \texttt{<p>} elements.
@@ -118,7 +118,7 @@ Elements in a CSS selector more often than not have tag names defined in the HTM
 
 \begin{changes}
 It may happen that the same explainable region is detected by multiple \Glspl{name}.
-or example, `\texttt{div}' could be a CSS selector as well as a regular expression.
+For example, `\texttt{div}' could be a CSS selector as well as a regular expression.
 While in practice the candidate regions of our current \Glspl{name} differ enough that this is not a noticeable problem, we describe approaches to solve this problem in the discussion.
 \end{changes}
 
@@ -134,7 +134,7 @@ such as handling the complex interplay of spaces, quotation marks, and redirects
 
 The second method is to develop a custom parser for the language that supports a subset of the language.
 \begin{changes}
-For CSS selectors, by writing a 30-line ANTLR\footnote{\url{www.antlr.org}} parser, we gained control over the structure of the parse tree, allowing us to adapt this structure to how we wanted to generate explanations.
+For CSS selectors, we wrote a 30-line ANTLR\footnote{\url{www.antlr.org}} parser to gain control over the parse tree structure, allowing us to shape it to how we wanted to generate explanations.
 The resulting parser integrated nicely into existing code for the selector \Gls{name}.
 \end{changes}
 \if 0
@@ -149,4 +149,4 @@ Custom parsers may also be necessary when parser code is too difficult to instru
 
 During the final stage, \emph{explanation}, the \Gls{name} traverses the parse structure to generate explanations and demonstrations of the code.
 The implementation details of this stage are specific to the parse structure and the desired \gls{exp}.
-In the next section, we describe techniques that we hope provide inspiration for future language-specific \glspl{exp}.
+In the next section, we describe techniques to provide inspiration for future language-specific \glspl{exp}.
