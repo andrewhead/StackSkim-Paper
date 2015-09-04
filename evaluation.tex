@@ -49,13 +49,13 @@ RegEx & 78\% & 14\% \\ \bottomrule
 \end{table}
 \fi
 
-We can achieve a 100\% success rate parsing valid wget commands by reusing the parser from the wget source code.
-As we built our CSS selector parser by hand, we discuss its accuracy parsing the ground truth selectors we extracted during the detection tests.
+We note that we should achieve a 100\% success rate parsing valid wget commands and Python flavor regular expressions by reusing existing open source parsers.
+As we built our own CSS selector parser, we tested its accuracy parsing the ground truth selectors from the detection tests.
 % We ran our parser against the CSS selectors we extracted from the previous tests as part of our ground truth to see how often it could parse the selectors from the past step without error. \marti{Don't know what you are talking about here.}
-Of 466 selectors, 440 (94\%) parsed without error.
-Of the 26 that failed to parse, 13 of them included incorrectly-formatted characters in the original HTML markup or jQuery-specific pseudo-classes that do not belong to the CSS syntax.
-The remaining 13 selectors illuminated cases our parser cannot yet handle: selector groups (multiple selectors joined by commas), double quotes around attribute values, and pseudo-classes that take arguments (e.g., \texttt{:nth-child(5)}).
-Altogether, we achieve high parsing success rate for a concise hand-written parser, and will augment the selector \Gls{name} to properly parse the above cases in an upcoming revision.
+Of 466 selectors, our \Gls{name} parsed 440 (94\%) without error.
+Of the selectors that failed to parse, 13 contained invalid characters in the original HTML markup or jQuery pseudo-classes unrecognized in the CSS lexicon.
+The other 13 illuminated cases our parser cannot yet handle: selectors grouped by comma, double quotes around attribute values, and pseudo-classes that take arguments (e.g., \texttt{:nth-child(5)}).
+Our concise hand-written parser achieves high parsing success in its current form, and we will revise the selector \Gls{name} in the near future to properly parse the above failure cases.
 % By leaving out these invalid selectors, our parser was able to successfully parse 332 / 334 selectors found online (99.4\%).
 
 \end{changes}
