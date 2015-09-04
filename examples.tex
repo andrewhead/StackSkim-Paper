@@ -1,6 +1,6 @@
 \section{Designing and Implementing Rich \Glspl{exp} with \Glspl{name}}
 
-\shortchange{We designed and implemented \glspl{exp} for 3 languages.
+\shortchange{We designed and implemented \glspl{exp} for three languages.
 \if 0 As we describe these efforts, we highlight design inspirations and implementation details pertinent to generating helpful explanations.\fi} 
 For each, we aimed to generate useful explanations for a range of possible code examples without knowing the precise content ahead of time. 
 We discuss techniques for natural language explanations, document generation, template instantiation, and common usage mining to construct \glspl{exp} for CSS selectors, regular expressions, and wget.
@@ -75,7 +75,7 @@ We show descriptions we generate in Table~\ref{tab:css_descriptions}.
 % To demonstrate what CSS selectors choose, we build example HTML documents with elements that can be matched by the selector.
 \begin{changes}
 Selectors refer to node characteristics and parent-child and sibling relationships manifest in HTML\@.
-We reverse engineer simple documents for which those characteristics and relationships hold.
+We synthesize simple documents for which those characteristics and relationships hold.
 \end{changes}
 % This structure can be understood by navigating and inspecting the HTML.\@
 \if 0
@@ -159,11 +159,12 @@ The explanation stage we have developed shares thematic ties with the CSS select
 Like the demonstrations for CSS selectors, we choose to generate brief but demonstrative examples, assuming that strings cannot be too long, or else readers will not be able to grasp the intent of the pattern.
 Given a regular expression, we build a parse tree that consists of branches, repetitions and literals by examining output from Python's built-in regular expression compiler.
 We generate each sub-pattern marked with a repetition \texttt{*} or \texttt{+} exactly once to ensure the subpattern is represented in the text without adding too much length to the string.
-All literals are printed exactly as they appear in the pattern, and we choose a random side of each branch. 
+All literals are printed exactly as they appear in the pattern, and we choose a random side of each branch.
+See Figure~\ref{fig:regex_strings} for examples of strings we generate to satisfy regular expression patterns.
 
 We take effort to produce readable strings.
-When we find a repetition of alphanumeric characters, we print an English dictionary word 4-6 letters in length.
-If the character class contains symbols or numbers, we insert 2 random non-alphabetic characters from the class.
+When we find a repetition of alphanumeric characters, we print an English dictionary word four to six letters in length.
+If the character class contains symbols or numbers, we insert two random non-alphabetic characters from the class.
 \if 0
 In this way, we insert meaningful sub-patterns based on recognizable words as the constituents from which matching strings are built.
 \fi
@@ -185,7 +186,7 @@ In this way, we insert meaningful sub-patterns based on recognizable words as th
 \label{fig:regex_strings}
 \end{figure}
 
-\subsection{wget}
+\subsection{wget Unix command}
 
 \begin{changes}
 As Miller et al.~\cite{miller_inky_2008} point out, command lines offer efficiency at the price of learning command names and options through up-front effort.
@@ -205,7 +206,8 @@ After detecting a noun at the start of a string using a standard typed dependenc
 
 \subsubsection{Compound explanations of frequent option groups}
 
-For wget, the intent of a command can be inferred from a combination of options.
+In many commands including wget, multiple options are frequently used in conjunction with each other to define program behavior.
+% For wget, the intent of a command can be inferred from a combination of options.
 \if 0
 For examples, when \texttt{--user} and \texttt{--password} are used together, the caller is authenticating to access a restricted resource.
 By using \texttt{-A}, \texttt{-r}, and \texttt{-l} together, programmers recursively scrape a site for files of a certain type, to a depth of following links.
@@ -299,26 +301,26 @@ Authenticate at http://\urltarget{} with username `andrew' and password `mypass'
 \subsection{Design Guidelines for Micro-Explanations}
 We propose four guidelines to aid in designing \glspl{exp} for languages in online code examples.
 
-First, leverage multiple representations to illuminate high-level intent and enable low-level understanding of syntax.
+\subsubsection{Leverage multiple representations to illuminate high-level intent and enable low-level understanding of syntax}
 We explain CSS selectors and regular expressions with text and examples, and wget with high-level and low-level explanations.
 Such a format supports multiple information needs at once, enabling a viewer to grasp the purpose of the code and engage in fine-grained inspection to prepare for modifying it.
 
-Second, be concise --- skip static explanations and focus on dynamically generated content.
+\subsubsection{Be concise --- skip static explanations and focus on dynamically generated content}
 Our CSS natural language explanations open with one sentence introducing the purpose of CSS selectors.
 Our usability study revealed that parts of explanations that remain unchanged are likely to be ignored. % , implying that conceptual explanations that appear frequently may be overlooked.
 % 3 of 9 participants either commented that they were unlikely to read the introductory text because it remained unchanged, or that there was some information they had skimmed over that included an important conceptual point that would have been helpful for them.
 % Future \Glspl{name} could keep track of how often and how recently a programmer has seen some explanation.
 % Additional studies are needed to determine if template-based explanations dependent on the arguments used are prone to similar skimming or skipping if they do not change sufficiently between very different code examples.
 
-Third, reappropriate existing documentation.
+\subsubsection{Reappropriate existing documentation}
 Explanations for the wget \Gls{name} were built from help messages extracted from the utility's source code.
 Programmers working with languages like regular expressions have already built visualization and explanation engines used widely within their communities.
 The task of the \Gls{name} author, when good tools and documentation exists, is to locate and build mashups of parsers and explainers built by their peers, and then support in-situ explanations by producing a reliable language detector.
 
-Fourth, focus on common usage rather than full grammars.
+\subsubsection{To support common usage, inspect code examples on a large scale}
 Common usage can be defined in a data-driven way, rather than relying on intuition.
 By parsing CSS selectors from jQuery code on 50 tutorial pages, we found that 233 / 343 (67.9\%) are simple ID or class selectors.
-To determine common argument groups that can be described together, a first-revision \Gls{name} can be used to detect and parse code examples from online Q\&As or web tutorials.
+To determine common argument groups that can be described together, detect and parse code examples from online Q\&As or web tutorials, as we did for the wget command.
 % Some features of a language are rare and therefore likely do not need to be built into first-revision parsers and explainers.
 
 \end{changes}

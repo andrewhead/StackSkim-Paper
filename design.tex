@@ -33,14 +33,15 @@ The addon can query many explanation servers for multi-language support within t
 
 \begin{changes}
 After a page loads in the browser, the addon sends parallel requests to the \Gls{name} servers to detect all explainable code.
-Explanations are therefore fetched in one batch when the user first accesses the page, reducing the time to open an explanation on-demand to milliseconds.
+Explanations are therefore fetched in one batch when the user first accesses the page.
+Once the response is received, explanations can be accessed instantaneously by clicking on the explained regions.
 \end{changes}
 The original web page is instantly available to the programmer, and \glspl{exp} for each language become available as each \Gls{name} processes the document.
 Computational burden then resides on the server.
 \if 0 Client procedures consists of string matching to explainable regions detected followed by insertion of generated HTML into a tooltip, which will be linear in time to the number of explanations.\fi
 
 \begin{changes}
-The addon colors explainable regions to indicate what code programmers can gain clarification on, and showing tooltips on click rather than selection events.
+The addon colors explainable regions to indicate what code programmers can gain clarification on.
 By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
 Because the system precomputes these explainable regions, users can view explanations through a single click within the bounds of the explained code.
 %explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
@@ -93,7 +94,7 @@ In the \emph{detection} stage, a \Gls{name} should extract explainable regions f
 This can consist of four steps.
 
 First, the \Gls{name} extracts blocks of code from HTML pages by selecting code-related elements.
-Our current \Glspl{name} extract blocks of code from \texttt{<code>}, \texttt{<pre>}, \texttt{<div>}, and \texttt{<p>} elements.
+Each of our current \Glspl{name} extracts blocks of code from some combination of \texttt{<code>}, \texttt{<pre>}, \texttt{<div>}, and \texttt{<p>} elements.
 
 Second, it divides code blocks into candidate explainable regions based on language-dependent rules.
 CSS selectors and regular expressions can be detected as string literals in parsed Python or JavaScript code, requiring an initial parsing stage to detect these candidate regions.
@@ -109,7 +110,7 @@ Elements in a CSS selector more often than not have tag names defined in the HTM
 
 \begin{changes}
 It may happen that the same explainable region is detected by multiple \Glspl{name}.
-or example, \texttt{div} could be a CSS selector as well as a regular expression.
+or example, `\texttt{div}' could be a CSS selector as well as a regular expression.
 While in practice the candidate regions of our current \Glspl{name} differ enough that this is not a noticeable problem, we describe approaches to solve this problem in the discussion.
 \end{changes}
 
@@ -139,5 +140,5 @@ Custom parsers may also be necessary when parser code is too difficult to instru
 \subsection{Explanation}
 
 During the final stage, \emph{explanation}, the \Gls{name} traverses the parse structure to generate explanations and demonstrations of the code.
-The implementation details of this stage is specific to the parse structure and the desired \gls{exp}.
+The implementation details of this stage are specific to the parse structure and the desired \gls{exp}.
 In the next section, we describe techniques that we hope provide inspiration for future language-specific \glspl{exp}.
