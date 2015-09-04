@@ -42,8 +42,13 @@ Computational burden then resides on the server.
 
 \begin{changes}
 The addon colors explainable regions to indicate what code programmers can gain clarification on.
-By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
-Because the system precomputes these explainable regions, users can view explanations through a single click within the bounds of the explained code.
+If a \Gls{name} fails to detect code that a programmer wants to have explained, they can select text and pick a \Gls{name} to generate an explanation from a context menu.
+Users may select the bounds of an explainable region in a way that the \Gls{name} doesn't expect, e.g., including quotation marks surrounding a CSS selector string literal.
+\Glspl{name} can adjust the boundaries of user-reported regions before parsing, if given sufficient context from the browser addon.
+As an example, one variant of our selectors \Gls{name} fixes sloppy region bounds for selectors in jQuery strings by searching for the pair of quotation marks nearest to the user's original selection (see Figure~\ref{fig:fuzzy_boundaries}).
+
+% By requiring \Gls{name} servers to detect explainable regions, we resolve the problem in which a user's selection may not cover a complete statement of the syntax of a language.
+% Because the system precomputes these explainable regions, users can view explanations through a single click within the bounds of the explained code.
 %explainable code with \emph{fuzzy boundaries} (see Figure~\ref{fig:fuzzy_boundaries}).
 \end{changes}
 \if 0 \shortchange{Our qualitative evaluations have shown that this selection mechanism is easy to use, and led us to implement additional mechanisms to improve usability.} \fi
@@ -77,8 +82,11 @@ We have implemented a Javascript library so any tutorial page can fetch and disp
     }
     \caption{%
     % The \Glspl{name} addon activates explanations for code when a user selects text.
-    Explainable regions of code are detected on an explanation server and returned to the browser, where the addon enables users to view explanations with fuzzy selections.
-    This lets them view \glspl{exp} without knowing the exact syntactic boundaries of the code they want to have described.
+    If a \Gls{name} does not automatically detect code a programmer wants to have explained, they can request a specific \Gls{name} to explain it.
+    \Glspl{name} can allow ``sloppy'' selections by adjusting user-reported regions to ones that can be parsed.
+    For example, our CSS selector \Gls{name} searches for jQuery strings closest to the user-reported bounds, making the above selections equivalent.
+    % Explainable regions of code are detected on an explanation server and returned to the browser, where the addon enables users to view explanations with fuzzy selections.
+    % This lets them view \glspl{exp} without knowing the exact syntactic boundaries of the code they want to have described.
     }\label{fig:fuzzy_boundaries}
 }
 \end{figure}

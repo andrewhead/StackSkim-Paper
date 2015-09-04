@@ -137,8 +137,8 @@ We discuss techniques to visualize and explain regular expressions by reappropri
 
 \subsubsection{Explaining expressions through diagrams via third-party visualizations}
 
-In an early prototype, we developed a \Gls{name} for visualizing regular expressions, leveraging the third-party regular expression visualizer called \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
-While the technical implementation details are trivial, we mention it here as an example that a \Gls{name} author can leverage demonstrations produced by their peers to create \glspl{exp}.
+In an early prototype, we developed a \Gls{name} for visualizing regular expressions, leveraging the third-party visualizer \emph{RegExper} (Figure~\ref{fig:regex_visualization}).
+While the technical implementation details are trivial, we mention it here as an example of how a \Gls{name} author can leverage demonstrations produced by their peers to create \glspl{exp}.
 
 \begin{figure}
 \centering
@@ -199,10 +199,10 @@ These documents can be used as a starting point for building in-situ \glspl{exp}
 \subsubsection{Listing command options and extracting help text from source code}
 
 We generate argument-level help by extracting and modifying help phrases for each argument from the wget source code.
-Two patterns in the help strings allow us to adapt them into more context-relevant descriptions of the arguments.
+Two patterns in the help strings allow us to adapt them into more context-relevant descriptions of the arguments:
 \emph{(a)} Some strings begin with a noun indicating what the value represents, (e.g., ``location for temporary files created by the WARC writer.'')
 After detecting a noun at the start of a string using a standard typed dependency parser\footnote{\url{http://nlp.stanford.edu/software/lex-parser.shtml}}, we add the value to the start of the statement, (e.g., ``\emph{my\_dir is a} location for temporary\dots{}'').
-\emph{(b)} If the variable name occurs in all capital letters in the help (e.g., ``insert STRING into the warcinfo record.''), we substitute the value of the argument into the help phrase, replacing the variable's name.
+\emph{(b)} If the variable name occurs in all capital letters in the help phrase (e.g., ``insert STRING into the warcinfo record.''), we substitute the value of the argument into the help phrase, replacing the variable's name.
 
 \subsubsection{Compound explanations of frequent option groups}
 
@@ -315,7 +315,7 @@ Our usability study revealed that parts of explanations that remain unchanged ar
 \subsubsection{Reappropriate existing documentation}
 Explanations for the wget \Gls{name} were built from help messages extracted from the utility's source code.
 Programmers working with languages like regular expressions have already built visualization and explanation engines used widely within their communities.
-The task of the \Gls{name} author, when good tools and documentation exists, is to locate and build mashups of parsers and explainers built by their peers, and then support in-situ explanations by producing a reliable language detector.
+The task of the \Gls{name} author, when good tools and documentation exist, is to locate and build mashups of parsers and explainers built by their peers, and then support in-situ explanations by producing a reliable language detector.
 
 \subsubsection{To support common usage, inspect code examples on a large scale}
 Common usage can be defined in a data-driven way, rather than relying on intuition.
